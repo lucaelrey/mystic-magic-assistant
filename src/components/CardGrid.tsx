@@ -20,12 +20,19 @@ interface CardGridProps {
 }
 
 export const CardGrid = ({ cards }: CardGridProps) => {
+  const handleCardClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {cards.map((card) => (
         <Popover key={card.id}>
           <PopoverTrigger>
-            <Card className="cursor-pointer hover:scale-105 transition-transform duration-200">
+            <Card 
+              className="cursor-pointer hover:scale-105 transition-transform duration-200"
+              onClick={handleCardClick}
+            >
               <Image
                 src={card.image}
                 alt={card.name}
