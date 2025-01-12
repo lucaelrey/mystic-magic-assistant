@@ -19,7 +19,7 @@ const Rules = () => {
     {
       id: "crystal-of-mystara",
       name: "Crystal of Mystara",
-      image: "/lovable-uploads/6e59fd5d-ca25-4954-a95d-058a6b044ce0.png",
+      image: "/lovable-uploads/b0445aec-ba62-4095-a3bf-a45c1513951f.png",
       description: "Ein mystischer Kristall mit besonderen Kräften.",
       rules: [
         "Kann in deinem Zug eingesetzt werden",
@@ -34,7 +34,7 @@ const Rules = () => {
     {
       id: "crystal-of-mystara-action",
       name: "Crystal of Mystara",
-      image: "/lovable-uploads/6e59fd5d-ca25-4954-a95d-058a6b044ce0.png",
+      image: "/lovable-uploads/b0445aec-ba62-4095-a3bf-a45c1513951f.png",
       description: "Ein mystischer Kristall mit besonderen Kräften.",
       rules: [
         "Kann in deinem Zug eingesetzt werden",
