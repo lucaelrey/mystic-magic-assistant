@@ -19,7 +19,7 @@ const Rules = () => {
       case 0:
         return (
           <div className="space-y-6">
-            <Card className="glass">
+            <Card className="glass bg-black/40">
               <CardContent className="pt-6">
                 <h2 className="text-2xl font-semibold mb-4">Allgemeine Regeln</h2>
                 <p className="mb-4">
@@ -30,7 +30,7 @@ const Rules = () => {
               </CardContent>
             </Card>
 
-            <Card className="glass">
+            <Card className="glass bg-black/40">
               <CardContent className="pt-6">
                 <h2 className="text-2xl font-semibold mb-4">Spielvorbereitung</h2>
                 <ol className="list-decimal list-inside space-y-2">
@@ -43,7 +43,7 @@ const Rules = () => {
               </CardContent>
             </Card>
 
-            <Card className="glass">
+            <Card className="glass bg-black/40">
               <CardContent className="pt-6">
                 <h2 className="text-2xl font-semibold mb-4">Spielverlauf</h2>
                 <p className="mb-4">Gespielt wird nacheinander im Uhrzeigersinn. Wenn ein Spieler an der Reihe ist, kann er eine der folgenden Optionen wählen:</p>
@@ -73,7 +73,7 @@ const Rules = () => {
         );
       case 2:
         return (
-          <Card className="glass">
+          <Card className="glass bg-black/40">
             <CardContent className="pt-6">
               <h2 className="text-2xl font-semibold mb-4">Zahlenkarten</h2>
               <div className="space-y-4">
@@ -106,7 +106,7 @@ const Rules = () => {
         );
       case 3:
         return (
-          <Card className="glass">
+          <Card className="glass bg-black/40">
             <CardContent className="pt-6">
               <h2 className="text-2xl font-semibold mb-4">Aktionskarten</h2>
               <p className="mb-4">Aktionskarten können jederzeit im eigenen Zug gespielt werden. 
@@ -131,7 +131,13 @@ const Rules = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div 
+  className="min-h-screen bg-cover bg-center bg-no-repeat"
+  style={{ 
+    backgroundImage: 'url("/lovable-uploads/7be60b9e-74ab-4aac-8467-80a677c66606.png")',
+    backgroundAttachment: 'fixed'
+  }}
+>
       <Navigation />
       <main className="container mx-auto px-4 pt-24 pb-12">
         <h1 className="text-4xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70 text-center">
