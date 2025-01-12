@@ -24,7 +24,7 @@ export const CardGrid = ({ cards }: CardGridProps) => {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {cards.map((card) => (
         <Popover key={card.id}>
-          <PopoverTrigger asChild>
+          <PopoverTrigger>
             <Card className="cursor-pointer hover:scale-105 transition-transform duration-200">
               <Image
                 src={card.image}
