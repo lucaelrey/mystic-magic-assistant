@@ -2,15 +2,10 @@ import React from "react";
 import { Card } from "@/components/ui/card";
 import Image from "./ui/image";
 import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerClose,
-} from "@/components/ui/drawer";
-import { Button } from "@/components/ui/button";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 interface CardData {
   id: string;
@@ -25,74 +20,48 @@ interface CardGridProps {
 }
 
 export const CardGrid = ({ cards }: CardGridProps) => {
-  const [selectedCard, setSelectedCard] = React.useState<CardData | null>(null);
-  const [open, setOpen] = React.useState(false);
-
-  const handleCardClick = (card: CardData) => {
-    console.log("Card clicked:", card);
-    setSelectedCard(card);
-    setOpen(true);
-    console.log("Drawer state updated - open:", true, "selectedCard:", card);
-  };
-
   return (
-    <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {cards.map((card) => (
-          <Card
-            key={card.id}
-            className="cursor-pointer hover:scale-105 transition-transform duration-200"
-            onClick={() => handleCardClick(card)}
-          >
-            <Image
-              src={card.image}
-              alt={card.name}
-              className="w-full h-auto rounded-lg"
-            />
-          </Card>
-        ))}
-      </div>
-
-      <Drawer open={open} onOpenChange={setOpen}>
-        <DrawerContent>
-          {selectedCard && (
-            <div className="mx-auto w-full max-w-lg">
-              <DrawerHeader className="text-left">
-                <DrawerTitle>{selectedCard.name}</DrawerTitle>
-                <DrawerDescription>
-                  {selectedCard.description}
-                </DrawerDescription>
-              </DrawerHeader>
-              <div className="p-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <Image
-                      src={selectedCard.image}
-                      alt={selectedCard.name}
-                      className="w-full h-auto rounded-lg"
-                    />
-                  </div>
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="text-lg font-semibold mb-2">Regeln</h3>
-                      <ul className="list-disc list-inside space-y-2">
-                        {selectedCard.rules.map((rule, index) => (
-                          <li key={index}>{rule}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {cards.map((card) => (
+        <Popover key={card.id}>
+          <PopoverTrigger asChild>
+            <Card className="cursor-pointer hover:scale-105 transition-transform duration-200">
+              <Image
+                src={card.image}
+                alt={card.name}
+                className="w-full h-auto rounded-lg"
+              />
+            </Card>
+          </PopoverTrigger>
+          <PopoverContent className="w-80">
+            <div className="space-y-4">
+              <div className="flex gap-4">
+                <Image
+                  src={card.image}
+                  alt={card.name}
+                  className="w-24 h-auto rounded-lg"
+                />
+                <div>
+                  <h3 className="font-semibold text-lg">{card.name}</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {card.description}
+                  </p>
                 </div>
               </div>
-              <DrawerFooter>
-                <DrawerClose asChild>
-                  <Button variant="outline">Schließen</Button>
-                </DrawerClose>
-              </DrawerFooter>
+              <div>
+                <h4 className="font-semibold mb-2">Regeln:</h4>
+                <ul className="list-disc list-inside space-y-1">
+                  {card.rules.map((rule, index) => (
+                    <li key={index} className="text-sm">
+                      {rule}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-          )}
-        </DrawerContent>
-      </Drawer>
-    </>
+          </PopoverContent>
+        </Popover>
+      ))}
+    </div>
   );
 };
