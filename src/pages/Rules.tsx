@@ -3,6 +3,7 @@ import { ExpandableTabs } from "@/components/ui/expandable-tabs";
 import { BookOpen, FileText, List, Home, Grid } from "lucide-react";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { CardGrid } from "@/components/CardGrid";
 
 const Rules = () => {
   const [activeSection, setActiveSection] = useState<number | null>(0);
@@ -12,6 +13,36 @@ const Rules = () => {
     { type: "separator" as const },
     { title: "Zahlenkarten", icon: Grid },
     { title: "Aktionskarten", icon: FileText },
+  ];
+
+  const numberCards = [
+    {
+      id: "crystal-of-mystara",
+      name: "Crystal of Mystara",
+      image: "/lovable-uploads/7be60b9e-74ab-4aac-8467-80a677c66606.png",
+      description: "Ein mystischer Kristall mit besonderen Kräften.",
+      rules: [
+        "Kann in deinem Zug eingesetzt werden",
+        "Erlaubt dir, eine deiner Karten anzusehen",
+        "Der Kristall verbraucht keine zusätzliche Aktion"
+      ]
+    },
+    // Weitere Karten hier hinzufügen
+  ];
+
+  const actionCards = [
+    {
+      id: "crystal-of-mystara-action",
+      name: "Crystal of Mystara",
+      image: "/lovable-uploads/7be60b9e-74ab-4aac-8467-80a677c66606.png",
+      description: "Ein mystischer Kristall mit besonderen Kräften.",
+      rules: [
+        "Kann in deinem Zug eingesetzt werden",
+        "Erlaubt dir, eine deiner Karten anzusehen",
+        "Der Kristall verbraucht keine zusätzliche Aktion"
+      ]
+    },
+    // Weitere Aktionskarten hier hinzufügen
   ];
 
   const renderContent = () => {
@@ -73,11 +104,11 @@ const Rules = () => {
         );
       case 2:
         return (
-          <Card className="glass">
-            <CardContent className="pt-6">
-              <h2 className="text-2xl font-semibold mb-4">Zahlenkarten</h2>
-              <div className="space-y-4">
-                <div>
+          <div className="space-y-6">
+            <Card className="glass">
+              <CardContent className="pt-6">
+                <h2 className="text-2xl font-semibold mb-4">Zahlenkarten</h2>
+                <div className="space-y-4">
                   <h3 className="font-semibold mb-2">Werte und Verteilung:</h3>
                   <ul className="list-disc list-inside pl-4 space-y-2">
                     <li>Die Zahlenkarten haben Werte von -2 bis 12</li>
@@ -91,8 +122,6 @@ const Rules = () => {
                       </ul>
                     </li>
                   </ul>
-                </div>
-                <div>
                   <h3 className="font-semibold mb-2">Punktewertung:</h3>
                   <ul className="list-disc list-inside pl-4 space-y-2">
                     <li>Jede Karte zählt ihren aufgedruckten Wert als Minuspunkte</li>
@@ -100,30 +129,34 @@ const Rules = () => {
                     <li>Das Ziel ist es, möglichst wenig (Minus-)Punkte zu sammeln</li>
                   </ul>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+            <CardGrid cards={numberCards} />
+          </div>
         );
       case 3:
         return (
-          <Card className="glass">
-            <CardContent className="pt-6">
-              <h2 className="text-2xl font-semibold mb-4">Aktionskarten</h2>
-              <p className="mb-4">Aktionskarten können jederzeit im eigenen Zug gespielt werden. 
-              Ungespielte Aktionskarten zählen 11 Punkte am Ende.</p>
-              <ul className="space-y-2">
-                <li><strong>Mystic Glimpse:</strong> Eine eigene Karte ansehen</li>
-                <li><strong>Mystic Inspect:</strong> Eine Karte eines anderen Spielers ansehen</li>
-                <li><strong>Mystic Swap:</strong> Karten mit einem anderen Spieler tauschen</li>
-                <li><strong>Mystic Shield:</strong> Schutz vor bestimmten Aktionen für eine Runde</li>
-                <li><strong>Mystic Discard:</strong> Eine eigene Karte abwerfen</li>
-                <li><strong>Mystic Chaos:</strong> Karten eines anderen Spielers mischen</li>
-                <li><strong>Mystic Glimpse and Swap:</strong> Karten ansehen und tauschen</li>
-                <li><strong>Mystic Reveal:</strong> Karte eines anderen Spielers aufdecken</li>
-                <li><strong>Mystic Shuffle:</strong> Eigene Karten mischen und zwei ansehen</li>
-              </ul>
-            </CardContent>
-          </Card>
+          <div className="space-y-6">
+            <Card className="glass">
+              <CardContent className="pt-6">
+                <h2 className="text-2xl font-semibold mb-4">Aktionskarten</h2>
+                <p className="mb-4">Aktionskarten können jederzeit im eigenen Zug gespielt werden. 
+                Ungespielte Aktionskarten zählen 11 Punkte am Ende.</p>
+                <ul className="space-y-2">
+                  <li><strong>Mystic Glimpse:</strong> Eine eigene Karte ansehen</li>
+                  <li><strong>Mystic Inspect:</strong> Eine Karte eines anderen Spielers ansehen</li>
+                  <li><strong>Mystic Swap:</strong> Karten mit einem anderen Spieler tauschen</li>
+                  <li><strong>Mystic Shield:</strong> Schutz vor bestimmten Aktionen für eine Runde</li>
+                  <li><strong>Mystic Discard:</strong> Eine eigene Karte abwerfen</li>
+                  <li><strong>Mystic Chaos:</strong> Karten eines anderen Spielers mischen</li>
+                  <li><strong>Mystic Glimpse and Swap:</strong> Karten ansehen und tauschen</li>
+                  <li><strong>Mystic Reveal:</strong> Karte eines anderen Spielers aufdecken</li>
+                  <li><strong>Mystic Shuffle:</strong> Eigene Karten mischen und zwei ansehen</li>
+                </ul>
+              </CardContent>
+            </Card>
+            <CardGrid cards={actionCards} />
+          </div>
         );
       default:
         return null;
