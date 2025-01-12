@@ -4,6 +4,7 @@ import { BookOpen, FileText, List, Home, Grid } from "lucide-react";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
+import { CardCarousel } from "@/components/ui/card-carousel";
 
 const Rules = () => {
   const [activeSection, setActiveSection] = useState<number | null>(0);
@@ -164,7 +165,17 @@ const Rules = () => {
           <Card className="glass">
             <CardContent className="pt-6">
               <h2 className="text-2xl font-semibold mb-4">Zahlenkarten</h2>
-              <StickyScroll content={numberCardsContent} />
+              <CardCarousel>
+                <img 
+                  src="/lovable-uploads/7be60b9e-74ab-4aac-8467-80a677c66606.png" 
+                  alt="Crystal of Mystara"
+                  className="w-full aspect-[1/1.4] object-contain"
+                />
+                {/* Add more number cards here */}
+              </CardCarousel>
+              <div className="mt-8">
+                <StickyScroll content={numberCardsContent} />
+              </div>
             </CardContent>
           </Card>
         );
@@ -173,7 +184,15 @@ const Rules = () => {
           <Card className="glass">
             <CardContent className="pt-6">
               <h2 className="text-2xl font-semibold mb-4">Aktionskarten</h2>
-              <p className="mb-4">Aktionskarten können jederzeit im eigenen Zug gespielt werden. 
+              <CardCarousel>
+                <img 
+                  src="/lovable-uploads/7be60b9e-74ab-4aac-8467-80a677c66606.png" 
+                  alt="Crystal of Mystara"
+                  className="w-full aspect-[1/1.4] object-contain"
+                />
+                {/* Add more action cards here */}
+              </CardCarousel>
+              <p className="mb-4 mt-8">Aktionskarten können jederzeit im eigenen Zug gespielt werden. 
               Ungespielte Aktionskarten zählen 11 Punkte am Ende.</p>
               <StickyScroll content={actionCardsContent} />
             </CardContent>
