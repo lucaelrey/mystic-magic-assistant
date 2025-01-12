@@ -28,6 +28,13 @@ export const CardGrid = ({ cards }: CardGridProps) => {
   const [selectedCard, setSelectedCard] = React.useState<CardData | null>(null);
   const [open, setOpen] = React.useState(false);
 
+  const handleCardClick = (card: CardData) => {
+    console.log("Card clicked:", card);
+    setSelectedCard(card);
+    setOpen(true);
+    console.log("Drawer state updated - open:", true, "selectedCard:", card);
+  };
+
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -35,10 +42,7 @@ export const CardGrid = ({ cards }: CardGridProps) => {
           <Card
             key={card.id}
             className="cursor-pointer hover:scale-105 transition-transform duration-200"
-            onClick={() => {
-              setSelectedCard(card);
-              setOpen(true);
-            }}
+            onClick={() => handleCardClick(card)}
           >
             <Image
               src={card.image}
@@ -50,8 +54,8 @@ export const CardGrid = ({ cards }: CardGridProps) => {
       </div>
 
       <Drawer open={open} onOpenChange={setOpen}>
-        {selectedCard && (
-          <DrawerContent>
+        <DrawerContent>
+          {selectedCard && (
             <div className="mx-auto w-full max-w-lg">
               <DrawerHeader className="text-left">
                 <DrawerTitle>{selectedCard.name}</DrawerTitle>
@@ -86,8 +90,8 @@ export const CardGrid = ({ cards }: CardGridProps) => {
                 </DrawerClose>
               </DrawerFooter>
             </div>
-          </DrawerContent>
-        )}
+          )}
+        </DrawerContent>
       </Drawer>
     </>
   );
