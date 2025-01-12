@@ -3,8 +3,6 @@ import { ExpandableTabs } from "@/components/ui/expandable-tabs";
 import { BookOpen, FileText, List, Home, Grid } from "lucide-react";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
-import { CardCarousel } from "@/components/ui/card-carousel";
 
 const Rules = () => {
   const [activeSection, setActiveSection] = useState<number | null>(0);
@@ -14,93 +12,6 @@ const Rules = () => {
     { type: "separator" as const },
     { title: "Zahlenkarten", icon: Grid },
     { title: "Aktionskarten", icon: FileText },
-  ];
-
-  const numberCardsContent = [
-    {
-      title: "-2 bis 0",
-      description: "Je 5 Karten im Spiel. Negative Zahlen geben Pluspunkte!",
-      content: (
-        <div className="h-full w-full flex items-center justify-center text-white text-4xl font-bold">
-          -2 bis 0
-        </div>
-      ),
-    },
-    {
-      title: "1 bis 5",
-      description: "Je 10 Karten im Spiel. Die häufigsten Karten im Deck.",
-      content: (
-        <div className="h-full w-full flex items-center justify-center text-white text-4xl font-bold">
-          1 bis 5
-        </div>
-      ),
-    },
-    {
-      title: "6 bis 9",
-      description: "Je 8 Karten im Spiel. Mittlere Häufigkeit, höhere Punktzahl.",
-      content: (
-        <div className="h-full w-full flex items-center justify-center text-white text-4xl font-bold">
-          6 bis 9
-        </div>
-      ),
-    },
-    {
-      title: "10 bis 12",
-      description: "Je 4 Karten im Spiel. Die seltensten und wertvollsten Karten.",
-      content: (
-        <div className="h-full w-full flex items-center justify-center text-white text-4xl font-bold">
-          10 bis 12
-        </div>
-      ),
-    },
-  ];
-
-  const actionCardsContent = [
-    {
-      title: "Mystic Glimpse",
-      description: "Schaue dir eine deiner verdeckten Karten an.",
-      content: (
-        <div className="h-full w-full flex items-center justify-center text-white text-xl font-bold">
-          👁️ Mystic Glimpse
-        </div>
-      ),
-    },
-    {
-      title: "Mystic Inspect",
-      description: "Schaue dir eine verdeckte Karte eines Mitspielers an.",
-      content: (
-        <div className="h-full w-full flex items-center justify-center text-white text-xl font-bold">
-          🔍 Mystic Inspect
-        </div>
-      ),
-    },
-    {
-      title: "Mystic Swap",
-      description: "Tausche eine deiner Karten mit der eines Mitspielers.",
-      content: (
-        <div className="h-full w-full flex items-center justify-center text-white text-xl font-bold">
-          🔄 Mystic Swap
-        </div>
-      ),
-    },
-    {
-      title: "Mystic Shield",
-      description: "Schütze dich für eine Runde vor Aktionskarten.",
-      content: (
-        <div className="h-full w-full flex items-center justify-center text-white text-xl font-bold">
-          🛡️ Mystic Shield
-        </div>
-      ),
-    },
-    {
-      title: "Mystic Chaos",
-      description: "Mische die Karten eines Mitspielers neu.",
-      content: (
-        <div className="h-full w-full flex items-center justify-center text-white text-xl font-bold">
-          🌀 Mystic Chaos
-        </div>
-      ),
-    },
   ];
 
   const renderContent = () => {
@@ -165,16 +76,30 @@ const Rules = () => {
           <Card className="glass">
             <CardContent className="pt-6">
               <h2 className="text-2xl font-semibold mb-4">Zahlenkarten</h2>
-              <CardCarousel>
-                <img 
-                  src="/lovable-uploads/7be60b9e-74ab-4aac-8467-80a677c66606.png" 
-                  alt="Crystal of Mystara"
-                  className="w-full aspect-[1/1.4] object-contain"
-                />
-                {/* Add more number cards here */}
-              </CardCarousel>
-              <div className="mt-8">
-                <StickyScroll content={numberCardsContent} />
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-semibold mb-2">Werte und Verteilung:</h3>
+                  <ul className="list-disc list-inside pl-4 space-y-2">
+                    <li>Die Zahlenkarten haben Werte von -2 bis 12</li>
+                    <li>Jeder Wert ist mehrfach im Spiel vorhanden</li>
+                    <li>Die Anzahl der Karten variiert je nach Wert:
+                      <ul className="list-circle list-inside pl-8 space-y-1">
+                        <li>-2 bis 0: je 5 Karten</li>
+                        <li>1 bis 5: je 10 Karten</li>
+                        <li>6 bis 9: je 8 Karten</li>
+                        <li>10 bis 12: je 4 Karten</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="font-semibold mb-2">Punktewertung:</h3>
+                  <ul className="list-disc list-inside pl-4 space-y-2">
+                    <li>Jede Karte zählt ihren aufgedruckten Wert als Minuspunkte</li>
+                    <li>Negative Zahlen geben Pluspunkte</li>
+                    <li>Das Ziel ist es, möglichst wenig (Minus-)Punkte zu sammeln</li>
+                  </ul>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -184,17 +109,19 @@ const Rules = () => {
           <Card className="glass">
             <CardContent className="pt-6">
               <h2 className="text-2xl font-semibold mb-4">Aktionskarten</h2>
-              <CardCarousel>
-                <img 
-                  src="/lovable-uploads/7be60b9e-74ab-4aac-8467-80a677c66606.png" 
-                  alt="Crystal of Mystara"
-                  className="w-full aspect-[1/1.4] object-contain"
-                />
-                {/* Add more action cards here */}
-              </CardCarousel>
-              <p className="mb-4 mt-8">Aktionskarten können jederzeit im eigenen Zug gespielt werden. 
+              <p className="mb-4">Aktionskarten können jederzeit im eigenen Zug gespielt werden. 
               Ungespielte Aktionskarten zählen 11 Punkte am Ende.</p>
-              <StickyScroll content={actionCardsContent} />
+              <ul className="space-y-2">
+                <li><strong>Mystic Glimpse:</strong> Eine eigene Karte ansehen</li>
+                <li><strong>Mystic Inspect:</strong> Eine Karte eines anderen Spielers ansehen</li>
+                <li><strong>Mystic Swap:</strong> Karten mit einem anderen Spieler tauschen</li>
+                <li><strong>Mystic Shield:</strong> Schutz vor bestimmten Aktionen für eine Runde</li>
+                <li><strong>Mystic Discard:</strong> Eine eigene Karte abwerfen</li>
+                <li><strong>Mystic Chaos:</strong> Karten eines anderen Spielers mischen</li>
+                <li><strong>Mystic Glimpse and Swap:</strong> Karten ansehen und tauschen</li>
+                <li><strong>Mystic Reveal:</strong> Karte eines anderen Spielers aufdecken</li>
+                <li><strong>Mystic Shuffle:</strong> Eigene Karten mischen und zwei ansehen</li>
+              </ul>
             </CardContent>
           </Card>
         );
