@@ -17,32 +17,41 @@ const Rules = () => {
 
   const numberCards = [
     {
-      id: "crystal-of-mystara",
-      name: "Crystal of Mystara",
+      id: "mystic-glimpse",
+      name: "Mystic Glimpse",
       image: "/lovable-uploads/b0445aec-ba62-4095-a3bf-a45c1513951f.png",
-      description: "Ein mystischer Kristall mit besonderen Kräften.",
+      description: "Erlaubt dir, eine deiner Karten anzusehen.",
       rules: [
         "Kann in deinem Zug eingesetzt werden",
         "Erlaubt dir, eine deiner Karten anzusehen",
         "Der Kristall verbraucht keine zusätzliche Aktion"
       ]
     },
-    // Weitere Karten hier hinzufügen
+    {
+      id: "mystic-inspect",
+      name: "Mystic Inspect",
+      image: "/lovable-uploads/7be60b9e-74ab-4aac-8467-80a677c66606.png",
+      description: "Erlaubt dir, eine Karte eines anderen Spielers anzusehen.",
+      rules: [
+        "Kann in deinem Zug eingesetzt werden",
+        "Wähle einen Spieler und eine seiner Karten",
+        "Sieh dir die gewählte Karte an"
+      ]
+    }
   ];
 
   const actionCards = [
     {
-      id: "crystal-of-mystara-action",
-      name: "Crystal of Mystara",
-      image: "/lovable-uploads/b0445aec-ba62-4095-a3bf-a45c1513951f.png",
-      description: "Ein mystischer Kristall mit besonderen Kräften.",
+      id: "mystic-swap",
+      name: "Mystic Swap",
+      image: "/lovable-uploads/6e59fd5d-ca25-4954-a95d-058a6b044ce0.png",
+      description: "Tausche Karten mit einem anderen Spieler.",
       rules: [
         "Kann in deinem Zug eingesetzt werden",
-        "Erlaubt dir, eine deiner Karten anzusehen",
-        "Der Kristall verbraucht keine zusätzliche Aktion"
+        "Wähle einen Spieler und zwei Karten zum Tauschen",
+        "Die Karten werden getauscht ohne sie anzusehen"
       ]
-    },
-    // Weitere Aktionskarten hier hinzufügen
+    }
   ];
 
   const renderContent = () => {
