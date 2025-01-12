@@ -3,6 +3,7 @@ import { ExpandableTabs } from "@/components/ui/expandable-tabs";
 import { BookOpen, FileText, List, Home, Grid } from "lucide-react";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import CardGrid from "@/components/CardGrid";
 
 const Rules = () => {
   const [activeSection, setActiveSection] = useState<number | null>(0);
@@ -73,57 +74,36 @@ const Rules = () => {
         );
       case 2:
         return (
-          <Card className="glass bg-black/40">
-            <CardContent className="pt-6">
-              <h2 className="text-2xl font-semibold mb-4">Zahlenkarten</h2>
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-semibold mb-2">Werte und Verteilung:</h3>
-                  <ul className="list-disc list-inside pl-4 space-y-2">
-                    <li>Die Zahlenkarten haben Werte von -2 bis 12</li>
-                    <li>Jeder Wert ist mehrfach im Spiel vorhanden</li>
-                    <li>Die Anzahl der Karten variiert je nach Wert:
-                      <ul className="list-circle list-inside pl-8 space-y-1">
-                        <li>-2 bis 0: je 5 Karten</li>
-                        <li>1 bis 5: je 10 Karten</li>
-                        <li>6 bis 9: je 8 Karten</li>
-                        <li>10 bis 12: je 4 Karten</li>
-                      </ul>
-                    </li>
-                  </ul>
+          <div className="space-y-6">
+            <Card className="glass bg-black/40">
+              <CardContent className="pt-6">
+                <h2 className="text-2xl font-semibold mb-4">Zahlenkarten</h2>
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="font-semibold mb-2">Werte und Verteilung:</h3>
+                    <ul className="list-disc list-inside pl-4 space-y-2">
+                      <li>Die Zahlenkarten haben Werte von -2 bis 12</li>
+                      <li>Jeder Wert ist mehrfach im Spiel vorhanden</li>
+                    </ul>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold mb-2">Punktewertung:</h3>
-                  <ul className="list-disc list-inside pl-4 space-y-2">
-                    <li>Jede Karte zählt ihren aufgedruckten Wert als Minuspunkte</li>
-                    <li>Negative Zahlen geben Pluspunkte</li>
-                    <li>Das Ziel ist es, möglichst wenig (Minus-)Punkte zu sammeln</li>
-                  </ul>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+            <CardGrid />
+          </div>
         );
       case 3:
         return (
-          <Card className="glass bg-black/40">
-            <CardContent className="pt-6">
-              <h2 className="text-2xl font-semibold mb-4">Aktionskarten</h2>
-              <p className="mb-4">Aktionskarten können jederzeit im eigenen Zug gespielt werden. 
-              Ungespielte Aktionskarten zählen 11 Punkte am Ende.</p>
-              <ul className="space-y-2">
-                <li><strong>Mystic Glimpse:</strong> Eine eigene Karte ansehen</li>
-                <li><strong>Mystic Inspect:</strong> Eine Karte eines anderen Spielers ansehen</li>
-                <li><strong>Mystic Swap:</strong> Karten mit einem anderen Spieler tauschen</li>
-                <li><strong>Mystic Shield:</strong> Schutz vor bestimmten Aktionen für eine Runde</li>
-                <li><strong>Mystic Discard:</strong> Eine eigene Karte abwerfen</li>
-                <li><strong>Mystic Chaos:</strong> Karten eines anderen Spielers mischen</li>
-                <li><strong>Mystic Glimpse and Swap:</strong> Karten ansehen und tauschen</li>
-                <li><strong>Mystic Reveal:</strong> Karte eines anderen Spielers aufdecken</li>
-                <li><strong>Mystic Shuffle:</strong> Eigene Karten mischen und zwei ansehen</li>
-              </ul>
-            </CardContent>
-          </Card>
+          <div className="space-y-6">
+            <Card className="glass bg-black/40">
+              <CardContent className="pt-6">
+                <h2 className="text-2xl font-semibold mb-4">Aktionskarten</h2>
+                <p className="mb-4">Aktionskarten können jederzeit im eigenen Zug gespielt werden. 
+                Ungespielte Aktionskarten zählen 11 Punkte am Ende.</p>
+              </CardContent>
+            </Card>
+            <CardGrid />
+          </div>
         );
       default:
         return null;
@@ -132,12 +112,12 @@ const Rules = () => {
 
   return (
     <div 
-  className="min-h-screen bg-cover bg-center bg-no-repeat"
-  style={{ 
-    backgroundImage: 'url("/lovable-uploads/7be60b9e-74ab-4aac-8467-80a677c66606.png")',
-    backgroundAttachment: 'fixed'
-  }}
->
+      className="min-h-screen bg-cover bg-center bg-no-repeat"
+      style={{ 
+        backgroundImage: 'url("/lovable-uploads/7be60b9e-74ab-4aac-8467-80a677c66606.png")',
+        backgroundAttachment: 'fixed'
+      }}
+    >
       <Navigation />
       <main className="container mx-auto px-4 pt-24 pb-12">
         <h1 className="text-4xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70 text-center">
