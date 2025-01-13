@@ -20,7 +20,7 @@ const Shop = () => {
       <main className="container mx-auto px-4 pt-24">
         <Card className="glass-card max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8 p-8">
-            {/* Product Image - Now appears first on mobile */}
+            {/* Product Image */}
             <div className="relative aspect-square order-first">
               <div className="absolute inset-0 flex items-center justify-center">
                 <img
@@ -31,7 +31,7 @@ const Shop = () => {
               </div>
             </div>
 
-            {/* Product Description - Appears second on mobile */}
+            {/* Product Description */}
             <div className="space-y-6 order-last">
               <div className="space-y-4">
                 <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
@@ -56,9 +56,9 @@ const Shop = () => {
                 </ul>
               </div>
 
-              <div className="space-y-6">
+              <div className="space-y-6 bg-white/5 p-6 rounded-xl border border-white/10">
                 <div className="flex items-center gap-4">
-                  <span className="text-lg font-medium">Anzahl:</span>
+                  <span className="text-lg font-medium min-w-24">Anzahl:</span>
                   <div className="w-32">
                     <Input 
                       value={quantity} 
