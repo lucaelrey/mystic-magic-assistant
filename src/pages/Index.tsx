@@ -44,12 +44,14 @@ const Index = () => {
               Experience the magical world of Mystic - the card game that brings strategy and mysticism together in perfect harmony.
             </p>
             <div className="flex gap-4 justify-center">
-              <Link to="/game">
-                <Button className="glass-button">Start Playing</Button>
+              <Link to="/shop">
+                <Button variant="outline" className="glass">
+                  Mystic kaufen
+                </Button>
               </Link>
               <Link to="/rules">
                 <Button variant="outline" className="glass">
-                  Learn the Rules
+                  Spielregeln
                 </Button>
               </Link>
             </div>
