@@ -356,7 +356,7 @@ const ActionCards = () => {
                   <Image
                     src={card.image}
                     alt={card.name}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-48 object-contain p-2"
                   />
                 </Card>
               </DialogTrigger>
@@ -394,7 +394,7 @@ const ActionCards = () => {
                 <Image
                   src={card.image}
                   alt={card.name}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-48 object-contain p-2"
                 />
               </Card>
             </DrawerTrigger>
