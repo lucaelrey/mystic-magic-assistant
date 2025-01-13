@@ -25,7 +25,7 @@ const Shop = () => {
                 <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
                   Mystic Grundspiel
                 </h1>
-                <div className="text-3xl font-bold">29.99 €</div>
+                <div className="text-3xl font-bold">29.99 CHF</div>
               </div>
               
               <div className="prose prose-lg">

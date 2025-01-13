@@ -26,7 +26,7 @@ serve(async (req) => {
     const session = await stripe.checkout.sessions.create({
       line_items: items.map((item: any) => ({
         price_data: {
-          currency: 'eur',
+          currency: 'chf',
           product_data: {
             name: item.product_name,
             description: 'Mystic Kartenspiel',
