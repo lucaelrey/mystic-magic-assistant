@@ -8,6 +8,7 @@ type Props = {
   min?: number
   max?: number
   onChange?: (value: number) => void
+  className?: string
 }
 
 export function Input({
@@ -15,6 +16,7 @@ export function Input({
   min = -Infinity,
   max = Infinity,
   onChange,
+  className,
 }: Props) {
   const defaultValue = React.useRef(value)
   const inputRef = React.useRef<HTMLInputElement>(null)
@@ -55,7 +57,7 @@ export function Input({
       onChange?.(newVal)
     }
   return (
-    <div className="group flex items-stretch rounded-md text-3xl font-semibold ring ring-zinc-200 transition-[box-shadow] focus-within:ring-2 focus-within:ring-blue-500 dark:ring-zinc-800">
+    <div className={clsx("group flex items-stretch rounded-md text-3xl font-semibold ring ring-zinc-200 transition-[box-shadow] focus-within:ring-2 focus-within:ring-blue-500 dark:ring-zinc-800", className)}>
       <button
         aria-hidden
         tabIndex={-1}
