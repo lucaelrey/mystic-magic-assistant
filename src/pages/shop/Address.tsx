@@ -31,7 +31,7 @@ const Address = () => {
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
   
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyBth8mvT8JKnbQeZXfcfa4VPQFvP7UPUsY",
+    googleMapsApiKey: "AIzaSyCZ4YxH0VgU9qahWzhM1JGWci1h8Y7IZLo",
     libraries,
   });
 
