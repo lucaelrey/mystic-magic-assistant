@@ -30,7 +30,7 @@ const Rules = () => {
       case "/rules/action-cards":
         return 4;
       default:
-        return null;
+        return 0;
     }
   };
 
@@ -59,6 +59,7 @@ const Rules = () => {
         <ExpandableTabs
           tabs={tabs}
           className="mb-8 mx-auto max-w-2xl"
+          defaultSelected={getSelectedTabIndex()}
           onChange={handleTabChange}
         />
 
