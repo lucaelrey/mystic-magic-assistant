@@ -17,25 +17,124 @@ const Rules = () => {
 
   const numberCards = [
     {
-      id: "mystic-glimpse",
-      name: "Mystic Glimpse",
-      image: "/lovable-uploads/b0445aec-ba62-4095-a3bf-a45c1513951f.png",
-      description: "Erlaubt dir, eine deiner Karten anzusehen.",
+      id: "crystal-of-mystara",
+      name: "Crystal of Mystara",
+      image: "/lovable-uploads/12b8354c-c592-4059-bbc6-73e27d369d92.png",
+      description: "Ein mystischer Kristall mit dem Wert 0.",
       rules: [
-        "Kann in deinem Zug eingesetzt werden",
-        "Erlaubt dir, eine deiner Karten anzusehen",
-        "Der Kristall verbraucht keine zusätzliche Aktion"
+        "Zählt 0 Punkte",
+        "Kann nicht durch Aktionskarten beeinflusst werden",
+        "Bleibt immer an seiner Position"
       ]
     },
     {
-      id: "mystic-inspect",
-      name: "Mystic Inspect",
-      image: "/lovable-uploads/7be60b9e-74ab-4aac-8467-80a677c66606.png",
-      description: "Erlaubt dir, eine Karte eines anderen Spielers anzusehen.",
+      id: "air-spirit",
+      name: "Air Spirit",
+      image: "/lovable-uploads/d9aaf7fd-497e-4208-93e6-fca8daa2edfc.png",
+      description: "Ein Luftgeist mit dem Wert 1.",
       rules: [
-        "Kann in deinem Zug eingesetzt werden",
-        "Wähle einen Spieler und eine seiner Karten",
-        "Sieh dir die gewählte Karte an"
+        "Zählt 1 Punkt",
+        "Kann mit anderen Karten getauscht werden",
+        "Reagiert auf Windeffekte"
+      ]
+    },
+    {
+      id: "fire-spirit",
+      name: "Fire Spirit",
+      image: "/lovable-uploads/0b21311f-66d1-4aba-9d01-2e18b3902b87.png",
+      description: "Ein Feuergeist mit dem Wert 2.",
+      rules: [
+        "Zählt 2 Punkte",
+        "Kann mit anderen Karten getauscht werden",
+        "Reagiert auf Feuereffekte"
+      ]
+    },
+    {
+      id: "water-spirit",
+      name: "Water Spirit",
+      image: "/lovable-uploads/0decfff6-a0e8-4b32-a2f8-c6839743bc15.png",
+      description: "Ein Wassergeist mit dem Wert 3.",
+      rules: [
+        "Zählt 3 Punkte",
+        "Kann mit anderen Karten getauscht werden",
+        "Reagiert auf Wassereffekte"
+      ]
+    },
+    {
+      id: "earth-golem",
+      name: "Earth Golem",
+      image: "/lovable-uploads/c3d98bf1-ab65-463e-bc40-3d45d52b36c7.png",
+      description: "Ein Erdgolem mit dem Wert 4.",
+      rules: [
+        "Zählt 4 Punkte",
+        "Kann mit anderen Karten getauscht werden",
+        "Reagiert auf Erdeffekte"
+      ]
+    },
+    {
+      id: "lightning-dragon",
+      name: "Lightning Dragon",
+      image: "/lovable-uploads/8d265b63-9fb9-4b06-9696-883134514f33.png",
+      description: "Ein Blitzdrache mit dem Wert 5.",
+      rules: [
+        "Zählt 5 Punkte",
+        "Kann mit anderen Karten getauscht werden",
+        "Reagiert auf Blitzeffekte"
+      ]
+    },
+    {
+      id: "light-creature",
+      name: "Light Creature",
+      image: "/lovable-uploads/7434887b-5f76-441f-9247-74d7dc743d51.png",
+      description: "Eine Lichtkreatur mit dem Wert 6.",
+      rules: [
+        "Zählt 6 Punkte",
+        "Kann mit anderen Karten getauscht werden",
+        "Reagiert auf Lichteffekte"
+      ]
+    },
+    {
+      id: "shadow-creature",
+      name: "Shadow Creature",
+      image: "/lovable-uploads/e78c121c-5f93-44c2-af90-c2d6e35810cb.png",
+      description: "Eine Schattenkreatur mit dem Wert 7.",
+      rules: [
+        "Zählt 7 Punkte",
+        "Kann mit anderen Karten getauscht werden",
+        "Reagiert auf Schatteneffekte"
+      ]
+    },
+    {
+      id: "mist-spirit",
+      name: "Mist Spirit",
+      image: "/lovable-uploads/82d40974-f6f0-4ecb-be73-9d5eabcc88f5.png",
+      description: "Ein Nebelgeist mit dem Wert 8.",
+      rules: [
+        "Zählt 8 Punkte",
+        "Kann mit anderen Karten getauscht werden",
+        "Reagiert auf Nebeleffekte"
+      ]
+    },
+    {
+      id: "forest-nymph",
+      name: "Forest Nymph",
+      image: "/lovable-uploads/2d5f0b4c-f372-4b94-90b1-8ed6d49ce446.png",
+      description: "Eine Waldnymphe mit dem Wert 9.",
+      rules: [
+        "Zählt 9 Punkte",
+        "Kann mit anderen Karten getauscht werden",
+        "Reagiert auf Natureffekte"
+      ]
+    },
+    {
+      id: "storm-titan",
+      name: "Storm Titan",
+      image: "/lovable-uploads/7e373aeb-3f3d-469b-9c0a-8ef81a9a213b.png",
+      description: "Ein Sturmtitan mit dem Wert 10.",
+      rules: [
+        "Zählt 10 Punkte",
+        "Kann mit anderen Karten getauscht werden",
+        "Reagiert auf Sturmeffekte"
       ]
     }
   ];
