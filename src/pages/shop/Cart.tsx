@@ -23,27 +23,11 @@ const Cart = () => {
   const handleCheckout = async () => {
     try {
       setIsLoading(true);
-      
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (!user) {
-        // Save cart data to localStorage before redirecting
-        localStorage.setItem('cartData', JSON.stringify({
-          quantity,
-          productPrice,
-          totalAmount: quantity * productPrice
-        }));
-        
-        // Redirect to auth page with return path
-        navigate(`/auth?returnTo=${encodeURIComponent('/cart')}`);
-        return;
-      }
 
-      // Create order in database
+      // Create order in database without user_id
       const { data: orderData, error: orderError } = await supabase
         .from('orders')
         .insert({
-          user_id: user.id,
           total_amount: quantity * productPrice,
           shipping_address: null,
           status: 'pending'
