@@ -20,7 +20,24 @@ const Shop = () => {
       <main className="container mx-auto px-4 pt-24">
         <Card className="glass-card max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8 p-8">
-            <div className="space-y-6">
+            {/* Product Image - Now appears first on mobile */}
+            <div className="relative h-[400px] md:h-full order-first">
+              <div 
+                className="absolute inset-0 rounded-lg overflow-hidden"
+                style={{
+                  background: "linear-gradient(135deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.2) 100%)",
+                }}
+              >
+                <img
+                  src="/lovable-uploads/cf7eccbe-9b33-4e52-aadf-a9bf531ba57b.png"
+                  alt="Mystic Kartenspiel Box"
+                  className="w-full h-full object-contain p-4"
+                />
+              </div>
+            </div>
+
+            {/* Product Description - Appears second on mobile */}
+            <div className="space-y-6 order-last">
               <div className="space-y-4">
                 <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
                   MYSTIC - Das Kartenspiel
@@ -58,29 +75,12 @@ const Shop = () => {
                   className="glass-button w-full text-lg py-6"
                   onClick={handlePurchase}
                 >
-                  <ShoppingCart className="w-5 h-5" />
+                  <ShoppingCart className="w-5 h-5 mr-2" />
                   Jetzt kaufen
                 </Button>
                 <p className="text-sm text-muted-foreground text-center">
                   Kostenloser Versand • 30 Tage Rückgaberecht • Sichere Bezahlung
                 </p>
-              </div>
-            </div>
-
-            <div className="relative h-[400px] md:h-full">
-              <div 
-                className="absolute inset-0 rounded-lg"
-                style={{
-                  background: "linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%)",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center"
-                }}
-              >
-                <img
-                  src="/placeholder.svg"
-                  alt="Mystic Grundspiel"
-                  className="w-full h-full object-contain p-8"
-                />
               </div>
             </div>
           </div>
