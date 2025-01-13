@@ -24,16 +24,22 @@ const Cart = () => {
     try {
       setIsLoading(true);
       
-      // Get the current user
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) {
-        // Redirect to auth page if not logged in
-        navigate('/auth');
+        // Save cart data to localStorage before redirecting
+        localStorage.setItem('cartData', JSON.stringify({
+          quantity,
+          productPrice,
+          totalAmount: quantity * productPrice
+        }));
+        
+        // Redirect to auth page with return path
+        navigate(`/auth?returnTo=${encodeURIComponent('/cart')}`);
         return;
       }
 
-      // Create order in database with user_id
+      // Create order in database
       const { data: orderData, error: orderError } = await supabase
         .from('orders')
         .insert({

@@ -12,6 +12,7 @@ import Cart from "./pages/shop/Cart";
 import Address from "./pages/shop/Address";
 import Payment from "./pages/shop/Payment";
 import Confirmation from "./pages/shop/Confirmation";
+import Auth from "./pages/Auth";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/card/:id" element={<CardDetail />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/checkout/address" element={<Address />} />
           <Route path="/checkout/payment" element={<Payment />} />
           <Route path="/checkout/confirmation" element={<Confirmation />} />
