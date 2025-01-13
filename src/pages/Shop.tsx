@@ -73,18 +73,19 @@ const Shop = () => {
                 p-4 md:p-8 rounded-xl md:rounded-2xl border border-white/20 
                 shadow-lg md:shadow-xl">
                 <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
-                  <span className="text-base md:text-lg font-medium text-white/90 
+                  <span className="hidden md:inline text-base md:text-lg font-medium text-white/90 
                     min-w-20 md:min-w-24">
                     Anzahl:
                   </span>
-                  <div className="w-full md:w-32">
+                  <div className="w-full md:w-32 mx-auto md:mx-0">
                     <Input 
                       value={quantity} 
                       onChange={setQuantity} 
                       min={1} 
                       max={10}
-                      className="h-10 md:h-12 shadow-lg ring-white/30 
-                        hover:ring-white/40 focus-within:ring-primary/50"
+                      className="h-12 md:h-12 shadow-lg ring-white/30 
+                        hover:ring-white/40 focus-within:ring-primary/50
+                        w-48 mx-auto"
                     />
                   </div>
                 </div>
