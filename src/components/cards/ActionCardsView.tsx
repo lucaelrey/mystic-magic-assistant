@@ -39,18 +39,15 @@ export const ActionCardsView = () => {
 
   const renderCardContent = (card: typeof actionCards[0]) => (
     <div 
-      className="glass-card h-full cursor-pointer"
+      className="glass-card cursor-pointer"
       onClick={() => handleCardClick(card)}
     >
-      <div className="aspect-[3/4] relative overflow-hidden rounded-lg">
+      <div className="relative overflow-hidden rounded-lg">
         <Image
           src={card.image}
           alt={card.name}
           className="w-full h-full object-contain"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-          <h3 className="text-white font-semibold text-lg">{card.name}</h3>
-        </div>
       </div>
     </div>
   );
