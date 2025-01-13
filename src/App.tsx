@@ -9,7 +9,6 @@ import Game from "./pages/Game";
 import CardDetail from "./pages/CardDetail";
 import Shop from "./pages/Shop";
 import Cart from "./pages/shop/Cart";
-import Address from "./pages/shop/Address";
 import Payment from "./pages/shop/Payment";
 import Confirmation from "./pages/shop/Confirmation";
 import Auth from "./pages/Auth";
@@ -34,7 +33,6 @@ const App = () => (
           <Route path="/shop" element={<Shop />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/auth" element={<Auth />} />
-          <Route path="/checkout/address" element={<Address />} />
           <Route path="/checkout/payment" element={<Payment />} />
           <Route path="/checkout/confirmation" element={<Confirmation />} />
           <Route path="/backend" element={<AdminDashboard />} />
