@@ -6,38 +6,56 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
-      <main className="container mx-auto px-4 pt-24">
-        <section className="flex flex-col items-center justify-center min-h-[80vh] text-center">
-          <h1 className="text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
-            Welcome to Mystic
-          </h1>
-          <p className="text-xl mb-8 max-w-2xl">
-            Experience the magical world of Mystic - the card game that brings strategy and mysticism together in perfect harmony.
-          </p>
-          <div className="flex gap-4">
-            <Link to="/game">
-              <Button className="glass-button">Start Playing</Button>
-            </Link>
-            <Link to="/rules">
-              <Button variant="outline" className="glass">
-                Learn the Rules
-              </Button>
-            </Link>
+      <main>
+        {/* Hero Section mit Kristall-Bild */}
+        <section 
+          className="relative h-screen flex items-center justify-center"
+          style={{
+            backgroundImage: "url('/lovable-uploads/8581ee81-b1a9-48a5-b204-58b6126cc464.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat"
+          }}
+        >
+          {/* Dunkler Overlay für bessere Lesbarkeit */}
+          <div className="absolute inset-0 bg-black/30" />
+          
+          {/* Content */}
+          <div className="relative z-10 container mx-auto px-4 text-center">
+            <h1 className="text-6xl font-bold mb-6 text-white">
+              Welcome to Mystic
+            </h1>
+            <p className="text-xl mb-8 max-w-2xl mx-auto text-white/90">
+              Experience the magical world of Mystic - the card game that brings strategy and mysticism together in perfect harmony.
+            </p>
+            <div className="flex gap-4 justify-center">
+              <Link to="/game">
+                <Button className="glass-button">Start Playing</Button>
+              </Link>
+              <Link to="/rules">
+                <Button variant="outline" className="glass">
+                  Learn the Rules
+                </Button>
+              </Link>
+            </div>
           </div>
         </section>
 
-        <section className="grid md:grid-cols-3 gap-6 py-16">
-          <div className="glass-card">
-            <h3 className="text-xl font-semibold mb-4">Learn to Play</h3>
-            <p>Master the art of Mystic with our comprehensive guide and tutorials.</p>
-          </div>
-          <div className="glass-card">
-            <h3 className="text-xl font-semibold mb-4">Track Your Games</h3>
-            <p>Keep score and track your progress with our built-in game assistant.</p>
-          </div>
-          <div className="glass-card">
-            <h3 className="text-xl font-semibold mb-4">Join the Community</h3>
-            <p>Connect with other players and share your Mystic experience.</p>
+        {/* Features Section */}
+        <section className="container mx-auto px-4">
+          <div className="grid md:grid-cols-3 gap-6 py-16">
+            <div className="glass-card p-6">
+              <h3 className="text-xl font-semibold mb-4">Learn to Play</h3>
+              <p>Master the art of Mystic with our comprehensive guide and tutorials.</p>
+            </div>
+            <div className="glass-card p-6">
+              <h3 className="text-xl font-semibold mb-4">Track Your Games</h3>
+              <p>Keep score and track your progress with our built-in game assistant.</p>
+            </div>
+            <div className="glass-card p-6">
+              <h3 className="text-xl font-semibold mb-4">Join the Community</h3>
+              <p>Connect with other players and share your Mystic experience.</p>
+            </div>
           </div>
         </section>
       </main>
