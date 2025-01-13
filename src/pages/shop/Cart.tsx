@@ -3,18 +3,26 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 const Cart = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const productPrice = 24.90;
   
+  useEffect(() => {
+    // Setze die Menge aus dem Location State, falls vorhanden
+    if (location.state?.quantity) {
+      setQuantity(location.state.quantity);
+    }
+  }, [location.state?.quantity]);
+
   const handleQuantityChange = (change: number) => {
     const newQuantity = Math.max(1, quantity + change);
     setQuantity(newQuantity);

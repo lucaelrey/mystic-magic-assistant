@@ -11,7 +11,7 @@ const Shop = () => {
   const [quantity, setQuantity] = useState(1);
 
   const handlePurchase = () => {
-    navigate('/cart');
+    navigate('/cart', { state: { quantity } });
   };
 
   return (
