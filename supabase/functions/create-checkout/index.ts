@@ -24,12 +24,12 @@ serve(async (req) => {
 
     console.log('Creating payment session...');
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
       line_items: items.map((item: any) => ({
         price_data: {
           currency: 'eur',
           product_data: {
             name: item.product_name,
+            description: 'Mystic Kartenspiel',
           },
           unit_amount: Math.round(item.price_per_unit * 100), // Convert to cents
         },
