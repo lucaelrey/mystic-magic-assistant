@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigation } from "@/components/Navigation";
-import { FileText, Book, Wand2 } from "lucide-react";
+import { Book, Hash, Wand2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { CardGrid } from "@/components/CardGrid";
 import { useLocation, useNavigate, Outlet } from "react-router-dom";
@@ -15,7 +15,8 @@ const Rules = () => {
 
   const tabs = [
     { title: "Übersicht", icon: Book },
-    { title: "Zahlenkarten", icon: FileText },
+    { type: "separator" as const },
+    { title: "Zahlenkarten", icon: Hash },
     { type: "separator" as const },
     { title: "Aktionskarten", icon: Wand2 },
   ];
@@ -25,9 +26,9 @@ const Rules = () => {
       case "/rules":
         return 0;
       case "/rules/number-cards":
-        return 1;
+        return 2;
       case "/rules/action-cards":
-        return 3;
+        return 4;
       default:
         return null;
     }
@@ -38,10 +39,10 @@ const Rules = () => {
       case 0:
         navigate("/rules");
         break;
-      case 1:
+      case 2:
         navigate("/rules/number-cards");
         break;
-      case 3:
+      case 4:
         navigate("/rules/action-cards");
         break;
     }
