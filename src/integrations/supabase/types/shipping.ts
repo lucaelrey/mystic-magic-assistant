@@ -3,4 +3,4 @@ export type ShippingAddress = {
   city: string;
   postalCode: string;
   country: string;
-}
+};
