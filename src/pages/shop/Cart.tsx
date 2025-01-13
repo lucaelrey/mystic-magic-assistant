@@ -35,7 +35,14 @@ const Cart = () => {
         .select()
         .single();
 
-      if (orderError) throw orderError;
+      if (orderError) {
+        console.error('Error creating order:', orderError);
+        throw orderError;
+      }
+
+      if (!orderData) {
+        throw new Error('No order data returned');
+      }
 
       // Create order items
       const { error: itemError } = await supabase
@@ -47,7 +54,10 @@ const Cart = () => {
           price_per_unit: productPrice
         });
 
-      if (itemError) throw itemError;
+      if (itemError) {
+        console.error('Error creating order items:', itemError);
+        throw itemError;
+      }
 
       // Create Stripe checkout session
       const { data, error } = await supabase.functions.invoke('create-checkout', {
@@ -57,8 +67,7 @@ const Cart = () => {
             product_name: "Mystic Grundspiel",
             quantity: quantity,
             price_per_unit: productPrice
-          }],
-          total_amount: quantity * productPrice
+          }]
         }
       });
 

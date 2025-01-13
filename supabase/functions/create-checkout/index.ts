@@ -16,6 +16,7 @@ serve(async (req) => {
     const { orderId, items } = await req.json();
     
     console.log('Creating payment session for order:', orderId);
+    console.log('Items:', items);
     
     const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') || '', {
       apiVersion: '2023-10-16',
@@ -23,12 +24,17 @@ serve(async (req) => {
 
     console.log('Creating payment session...');
     const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price: 'price_1QgoXQH1eTR3ScI5GDKX52FA',
-          quantity: items[0].quantity,
+      payment_method_types: ['card'],
+      line_items: items.map((item: any) => ({
+        price_data: {
+          currency: 'eur',
+          product_data: {
+            name: item.product_name,
+          },
+          unit_amount: Math.round(item.price_per_unit * 100), // Convert to cents
         },
-      ],
+        quantity: item.quantity,
+      })),
       mode: 'payment',
       success_url: `${req.headers.get('origin')}/checkout/confirmation?order_id=${orderId}`,
       cancel_url: `${req.headers.get('origin')}/cart`,
