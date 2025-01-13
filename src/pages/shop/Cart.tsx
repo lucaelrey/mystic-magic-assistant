@@ -28,11 +28,8 @@ const Cart = () => {
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) {
-        toast({
-          title: "Fehler",
-          description: "Bitte melden Sie sich an, um fortzufahren.",
-          variant: "destructive",
-        });
+        // Redirect to auth page if not logged in
+        navigate('/auth');
         return;
       }
 
