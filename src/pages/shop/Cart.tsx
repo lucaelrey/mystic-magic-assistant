@@ -24,12 +24,11 @@ const Cart = () => {
     try {
       setIsLoading(true);
 
-      // Create order in database without user_id
+      // Create order in database
       const { data: orderData, error: orderError } = await supabase
         .from('orders')
         .insert({
           total_amount: quantity * productPrice,
-          shipping_address: null,
           status: 'pending'
         })
         .select()
