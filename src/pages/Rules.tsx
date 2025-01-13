@@ -3,9 +3,27 @@ import { ChevronRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { CardGrid } from "@/components/CardGrid";
 import { actionCards } from "@/data/actionCards";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import Image from "@/components/ui/image";
 import { Link, Outlet, useLocation } from "react-router-dom";
+import { useMediaQuery } from "@/hooks/use-media-query";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import Image from "@/components/ui/image";
+import { Button } from "@/components/ui/button";
 
 const Rules = () => {
   const location = useLocation();
@@ -275,48 +293,119 @@ const NumberCards = () => {
 };
 
 // ActionCards Component
-const ActionCards = () => (
-  <div className="space-y-6">
-    <Card className="glass">
-      <CardContent className="pt-6">
-        <h2 className="text-2xl font-semibold mb-4">Aktionskarten</h2>
-        <p className="mb-4">
-          Aktionskarten können jederzeit im eigenen Zug gespielt werden. 
-          Ungespielte Aktionskarten zählen am Ende des Spiels als 11 Punkte.
-        </p>
-      </CardContent>
-    </Card>
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {actionCards.map((card) => (
-        <Dialog key={card.id}>
-          <DialogTrigger asChild>
-            <Card className="w-full cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden">
-              <Image
-                src={card.image}
-                alt={card.name}
-                className="w-full h-full object-cover"
-              />
-            </Card>
-          </DialogTrigger>
-          <DialogContent className="glass">
-            <DialogHeader>
-              <DialogTitle className="text-xl font-bold mb-2">{card.name}</DialogTitle>
-              <DialogDescription>
-                <p className="mt-2 mb-4 text-foreground">{card.description}</p>
-                <h3 className="font-semibold mb-2">Regeln:</h3>
-                <ul className="list-disc list-inside space-y-1">
-                  {card.rules.map((rule, index) => (
-                    <li key={index} className="text-foreground">{rule}</li>
-                  ))}
-                </ul>
-              </DialogDescription>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
-      ))}
+const ActionCards = () => {
+  const [open, setOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(null);
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+    setOpen(true);
+  };
+
+  const CardDetails = ({ className }) => (
+    <div className={className}>
+      <Image
+        src={selectedCard?.image}
+        alt={selectedCard?.name}
+        className="w-full h-48 object-cover rounded-lg mb-4"
+      />
+      <h3 className="font-semibold mb-2">{selectedCard?.name}</h3>
+      <p className="text-muted-foreground mb-4">{selectedCard?.description}</p>
+      <h4 className="font-semibold mb-2">Regeln:</h4>
+      <ul className="list-disc list-inside space-y-1">
+        {selectedCard?.rules.map((rule, index) => (
+          <li key={index} className="text-foreground">{rule}</li>
+        ))}
+      </ul>
     </div>
-  </div>
-);
+  );
+
+  if (isDesktop) {
+    return (
+      <div className="space-y-6">
+        <Card className="glass">
+          <CardContent className="pt-6">
+            <h2 className="text-2xl font-semibold mb-4">Aktionskarten</h2>
+            <p className="mb-4">
+              Aktionskarten können jederzeit im eigenen Zug gespielt werden. 
+              Ungespielte Aktionskarten zählen am Ende des Spiels als 11 Punkte.
+            </p>
+          </CardContent>
+        </Card>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {actionCards.map((card) => (
+            <Dialog key={card.id} open={open && selectedCard?.id === card.id} onOpenChange={setOpen}>
+              <DialogTrigger asChild>
+                <Card 
+                  className="w-full cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden"
+                  onClick={() => handleCardClick(card)}
+                >
+                  <Image
+                    src={card.image}
+                    alt={card.name}
+                    className="w-full h-full object-cover"
+                  />
+                </Card>
+              </DialogTrigger>
+              <DialogContent className="glass">
+                <DialogHeader>
+                  <DialogTitle>{card.name}</DialogTitle>
+                  <DialogDescription>
+                    <CardDetails />
+                  </DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <Card className="glass">
+        <CardContent className="pt-6">
+          <h2 className="text-2xl font-semibold mb-4">Aktionskarten</h2>
+          <p className="mb-4">
+            Aktionskarten können jederzeit im eigenen Zug gespielt werden. 
+            Ungespielte Aktionskarten zählen am Ende des Spiels als 11 Punkte.
+          </p>
+        </CardContent>
+      </Card>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {actionCards.map((card) => (
+          <Drawer key={card.id} open={open && selectedCard?.id === card.id} onOpenChange={setOpen}>
+            <DrawerTrigger asChild>
+              <Card 
+                className="w-full cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden"
+                onClick={() => handleCardClick(card)}
+              >
+                <Image
+                  src={card.image}
+                  alt={card.name}
+                  className="w-full h-full object-cover"
+                />
+              </Card>
+            </DrawerTrigger>
+            <DrawerContent>
+              <DrawerHeader className="text-left">
+                <DrawerTitle>{card.name}</DrawerTitle>
+                <DrawerDescription>
+                  <CardDetails className="px-4" />
+                </DrawerDescription>
+              </DrawerHeader>
+              <DrawerClose asChild>
+                <Button variant="outline" className="mx-4 mb-4">Schließen</Button>
+              </DrawerClose>
+            </DrawerContent>
+          </Drawer>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 Rules.Overview = Overview;
 Rules.NumberCards = NumberCards;
