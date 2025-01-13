@@ -25,15 +25,17 @@ export const CardGrid = ({ cards }: CardGridProps) => {
       {cards.map((card) => (
         <Dialog key={card.id}>
           <DialogTrigger asChild>
-            <Card className="w-full cursor-pointer hover:scale-105 transition-transform duration-200">
-              <div className="p-4">
-                <Image
-                  src={card.image}
-                  alt={card.name}
-                  className="w-full h-auto rounded-lg"
-                />
-              </div>
-            </Card>
+            <div className="cursor-pointer">
+              <Card className="w-full hover:scale-105 transition-transform duration-200">
+                <div className="p-4">
+                  <Image
+                    src={card.image}
+                    alt={card.name}
+                    className="w-full h-auto rounded-lg"
+                  />
+                </div>
+              </Card>
+            </div>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <div className="space-y-4">
