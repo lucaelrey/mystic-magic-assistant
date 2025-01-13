@@ -20,6 +20,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import Image from "@/components/ui/image";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { CardDetails } from "./CardDetails";
@@ -103,6 +104,23 @@ export const ActionCardsView = () => {
 
   return (
     <div className="space-y-6">
+      <Card className="glass">
+        <CardContent className="pt-6">
+          <h2 className="text-2xl font-semibold mb-4">Aktionskarten</h2>
+          <p className="mb-4">
+            Aktionskarten sind spezielle Karten, die besondere Fähigkeiten und Effekte im Spiel auslösen können. Sie bieten strategische Möglichkeiten, um das Spielgeschehen zu beeinflussen.
+          </p>
+          <div className="space-y-4">
+            <h3 className="font-semibold mb-2">Wichtige Regeln:</h3>
+            <ul className="list-disc list-inside pl-4 space-y-2">
+              <li>Aktionskarten können nur in deinem Zug gespielt werden</li>
+              <li>Pro Zug darf maximal eine Aktionskarte gespielt werden</li>
+              <li>Geschützte Spieler sind immun gegen die meisten Aktionskarten</li>
+              <li>Nach dem Ausspielen kommt die Aktionskarte auf den Ablagestapel</li>
+            </ul>
+          </div>
+        </CardContent>
+      </Card>
       {carouselView}
     </div>
   );
