@@ -1,14 +1,50 @@
 import React from "react";
 import { Navigation } from "@/components/Navigation";
-import { ChevronRight } from "lucide-react";
+import { FileText, Book, Wand2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { CardGrid } from "@/components/CardGrid";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { RulesOverview } from "@/components/rules/RulesOverview";
 import { ActionCardsView } from "@/components/cards/ActionCardsView";
+import { ExpandableTabs } from "@/components/ui/expandable-tabs";
 
 const Rules = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const tabs = [
+    { title: "Übersicht", icon: Book },
+    { title: "Zahlenkarten", icon: FileText },
+    { type: "separator" as const },
+    { title: "Aktionskarten", icon: Wand2 },
+  ];
+
+  const getSelectedTabIndex = () => {
+    switch (location.pathname) {
+      case "/rules":
+        return 0;
+      case "/rules/number-cards":
+        return 1;
+      case "/rules/action-cards":
+        return 3;
+      default:
+        return null;
+    }
+  };
+
+  const handleTabChange = (index: number | null) => {
+    switch (index) {
+      case 0:
+        navigate("/rules");
+        break;
+      case 1:
+        navigate("/rules/number-cards");
+        break;
+      case 3:
+        navigate("/rules/action-cards");
+        break;
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -18,40 +54,11 @@ const Rules = () => {
           Spielregeln
         </h1>
 
-        <nav className="flex space-x-2 mb-8">
-          <Link
-            to="/rules"
-            className={`px-4 py-2 rounded-lg transition-colors ${
-              location.pathname === "/rules"
-                ? "bg-primary text-primary-foreground"
-                : "hover:bg-muted"
-            }`}
-          >
-            Übersicht
-          </Link>
-          <ChevronRight className="w-6 h-6 text-muted-foreground" />
-          <Link
-            to="/rules/number-cards"
-            className={`px-4 py-2 rounded-lg transition-colors ${
-              location.pathname === "/rules/number-cards"
-                ? "bg-primary text-primary-foreground"
-                : "hover:bg-muted"
-            }`}
-          >
-            Zahlenkarten
-          </Link>
-          <ChevronRight className="w-6 h-6 text-muted-foreground" />
-          <Link
-            to="/rules/action-cards"
-            className={`px-4 py-2 rounded-lg transition-colors ${
-              location.pathname === "/rules/action-cards"
-                ? "bg-primary text-primary-foreground"
-                : "hover:bg-muted"
-            }`}
-          >
-            Aktionskarten
-          </Link>
-        </nav>
+        <ExpandableTabs
+          tabs={tabs}
+          className="mb-8 mx-auto max-w-2xl"
+          onChange={handleTabChange}
+        />
 
         <Outlet />
       </main>
