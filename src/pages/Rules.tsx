@@ -19,7 +19,7 @@ const Rules = () => {
     {
       id: "crystal-of-mystara",
       name: "Crystal of Mystara",
-      image: "/lovable-uploads/12b8354c-c592-4059-bbc6-73e27d369d92.png",
+      image: "/lovable-uploads/be1e7bce-b2de-4056-9e29-bb6ddcdcb27b.png",
       description: "Ein mystischer Kristall mit dem Wert 0.",
       rules: [
         "Zählt 0 Punkte",
@@ -30,7 +30,7 @@ const Rules = () => {
     {
       id: "air-spirit",
       name: "Air Spirit",
-      image: "/lovable-uploads/d9aaf7fd-497e-4208-93e6-fca8daa2edfc.png",
+      image: "/lovable-uploads/be1e7bce-b2de-4056-9e29-bb6ddcdcb27b.png",
       description: "Ein Luftgeist mit dem Wert 1.",
       rules: [
         "Zählt 1 Punkt",
@@ -41,7 +41,7 @@ const Rules = () => {
     {
       id: "fire-spirit",
       name: "Fire Spirit",
-      image: "/lovable-uploads/0b21311f-66d1-4aba-9d01-2e18b3902b87.png",
+      image: "/lovable-uploads/be1e7bce-b2de-4056-9e29-bb6ddcdcb27b.png",
       description: "Ein Feuergeist mit dem Wert 2.",
       rules: [
         "Zählt 2 Punkte",
@@ -52,7 +52,7 @@ const Rules = () => {
     {
       id: "water-spirit",
       name: "Water Spirit",
-      image: "/lovable-uploads/0decfff6-a0e8-4b32-a2f8-c6839743bc15.png",
+      image: "/lovable-uploads/be1e7bce-b2de-4056-9e29-bb6ddcdcb27b.png",
       description: "Ein Wassergeist mit dem Wert 3.",
       rules: [
         "Zählt 3 Punkte",
@@ -63,7 +63,7 @@ const Rules = () => {
     {
       id: "earth-golem",
       name: "Earth Golem",
-      image: "/lovable-uploads/c3d98bf1-ab65-463e-bc40-3d45d52b36c7.png",
+      image: "/lovable-uploads/be1e7bce-b2de-4056-9e29-bb6ddcdcb27b.png",
       description: "Ein Erdgolem mit dem Wert 4.",
       rules: [
         "Zählt 4 Punkte",
@@ -74,7 +74,7 @@ const Rules = () => {
     {
       id: "lightning-dragon",
       name: "Lightning Dragon",
-      image: "/lovable-uploads/8d265b63-9fb9-4b06-9696-883134514f33.png",
+      image: "/lovable-uploads/be1e7bce-b2de-4056-9e29-bb6ddcdcb27b.png",
       description: "Ein Blitzdrache mit dem Wert 5.",
       rules: [
         "Zählt 5 Punkte",
@@ -85,7 +85,7 @@ const Rules = () => {
     {
       id: "light-creature",
       name: "Light Creature",
-      image: "/lovable-uploads/7434887b-5f76-441f-9247-74d7dc743d51.png",
+      image: "/lovable-uploads/be1e7bce-b2de-4056-9e29-bb6ddcdcb27b.png",
       description: "Eine Lichtkreatur mit dem Wert 6.",
       rules: [
         "Zählt 6 Punkte",
@@ -96,7 +96,7 @@ const Rules = () => {
     {
       id: "shadow-creature",
       name: "Shadow Creature",
-      image: "/lovable-uploads/e78c121c-5f93-44c2-af90-c2d6e35810cb.png",
+      image: "/lovable-uploads/be1e7bce-b2de-4056-9e29-bb6ddcdcb27b.png",
       description: "Eine Schattenkreatur mit dem Wert 7.",
       rules: [
         "Zählt 7 Punkte",
@@ -107,7 +107,7 @@ const Rules = () => {
     {
       id: "mist-spirit",
       name: "Mist Spirit",
-      image: "/lovable-uploads/82d40974-f6f0-4ecb-be73-9d5eabcc88f5.png",
+      image: "/lovable-uploads/be1e7bce-b2de-4056-9e29-bb6ddcdcb27b.png",
       description: "Ein Nebelgeist mit dem Wert 8.",
       rules: [
         "Zählt 8 Punkte",
@@ -118,7 +118,7 @@ const Rules = () => {
     {
       id: "forest-nymph",
       name: "Forest Nymph",
-      image: "/lovable-uploads/2d5f0b4c-f372-4b94-90b1-8ed6d49ce446.png",
+      image: "/lovable-uploads/be1e7bce-b2de-4056-9e29-bb6ddcdcb27b.png",
       description: "Eine Waldnymphe mit dem Wert 9.",
       rules: [
         "Zählt 9 Punkte",
@@ -129,7 +129,7 @@ const Rules = () => {
     {
       id: "storm-titan",
       name: "Storm Titan",
-      image: "/lovable-uploads/7e373aeb-3f3d-469b-9c0a-8ef81a9a213b.png",
+      image: "/lovable-uploads/be1e7bce-b2de-4056-9e29-bb6ddcdcb27b.png",
       description: "Ein Sturmtitan mit dem Wert 10.",
       rules: [
         "Zählt 10 Punkte",
