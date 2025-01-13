@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Navigation } from "@/components/Navigation";
 import { ChevronRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -133,7 +134,6 @@ const Overview = () => (
   </div>
 );
 
-// NumberCards Component
 const NumberCards = () => {
   const numberCards = [
     {
@@ -294,16 +294,16 @@ const NumberCards = () => {
 
 // ActionCards Component
 const ActionCards = () => {
-  const [open, setOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(null);
+  const [open, setOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState<any>(null);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  const handleCardClick = (card) => {
+  const handleCardClick = (card: any) => {
     setSelectedCard(card);
     setOpen(true);
   };
 
-  const CardDetails = ({ className }) => (
+  const CardDetails = ({ className = "" }) => (
     <div className={className}>
       <Image
         src={selectedCard?.image}
@@ -314,7 +314,7 @@ const ActionCards = () => {
       <p className="text-muted-foreground mb-4">{selectedCard?.description}</p>
       <h4 className="font-semibold mb-2">Regeln:</h4>
       <ul className="list-disc list-inside space-y-1">
-        {selectedCard?.rules.map((rule, index) => (
+        {selectedCard?.rules.map((rule: string, index: number) => (
           <li key={index} className="text-foreground">{rule}</li>
         ))}
       </ul>
@@ -352,7 +352,7 @@ const ActionCards = () => {
                 <DialogHeader>
                   <DialogTitle>{card.name}</DialogTitle>
                   <DialogDescription>
-                    <CardDetails />
+                    <CardDetails className="mt-4" />
                   </DialogDescription>
                 </DialogHeader>
               </DialogContent>
