@@ -15,90 +15,72 @@ const Shop = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
+    <div className="min-h-screen">
       <Navigation />
-      <main className="container mx-auto px-4 pt-24 pb-12">
-        <Card className="glass-card max-w-4xl mx-auto overflow-hidden">
-          {/* Product Image Section */}
-          <div className="w-full aspect-[16/9] bg-gradient-to-b from-muted/50 to-background/50 relative">
-            <img
-              src="/placeholder.svg"
-              alt="Mystic Grundspiel"
-              className="w-full h-full object-contain p-8"
-            />
-          </div>
-
-          {/* Product Details Section */}
-          <div className="p-8 space-y-8">
-            {/* Title and Price */}
-            <div className="space-y-4 text-center">
-              <h1 className="text-4xl font-bold text-foreground">
-                Mystic Grundspiel
-              </h1>
-              <div className="text-3xl font-bold text-primary">29.99 €</div>
-            </div>
-            
-            {/* Description */}
-            <div className="prose prose-zinc dark:prose-invert max-w-none">
-              <p className="text-lg text-muted-foreground text-center">
-                Tauche ein in die mystische Welt von Mystic - dem fesselnden Kartenspiel, 
-                das Strategie und Magie vereint.
-              </p>
+      <main className="container mx-auto px-4 pt-24">
+        <Card className="glass-card max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 p-8">
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
+                  Mystic Grundspiel
+                </h1>
+                <div className="text-3xl font-bold">29.99 €</div>
+              </div>
               
-              <div className="bg-muted/30 rounded-lg p-6 mt-6">
-                <h3 className="text-lg font-semibold mb-4">Das Grundspiel enthält:</h3>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-primary inline-block"></span>
-                    120 hochwertige Spielkarten
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-primary inline-block"></span>
-                    Ausführliche Spielanleitung
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-primary inline-block"></span>
-                    4 Übersichtskarten
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-primary inline-block"></span>
-                    Sammlerbox mit Magnetverschluss
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-primary inline-block"></span>
-                    Exklusive Erstauflage-Bonuskarte
-                  </li>
+              <div className="prose prose-lg">
+                <p className="text-muted-foreground">
+                  Tauche ein in die mystische Welt von Mystic - dem fesselnden Kartenspiel, 
+                  das Strategie und Magie vereint. Das Grundspiel enthält alles, was du für 
+                  spannende Spieleabende brauchst:
+                </p>
+                
+                <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                  <li>120 hochwertige Spielkarten</li>
+                  <li>Ausführliche Spielanleitung</li>
+                  <li>4 Übersichtskarten</li>
+                  <li>Sammlerbox mit Magnetverschluss</li>
+                  <li>Exklusive Erstauflage-Bonuskarte</li>
                 </ul>
               </div>
+
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <span className="text-lg font-medium">Anzahl:</span>
+                  <Input 
+                    value={quantity} 
+                    onChange={setQuantity} 
+                    min={1} 
+                    max={10}
+                  />
+                </div>
+                <Button 
+                  className="glass-button w-full text-lg py-6"
+                  onClick={handlePurchase}
+                >
+                  <ShoppingCart className="w-5 h-5" />
+                  Jetzt kaufen
+                </Button>
+                <p className="text-sm text-muted-foreground text-center">
+                  Kostenloser Versand • 30 Tage Rückgaberecht • Sichere Bezahlung
+                </p>
+              </div>
             </div>
 
-            {/* Purchase Section */}
-            <div className="space-y-6">
-              <div className="flex flex-col items-center gap-4">
-                <label className="text-lg font-medium text-foreground">Anzahl:</label>
-                <Input 
-                  value={quantity} 
-                  onChange={setQuantity} 
-                  min={1} 
-                  max={10}
-                />
-              </div>
-              
-              <Button 
-                className="w-full text-lg py-6 bg-primary hover:bg-primary/90 text-primary-foreground"
-                onClick={handlePurchase}
+            <div className="relative h-[400px] md:h-full">
+              <div 
+                className="absolute inset-0 rounded-lg"
+                style={{
+                  background: "linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%)",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center"
+                }}
               >
-                <ShoppingCart className="w-5 h-5 mr-2" />
-                Jetzt kaufen
-              </Button>
-
-              <div className="flex justify-center gap-8 text-sm text-muted-foreground">
-                <div className="flex items-center gap-2">
-                  <ShoppingCart className="w-4 h-4" />
-                  Kostenloser Versand
-                </div>
-                <div>30 Tage Rückgaberecht</div>
-                <div>Sichere Bezahlung</div>
+                <img
+                  src="/placeholder.svg"
+                  alt="Mystic Grundspiel"
+                  className="w-full h-full object-contain p-8"
+                />
               </div>
             </div>
           </div>
