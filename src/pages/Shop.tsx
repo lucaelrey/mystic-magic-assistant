@@ -23,9 +23,9 @@ const Shop = () => {
             <div className="space-y-6">
               <div className="space-y-4">
                 <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
-                  Mystic Grundspiel
+                  MYSTIC - Das Kartenspiel
                 </h1>
-                <div className="text-3xl font-bold">29.99 CHF</div>
+                <div className="text-3xl font-bold">24.90 CHF</div>
               </div>
               
               <div className="prose prose-lg">
