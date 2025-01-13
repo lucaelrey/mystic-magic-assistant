@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { CardGrid } from "@/components/CardGrid";
 import { actionCards } from "@/data/actionCards";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import Image from "@/components/ui/image";  // Updated import statement
+import Image from "@/components/ui/image";
 
 const Rules = () => {
   const [activeSection, setActiveSection] = useState<number | null>(0);
@@ -257,13 +257,13 @@ const Rules = () => {
                   </DialogTrigger>
                   <DialogContent className="glass">
                     <DialogHeader>
-                      <DialogTitle>{card.name}</DialogTitle>
+                      <DialogTitle className="text-xl font-bold mb-2">{card.name}</DialogTitle>
                       <DialogDescription>
-                        <p className="mt-2 mb-4">{card.description}</p>
+                        <p className="mt-2 mb-4 text-foreground">{card.description}</p>
                         <h3 className="font-semibold mb-2">Regeln:</h3>
                         <ul className="list-disc list-inside space-y-1">
                           {card.rules.map((rule, index) => (
-                            <li key={index}>{rule}</li>
+                            <li key={index} className="text-foreground">{rule}</li>
                           ))}
                         </ul>
                       </DialogDescription>
