@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { MapPin } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,18 +36,23 @@ const Address = () => {
     },
   });
 
-  const onSubmit = async (data: AddressFormValues) => {
+  const onSubmit = (data: AddressFormValues) => {
     try {
-      const { error } = await supabase
-        .from('orders')
-        .update({ 
-          shipping_address: data 
-        })
-        .eq('status', 'pending')
-        .single();
+      // Hole die Warenkorbdaten aus dem localStorage
+      const cartDataString = localStorage.getItem('cartData');
+      if (!cartDataString) {
+        toast({
+          title: "Fehler",
+          description: "Keine Warenkorbdaten gefunden. Bitte fügen Sie Artikel zum Warenkorb hinzu.",
+          variant: "destructive",
+        });
+        navigate("/shop/cart");
+        return;
+      }
 
-      if (error) throw error;
-
+      // Speichere die Adressdaten im localStorage
+      localStorage.setItem('addressData', JSON.stringify(data));
+      
       toast({
         title: "Adresse gespeichert",
         description: "Ihre Lieferadresse wurde erfolgreich gespeichert.",
@@ -56,7 +60,7 @@ const Address = () => {
 
       navigate("/checkout/payment");
     } catch (error) {
-      console.error('Error updating address:', error);
+      console.error('Error saving address:', error);
       toast({
         title: "Fehler",
         description: "Es gab ein Problem beim Speichern Ihrer Adresse. Bitte versuchen Sie es erneut.",
