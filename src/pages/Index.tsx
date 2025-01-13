@@ -1,13 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Navigation } from "@/components/Navigation";
 import { Link } from "react-router-dom";
+import { SparklesCore } from "@/components/ui/sparkles";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
       <main>
-        {/* Hero Section mit Kristall-Bild */}
+        {/* Hero Section mit Kristall-Bild und Sparkles */}
         <section 
           className="relative h-screen flex items-center justify-center"
           style={{
@@ -19,6 +20,20 @@ const Index = () => {
         >
           {/* Dunkler Overlay für bessere Lesbarkeit */}
           <div className="absolute inset-0 bg-black/30" />
+          
+          {/* Sparkles Effect */}
+          <div className="absolute inset-0">
+            <SparklesCore
+              id="tsparticlesfullpage"
+              background="transparent"
+              minSize={0.6}
+              maxSize={1.4}
+              particleDensity={70}
+              className="w-full h-full"
+              particleColor="#FFFFFF"
+              speed={0.5}
+            />
+          </div>
           
           {/* Content */}
           <div className="relative z-10 container mx-auto px-4 text-center">
