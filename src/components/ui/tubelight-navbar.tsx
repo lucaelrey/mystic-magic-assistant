@@ -10,6 +10,7 @@ interface NavItem {
   name: string
   url: string
   icon: LucideIcon
+  isActive: boolean
 }
 
 interface NavBarProps {
@@ -18,7 +19,7 @@ interface NavBarProps {
 }
 
 export function NavBar({ items, className }: NavBarProps) {
-  const [activeTab, setActiveTab] = useState(items[0].name)
+  const [activeTab, setActiveTab] = useState("")
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -31,6 +32,14 @@ export function NavBar({ items, className }: NavBarProps) {
     return () => window.removeEventListener("resize", handleResize)
   }, [])
 
+  // Finde das aktive Element basierend auf den Props
+  const activeItem = items.find(item => item.isActive)
+  useEffect(() => {
+    if (activeItem) {
+      setActiveTab(activeItem.name)
+    }
+  }, [activeItem])
+
   return (
     <div className={cn("glass-nav", className)}>
       <div className="container mx-auto px-4">
@@ -38,7 +47,7 @@ export function NavBar({ items, className }: NavBarProps) {
           <div className="flex items-center gap-3 py-1 px-1">
             {items.map((item) => {
               const Icon = item.icon
-              const isActive = activeTab === item.name
+              const isActive = item.isActive
 
               return (
                 <Link

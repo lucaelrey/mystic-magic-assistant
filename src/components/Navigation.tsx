@@ -5,11 +5,19 @@ import { NavBar } from "@/components/ui/tubelight-navbar";
 export const Navigation = () => {
   const location = useLocation();
 
+  // Funktion zum Überprüfen, ob ein Pfad aktiv ist
+  const isPathActive = (path: string) => {
+    if (path === "/") {
+      return location.pathname === "/";
+    }
+    return location.pathname.startsWith(path);
+  };
+
   const navItems = [
-    { name: "Home", url: "/", icon: Home },
-    { name: "Regeln", url: "/rules", icon: Book },
-    { name: "Spielen", url: "/game", icon: PlayCircle },
-    { name: "Shop", url: "/shop", icon: ShoppingBag },
+    { name: "Home", url: "/", icon: Home, isActive: isPathActive("/") },
+    { name: "Regeln", url: "/rules", icon: Book, isActive: isPathActive("/rules") },
+    { name: "Spielen", url: "/game", icon: PlayCircle, isActive: isPathActive("/game") },
+    { name: "Shop", url: "/shop", icon: ShoppingBag, isActive: isPathActive("/shop") },
   ];
 
   return <NavBar items={navItems} />;
