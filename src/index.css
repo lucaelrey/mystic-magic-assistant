@@ -65,7 +65,7 @@
 }
 
 .glass-card {
-  @apply glass rounded-lg p-6 hover:bg-white/20 transition-all duration-300;
+  @apply glass rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300;
 }
 
 .glass-button {
