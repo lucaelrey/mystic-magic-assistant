@@ -2,9 +2,54 @@ import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { CheckCircle2, Home } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+
+interface OrderDetails {
+  orderNumber: string;
+  productName: string;
+  amount: number;
+}
 
 const Confirmation = () => {
+  const [searchParams] = useSearchParams();
+  const orderId = searchParams.get('order_id');
+  const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    const fetchOrderDetails = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_SUPABASE_FUNCTIONS_URL}/get-order-details`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ orderId }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch order details');
+        }
+
+        const data = await response.json();
+        setOrderDetails(data);
+      } catch (error) {
+        console.error('Error fetching order details:', error);
+        toast({
+          title: "Fehler",
+          description: "Die Bestelldetails konnten nicht geladen werden.",
+          variant: "destructive",
+        });
+      }
+    };
+
+    if (orderId) {
+      fetchOrderDetails();
+    }
+  }, [orderId, toast]);
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -29,15 +74,15 @@ const Confirmation = () => {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span>Bestellnummer</span>
-                  <span className="font-mono">#2024-0001</span>
+                  <span className="font-mono">#{orderDetails?.orderNumber || '...'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Produkt</span>
-                  <span>Mystic Grundspiel</span>
+                  <span>{orderDetails?.productName || 'MYSTIC - Das Kartenspiel'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Gesamtbetrag</span>
-                  <span>29.99 €</span>
+                  <span>CHF {orderDetails?.amount ? (orderDetails.amount / 100).toFixed(2) : '24.90'}</span>
                 </div>
               </div>
             </div>
