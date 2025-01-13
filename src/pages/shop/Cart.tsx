@@ -24,26 +24,46 @@ const Cart = () => {
     try {
       setIsLoading(true);
       
-      // Speichere Warenkorbdaten im localStorage
-      const cartData = {
-        items: [{
+      // Create order in database
+      const { data: orderData, error: orderError } = await supabase
+        .from('orders')
+        .insert({
+          total_amount: quantity * productPrice,
+          shipping_address: null, // Will be updated during checkout
+          status: 'pending'
+        })
+        .select()
+        .single();
+
+      if (orderError) throw orderError;
+
+      // Create order items
+      const { error: itemError } = await supabase
+        .from('order_items')
+        .insert({
+          order_id: orderData.id,
           product_name: "Mystic Grundspiel",
           quantity: quantity,
           price_per_unit: productPrice
-        }],
-        total_amount: quantity * productPrice
-      };
-      
-      localStorage.setItem('cartData', JSON.stringify(cartData));
-      
-      // Erstelle Stripe Checkout Session
+        });
+
+      if (itemError) throw itemError;
+
+      // Create Stripe checkout session
       const { data, error } = await supabase.functions.invoke('create-checkout', {
-        body: { cartData }
+        body: { 
+          orderId: orderData.id,
+          items: [{
+            product_name: "Mystic Grundspiel",
+            quantity: quantity,
+            price_per_unit: productPrice
+          }],
+          total_amount: quantity * productPrice
+        }
       });
 
       if (error) throw error;
       
-      // Weiterleitung zur Stripe Checkout Seite
       if (data?.url) {
         window.location.href = data.url;
       } else {
