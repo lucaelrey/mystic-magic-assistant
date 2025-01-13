@@ -8,6 +8,7 @@ import { RulesOverview } from "@/components/rules/RulesOverview";
 import { ActionCardsView } from "@/components/cards/ActionCardsView";
 import { ExpandableTabs } from "@/components/ui/expandable-tabs";
 import { NumberCardsView } from "@/components/cards/NumberCardsView";
+import { RulesAI } from "@/components/rules/RulesAI";
 
 const Rules = () => {
   const location = useLocation();
@@ -61,7 +62,14 @@ const Rules = () => {
           onChange={handleTabChange}
         />
 
-        <Outlet />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2">
+            <Outlet />
+          </div>
+          <div className="lg:col-span-1">
+            <RulesAI />
+          </div>
+        </div>
       </main>
     </div>
   );
