@@ -5,59 +5,26 @@ import { Input } from "@/components/ui/input";
 import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { Session } from "@supabase/supabase-js";
 
 const Cart = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [session, setSession] = useState<Session | null>(null);
   const [quantity, setQuantity] = useState(1);
   const productPrice = 29.99;
   
-  useEffect(() => {
-    // Überprüfe Authentifizierung
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      if (!session) {
-        toast({
-          title: "Anmeldung erforderlich",
-          description: "Bitte melden Sie sich an, um fortzufahren.",
-          variant: "destructive",
-        });
-        navigate("/auth");
-      }
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => subscription.unsubscribe();
-  }, [navigate, toast]);
-
   const handleQuantityChange = (change: number) => {
     const newQuantity = Math.max(1, quantity + change);
     setQuantity(newQuantity);
   };
 
   const handleCheckout = async () => {
-    if (!session?.user) {
-      toast({
-        title: "Fehler",
-        description: "Sie müssen angemeldet sein, um eine Bestellung aufzugeben.",
-        variant: "destructive",
-      });
-      return;
-    }
-
     try {
       // Erstelle die Bestellung
       const { data: order, error: orderError } = await supabase
         .from('orders')
         .insert({
-          user_id: session.user.id,
           total_amount: quantity * productPrice,
           shipping_address: {}, // Wird im nächsten Schritt ausgefüllt
           status: 'pending'

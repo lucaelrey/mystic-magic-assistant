@@ -39,13 +39,12 @@ const Address = () => {
 
   const onSubmit = async (data: AddressFormValues) => {
     try {
-      const { data: orders, error } = await supabase
+      const { error } = await supabase
         .from('orders')
         .update({ 
           shipping_address: data 
         })
         .eq('status', 'pending')
-        .select()
         .single();
 
       if (error) throw error;
