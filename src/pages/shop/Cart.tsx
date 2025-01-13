@@ -24,10 +24,23 @@ const Cart = () => {
     try {
       setIsLoading(true);
       
-      // Create order in database
+      // Get the current user
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast({
+          title: "Fehler",
+          description: "Bitte melden Sie sich an, um fortzufahren.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Create order in database with user_id
       const { data: orderData, error: orderError } = await supabase
         .from('orders')
         .insert({
+          user_id: user.id,
           total_amount: quantity * productPrice,
           shipping_address: null,
           status: 'pending'
@@ -59,35 +72,13 @@ const Cart = () => {
         throw itemError;
       }
 
-      // Create Stripe checkout session
-      const { data, error } = await supabase.functions.invoke('create-checkout', {
-        body: { 
-          orderId: orderData.id,
-          items: [{
-            product_name: "Mystic Grundspiel",
-            quantity: quantity,
-            price_per_unit: productPrice
-          }]
-        }
-      });
-
-      if (error) {
-        console.error('Error during checkout:', error);
-        throw error;
-      }
-      
-      if (!data?.url) {
-        throw new Error('Keine Checkout URL erhalten');
-      }
-
-      // Redirect to Stripe Checkout
-      window.location.href = data.url;
+      navigate("/checkout/address");
       
     } catch (error) {
       console.error('Error during checkout:', error);
       toast({
         title: "Fehler",
-        description: "Es gab ein Problem beim Erstellen der Checkout-Session. Bitte versuchen Sie es erneut.",
+        description: "Es gab ein Problem beim Erstellen der Bestellung. Bitte versuchen Sie es erneut.",
         variant: "destructive",
       });
     } finally {
