@@ -7,6 +7,7 @@ import { useLocation, useNavigate, Outlet } from "react-router-dom";
 import { RulesOverview } from "@/components/rules/RulesOverview";
 import { ActionCardsView } from "@/components/cards/ActionCardsView";
 import { ExpandableTabs } from "@/components/ui/expandable-tabs";
+import { NumberCardsView } from "@/components/cards/NumberCardsView";
 
 const Rules = () => {
   const location = useLocation();
@@ -199,51 +200,33 @@ const NumberCards = () => {
           <div className="space-y-4">
             <h3 className="font-semibold mb-2">Werte und Verteilung:</h3>
             <ul className="list-disc list-inside pl-4 space-y-2">
-              <li>Die Zahlenkarten haben Werte von -2 bis 12</li>
+              <li>Die Zahlenkarten haben Werte von 0 bis 10</li>
               <li>Jeder Wert ist mehrfach im Spiel vorhanden</li>
               <li>
                 Die Anzahl der Karten variiert je nach Wert:
                 <ul className="list-circle list-inside pl-8 space-y-1">
-                  <li>-2 bis 0: je 5 Karten</li>
+                  <li>0: 5 Karten</li>
                   <li>1 bis 5: je 10 Karten</li>
                   <li>6 bis 9: je 8 Karten</li>
-                  <li>10 bis 12: je 4 Karten</li>
+                  <li>10: 4 Karten</li>
                 </ul>
               </li>
             </ul>
             <h3 className="font-semibold mb-2">Punktewertung:</h3>
             <ul className="list-disc list-inside pl-4 space-y-2">
               <li>Jede Karte zählt ihren aufgedruckten Wert als Minuspunkte</li>
-              <li>Negative Zahlen geben Pluspunkte</li>
               <li>Das Ziel ist es, möglichst wenig (Minus-)Punkte zu sammeln</li>
             </ul>
           </div>
         </CardContent>
       </Card>
-      <CardGrid cards={numberCards} />
-    </div>
-  );
-};
-
-const ActionCards = () => {
-  return (
-    <div className="space-y-6">
-      <Card className="glass">
-        <CardContent className="pt-6">
-          <h2 className="text-2xl font-semibold mb-4">Aktionskarten</h2>
-          <p className="mb-4">
-            Aktionskarten können jederzeit im eigenen Zug gespielt werden.
-            Ungespielte Aktionskarten zählen am Ende des Spiels als 11 Punkte.
-          </p>
-        </CardContent>
-      </Card>
-      <ActionCardsView />
+      <NumberCardsView cards={numberCards} />
     </div>
   );
 };
 
 Rules.Overview = RulesOverview;
 Rules.NumberCards = NumberCards;
-Rules.ActionCards = ActionCards;
+Rules.ActionCards = ActionCardsView;
 
 export default Rules;
