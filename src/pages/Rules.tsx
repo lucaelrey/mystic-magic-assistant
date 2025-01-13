@@ -1,29 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Navigation } from "@/components/Navigation";
 import { ChevronRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { CardGrid } from "@/components/CardGrid";
-import { actionCards } from "@/data/actionCards";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { useMediaQuery } from "@/hooks/use-media-query";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import Image from "@/components/ui/image";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { RulesOverview } from "@/components/rules/RulesOverview";
+import { ActionCardsView } from "@/components/cards/ActionCardsView";
 
 const Rules = () => {
   const location = useLocation();
@@ -76,62 +58,6 @@ const Rules = () => {
     </div>
   );
 };
-
-// Overview Component
-const Overview = () => (
-  <div className="space-y-6">
-    <Card className="glass">
-      <CardContent className="pt-6">
-        <h2 className="text-2xl font-semibold mb-4">Allgemeine Regeln</h2>
-        <p className="mb-4">
-          Das Ziel ist es, am Ende des Spiels die wenigsten Punkte auf der Hand zu haben, 
-          indem man strategisch Karten austauscht und besondere Aktionskarten nutzt. 
-          Jeder Spieler hat teilweise verdeckte Karten, deren Werte er nur begrenzt kennt.
-        </p>
-      </CardContent>
-    </Card>
-
-    <Card className="glass">
-      <CardContent className="pt-6">
-        <h2 className="text-2xl font-semibold mb-4">Spielvorbereitung</h2>
-        <ol className="list-decimal list-inside space-y-2">
-          <li>Jeder Spieler erhält je nach Spielmodus vier, fünf oder sechs Karten und legt sie unangesehen und verdeckt nebeneinander vor sich auf den Tisch (eigene Auslage).</li>
-          <li>Der Rest der Karten kommt verdeckt als Nachziehstapel in die Mitte des Tisches.</li>
-          <li>Eine Karte wird vom Nachziehstapel gezogen und aufgedeckt neben den Nachziehstapel gelegt: Sie markiert den Anfang des Ablagestapels.</li>
-          <li>Jeder Spieler darf sich einmalig zwei seiner vor ihm ausliegenden Karten ansehen.</li>
-          <li>Ein Startspieler wird bestimmt und das Spiel beginnt.</li>
-        </ol>
-      </CardContent>
-    </Card>
-
-    <Card className="glass">
-      <CardContent className="pt-6">
-        <h2 className="text-2xl font-semibold mb-4">Spielverlauf</h2>
-        <p className="mb-4">Gespielt wird nacheinander im Uhrzeigersinn. Wenn ein Spieler an der Reihe ist, kann er eine der folgenden Optionen wählen:</p>
-        <div className="space-y-4">
-          <div>
-            <h3 className="font-semibold mb-2">1. Ablagestapelkarte nehmen:</h3>
-            <ul className="list-disc list-inside pl-4 space-y-2">
-              <li>Die oberste Karte des Ablagestapels nehmen und durch eine Karte der eigenen Auslage ersetzen.</li>
-              <li>Hat ein Spieler eine identische Karte wie die gerade auf den Ablagestapel gelegte, kann er bis zu zwei dieser Karten direkt auf den Ablagestapel werfen.</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-semibold mb-2">2. Nachziehstapelkarte ziehen:</h3>
-            <ul className="list-disc list-inside pl-4">
-              <li>Die oberste Karte des Nachziehstapels ziehen und dann:</li>
-              <ul className="list-circle list-inside pl-8 space-y-1">
-                <li>direkt auf den Ablagestapel werfen oder</li>
-                <li>mit einer Karte der eigenen Auslage ersetzen oder</li>
-                <li>wenn es sich um eine Aktionskarte handelt, die Aktion ausführen</li>
-              </ul>
-            </ul>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  </div>
-);
 
 const NumberCards = () => {
   const numberCards = [
@@ -268,7 +194,8 @@ const NumberCards = () => {
             <ul className="list-disc list-inside pl-4 space-y-2">
               <li>Die Zahlenkarten haben Werte von -2 bis 12</li>
               <li>Jeder Wert ist mehrfach im Spiel vorhanden</li>
-              <li>Die Anzahl der Karten variiert je nach Wert:
+              <li>
+                Die Anzahl der Karten variiert je nach Wert:
                 <ul className="list-circle list-inside pl-8 space-y-1">
                   <li>-2 bis 0: je 5 Karten</li>
                   <li>1 bis 5: je 10 Karten</li>
@@ -291,129 +218,24 @@ const NumberCards = () => {
   );
 };
 
-// ActionCards Component
 const ActionCards = () => {
-  const [open, setOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState<any>(null);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
-
-  const handleCardClick = (card: any) => {
-    setSelectedCard(card);
-    setOpen(true);
-  };
-
-  const CardDetails = ({ className = "" }) => (
-    <div className={cn("space-y-6", className)}>
-      <div className="flex justify-center">
-        <Image
-          src={selectedCard?.image}
-          alt={selectedCard?.name}
-          className="w-full max-w-[240px] h-auto object-contain rounded-lg shadow-lg"
-        />
-      </div>
-      <div className="space-y-4">
-        <div className="text-center">
-          <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
-            {selectedCard?.name}
-          </h3>
-          <p className="text-muted-foreground mt-2">{selectedCard?.description}</p>
-        </div>
-        <div className="bg-muted/50 rounded-lg p-4 space-y-2">
-          <h4 className="font-semibold text-primary">Regeln:</h4>
-          <ul className="space-y-2">
-            {selectedCard?.rules.map((rule: string, index: number) => (
-              <li key={index} className="flex items-start gap-2 text-foreground">
-                <span className="text-primary mt-1">•</span>
-                <span>{rule}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
-
-  if (isDesktop) {
-    return (
-      <div className="space-y-6">
-        <Card className="glass">
-          <CardContent className="pt-6">
-            <h2 className="text-2xl font-semibold mb-4">Aktionskarten</h2>
-            <p className="mb-4">
-              Aktionskarten können jederzeit im eigenen Zug gespielt werden. 
-              Ungespielte Aktionskarten zählen am Ende des Spiels als 11 Punkte.
-            </p>
-          </CardContent>
-        </Card>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {actionCards.map((card) => (
-            <Dialog key={card.id} open={open && selectedCard?.id === card.id} onOpenChange={setOpen}>
-              <DialogTrigger asChild>
-                <Card 
-                  className="w-full cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden glass"
-                  onClick={() => handleCardClick(card)}
-                >
-                  <Image
-                    src={card.image}
-                    alt={card.name}
-                    className="w-full h-48 object-contain p-2"
-                  />
-                </Card>
-              </DialogTrigger>
-              <DialogContent className="glass sm:max-w-[425px]">
-                <DialogHeader>
-                  <CardDetails className="mt-4" />
-                </DialogHeader>
-              </DialogContent>
-            </Dialog>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="space-y-6">
       <Card className="glass">
         <CardContent className="pt-6">
           <h2 className="text-2xl font-semibold mb-4">Aktionskarten</h2>
           <p className="mb-4">
-            Aktionskarten können jederzeit im eigenen Zug gespielt werden. 
+            Aktionskarten können jederzeit im eigenen Zug gespielt werden.
             Ungespielte Aktionskarten zählen am Ende des Spiels als 11 Punkte.
           </p>
         </CardContent>
       </Card>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {actionCards.map((card) => (
-          <Drawer key={card.id} open={open && selectedCard?.id === card.id} onOpenChange={setOpen}>
-            <DrawerTrigger asChild>
-              <Card 
-                className="w-full cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden glass"
-                onClick={() => handleCardClick(card)}
-              >
-                <Image
-                  src={card.image}
-                  alt={card.name}
-                  className="w-full h-48 object-contain p-2"
-                />
-              </Card>
-            </DrawerTrigger>
-            <DrawerContent className="px-4">
-              <DrawerHeader className="text-left">
-                <CardDetails className="pb-4" />
-              </DrawerHeader>
-              <DrawerClose asChild>
-                <Button variant="outline" className="w-full">Schließen</Button>
-              </DrawerClose>
-            </DrawerContent>
-          </Drawer>
-        ))}
-      </div>
+      <ActionCardsView />
     </div>
   );
 };
 
-Rules.Overview = Overview;
+Rules.Overview = RulesOverview;
 Rules.NumberCards = NumberCards;
 Rules.ActionCards = ActionCards;
 
