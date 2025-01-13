@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLoadScript, Autocomplete } from "@react-google-maps/api";
+import { useCallback, useRef } from "react";
 
 const addressSchema = z.object({
   firstName: z.string().min(2, "Vorname muss mindestens 2 Zeichen lang sein"),
@@ -21,9 +23,18 @@ const addressSchema = z.object({
 
 type AddressFormValues = z.infer<typeof addressSchema>;
 
+const libraries: ("places")[] = ["places"];
+
 const Address = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+  
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: "AIzaSyBth8mvT8JKnbQeZXfcfa4VPQFvP7UPUsY",
+    libraries,
+  });
+
   const form = useForm<AddressFormValues>({
     resolver: zodResolver(addressSchema),
     defaultValues: {
@@ -36,9 +47,42 @@ const Address = () => {
     },
   });
 
+  const onPlaceSelected = useCallback(() => {
+    const place = autocompleteRef.current?.getPlace();
+    
+    if (place && place.address_components) {
+      let streetNumber = "";
+      let route = "";
+      let postalCode = "";
+      let city = "";
+
+      place.address_components.forEach((component) => {
+        const types = component.types;
+        
+        if (types.includes("street_number")) {
+          streetNumber = component.long_name;
+        }
+        if (types.includes("route")) {
+          route = component.long_name;
+        }
+        if (types.includes("postal_code")) {
+          postalCode = component.long_name;
+        }
+        if (types.includes("locality")) {
+          city = component.long_name;
+        }
+      });
+
+      const fullStreet = `${route} ${streetNumber}`.trim();
+      
+      form.setValue("street", fullStreet);
+      form.setValue("city", city);
+      form.setValue("postalCode", postalCode);
+    }
+  }, [form]);
+
   const onSubmit = (data: AddressFormValues) => {
     try {
-      // Hole die Warenkorbdaten aus dem localStorage
       const cartDataString = localStorage.getItem('cartData');
       if (!cartDataString) {
         toast({
@@ -50,7 +94,6 @@ const Address = () => {
         return;
       }
 
-      // Speichere die Adressdaten im localStorage
       localStorage.setItem('addressData', JSON.stringify(data));
       
       toast({
@@ -68,6 +111,14 @@ const Address = () => {
       });
     }
   };
+
+  if (loadError) {
+    return <div>Error loading Google Maps</div>;
+  }
+
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen">
@@ -118,7 +169,19 @@ const Address = () => {
                     <FormItem>
                       <FormLabel>Straße und Hausnummer</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Autocomplete
+                          onLoad={(autocomplete) => {
+                            autocompleteRef.current = autocomplete;
+                          }}
+                          onPlaceChanged={onPlaceSelected}
+                          options={{ 
+                            componentRestrictions: { country: "de" },
+                            types: ["address"],
+                            fields: ["address_components", "formatted_address"]
+                          }}
+                        >
+                          <Input {...field} />
+                        </Autocomplete>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
