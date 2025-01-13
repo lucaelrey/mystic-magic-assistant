@@ -5,24 +5,65 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { MapPin } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-interface AddressFormValues {
-  firstName: string;
-  lastName: string;
-  street: string;
-  city: string;
-  postalCode: string;
-  email: string;
-}
+const addressSchema = z.object({
+  firstName: z.string().min(2, "Vorname muss mindestens 2 Zeichen lang sein"),
+  lastName: z.string().min(2, "Nachname muss mindestens 2 Zeichen lang sein"),
+  street: z.string().min(5, "Straße und Hausnummer müssen angegeben werden"),
+  city: z.string().min(2, "Stadt muss angegeben werden"),
+  postalCode: z.string().min(5, "PLZ muss 5 Zeichen lang sein"),
+  email: z.string().email("Ungültige E-Mail-Adresse"),
+});
+
+type AddressFormValues = z.infer<typeof addressSchema>;
 
 const Address = () => {
   const navigate = useNavigate();
-  const form = useForm<AddressFormValues>();
+  const { toast } = useToast();
+  const form = useForm<AddressFormValues>({
+    resolver: zodResolver(addressSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      street: "",
+      city: "",
+      postalCode: "",
+      email: "",
+    },
+  });
 
-  const onSubmit = (data: AddressFormValues) => {
-    console.log(data);
-    navigate("/checkout/payment");
+  const onSubmit = async (data: AddressFormValues) => {
+    try {
+      const { data: orders, error } = await supabase
+        .from('orders')
+        .update({ 
+          shipping_address: data 
+        })
+        .eq('status', 'pending')
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      toast({
+        title: "Adresse gespeichert",
+        description: "Ihre Lieferadresse wurde erfolgreich gespeichert.",
+      });
+
+      navigate("/checkout/payment");
+    } catch (error) {
+      console.error('Error updating address:', error);
+      toast({
+        title: "Fehler",
+        description: "Es gab ein Problem beim Speichern Ihrer Adresse. Bitte versuchen Sie es erneut.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (

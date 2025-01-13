@@ -7,21 +7,58 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { CreditCard } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-interface PaymentFormValues {
-  cardNumber: string;
-  expiryDate: string;
-  cvv: string;
-  paymentMethod: string;
-}
+const paymentSchema = z.object({
+  paymentMethod: z.string().min(1, "Bitte wählen Sie eine Zahlungsmethode"),
+  cardNumber: z.string().min(16, "Ungültige Kartennummer"),
+  expiryDate: z.string().min(5, "Ungültiges Ablaufdatum"),
+  cvv: z.string().min(3, "Ungültiger CVV-Code"),
+});
+
+type PaymentFormValues = z.infer<typeof paymentSchema>;
 
 const Payment = () => {
   const navigate = useNavigate();
-  const form = useForm<PaymentFormValues>();
+  const { toast } = useToast();
+  const form = useForm<PaymentFormValues>({
+    resolver: zodResolver(paymentSchema),
+    defaultValues: {
+      paymentMethod: "",
+      cardNumber: "",
+      expiryDate: "",
+      cvv: "",
+    },
+  });
 
-  const onSubmit = (data: PaymentFormValues) => {
-    console.log(data);
-    navigate("/checkout/confirmation");
+  const onSubmit = async (data: PaymentFormValues) => {
+    try {
+      // Update order status to confirmed
+      const { error } = await supabase
+        .from('orders')
+        .update({ status: 'confirmed' })
+        .eq('status', 'pending')
+        .single();
+
+      if (error) throw error;
+
+      toast({
+        title: "Bestellung erfolgreich",
+        description: "Ihre Bestellung wurde erfolgreich aufgegeben.",
+      });
+
+      navigate("/checkout/confirmation");
+    } catch (error) {
+      console.error('Error processing payment:', error);
+      toast({
+        title: "Fehler",
+        description: "Es gab ein Problem bei der Verarbeitung Ihrer Zahlung. Bitte versuchen Sie es erneut.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (

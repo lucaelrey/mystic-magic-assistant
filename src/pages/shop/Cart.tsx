@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { Session } from "@supabase/supabase-js";
 
 const Cart = () => {
@@ -17,7 +17,7 @@ const Cart = () => {
   const productPrice = 29.99;
   
   useEffect(() => {
-    // Check for authentication
+    // Überprüfe Authentifizierung
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       if (!session) {
@@ -53,13 +53,13 @@ const Cart = () => {
     }
 
     try {
-      // Create the order
+      // Erstelle die Bestellung
       const { data: order, error: orderError } = await supabase
         .from('orders')
         .insert({
           user_id: session.user.id,
           total_amount: quantity * productPrice,
-          shipping_address: {}, // Will be filled in the next step
+          shipping_address: {}, // Wird im nächsten Schritt ausgefüllt
           status: 'pending'
         })
         .select()
@@ -67,7 +67,7 @@ const Cart = () => {
 
       if (orderError) throw orderError;
 
-      // Create the order item
+      // Erstelle die Bestellposition
       const { error: itemError } = await supabase
         .from('order_items')
         .insert({
