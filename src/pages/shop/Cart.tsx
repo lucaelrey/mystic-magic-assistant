@@ -73,14 +73,15 @@ const Cart = () => {
 
       if (error) {
         console.error('Error during checkout:', error);
-        throw new Error(error.message);
+        throw error;
       }
       
-      if (data?.url) {
-        window.location.href = data.url;
-      } else {
+      if (!data?.url) {
         throw new Error('Keine Checkout URL erhalten');
       }
+
+      // Redirect to Stripe Checkout
+      window.location.href = data.url;
       
     } catch (error) {
       console.error('Error during checkout:', error);
