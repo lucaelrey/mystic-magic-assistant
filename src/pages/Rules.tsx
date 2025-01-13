@@ -4,6 +4,8 @@ import { BookOpen, FileText, List, Home, Grid } from "lucide-react";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { CardGrid } from "@/components/CardGrid";
+import { actionCards } from "@/data/actionCards";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 const Rules = () => {
   const [activeSection, setActiveSection] = useState<number | null>(0);
@@ -139,20 +141,6 @@ const Rules = () => {
     }
   ];
 
-  const actionCards = [
-    {
-      id: "mystic-swap",
-      name: "Mystic Swap",
-      image: "/lovable-uploads/6e59fd5d-ca25-4954-a95d-058a6b044ce0.png",
-      description: "Tausche Karten mit einem anderen Spieler.",
-      rules: [
-        "Kann in deinem Zug eingesetzt werden",
-        "Wähle einen Spieler und zwei Karten zum Tauschen",
-        "Die Karten werden getauscht ohne sie anzusehen"
-      ]
-    }
-  ];
-
   const renderContent = () => {
     switch (activeSection) {
       case 0:
@@ -248,22 +236,41 @@ const Rules = () => {
             <Card className="glass">
               <CardContent className="pt-6">
                 <h2 className="text-2xl font-semibold mb-4">Aktionskarten</h2>
-                <p className="mb-4">Aktionskarten können jederzeit im eigenen Zug gespielt werden. 
-                Ungespielte Aktionskarten zählen 11 Punkte am Ende.</p>
-                <ul className="space-y-2">
-                  <li><strong>Mystic Glimpse:</strong> Eine eigene Karte ansehen</li>
-                  <li><strong>Mystic Inspect:</strong> Eine Karte eines anderen Spielers ansehen</li>
-                  <li><strong>Mystic Swap:</strong> Karten mit einem anderen Spieler tauschen</li>
-                  <li><strong>Mystic Shield:</strong> Schutz vor bestimmten Aktionen für eine Runde</li>
-                  <li><strong>Mystic Discard:</strong> Eine eigene Karte abwerfen</li>
-                  <li><strong>Mystic Chaos:</strong> Karten eines anderen Spielers mischen</li>
-                  <li><strong>Mystic Glimpse and Swap:</strong> Karten ansehen und tauschen</li>
-                  <li><strong>Mystic Reveal:</strong> Karte eines anderen Spielers aufdecken</li>
-                  <li><strong>Mystic Shuffle:</strong> Eigene Karten mischen und zwei ansehen</li>
-                </ul>
+                <p className="mb-4">
+                  Aktionskarten können jederzeit im eigenen Zug gespielt werden. 
+                  Ungespielte Aktionskarten zählen am Ende des Spiels als 11 Punkte.
+                </p>
               </CardContent>
             </Card>
-            <CardGrid cards={actionCards} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {actionCards.map((card) => (
+                <Dialog key={card.id}>
+                  <DialogTrigger asChild>
+                    <Card className="w-full cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden">
+                      <Image
+                        src={card.image}
+                        alt={card.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </Card>
+                  </DialogTrigger>
+                  <DialogContent className="glass">
+                    <DialogHeader>
+                      <DialogTitle>{card.name}</DialogTitle>
+                      <DialogDescription>
+                        <p className="mt-2 mb-4">{card.description}</p>
+                        <h3 className="font-semibold mb-2">Regeln:</h3>
+                        <ul className="list-disc list-inside space-y-1">
+                          {card.rules.map((rule, index) => (
+                            <li key={index}>{rule}</li>
+                          ))}
+                        </ul>
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>
+              ))}
+            </div>
           </div>
         );
       default:
