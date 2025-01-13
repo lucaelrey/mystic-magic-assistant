@@ -2,11 +2,13 @@ import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ShoppingCart } from "lucide-react";
-import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const Shop = () => {
+  const navigate = useNavigate();
+
   const handlePurchase = () => {
-    toast.success("Vielen Dank für deinen Kauf! Wir senden dir eine Bestätigungs-E-Mail.");
+    navigate('/cart');
   };
 
   return (
