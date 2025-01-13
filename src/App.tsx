@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Rules from "./pages/Rules";
 import Game from "./pages/Game";
 import CardDetail from "./pages/CardDetail";
+import Shop from "./pages/Shop";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
           </Route>
           <Route path="/game" element={<Game />} />
           <Route path="/card/:id" element={<CardDetail />} />
+          <Route path="/shop" element={<Shop />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
