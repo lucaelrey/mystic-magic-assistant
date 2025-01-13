@@ -26,7 +26,7 @@ const Shop = () => {
                 <img
                   src="/lovable-uploads/cf7eccbe-9b33-4e52-aadf-a9bf531ba57b.png"
                   alt="Mystic Kartenspiel Box"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain rounded-2xl"
                 />
               </div>
             </div>
@@ -56,25 +56,27 @@ const Shop = () => {
                 </ul>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div className="flex items-center gap-4">
                   <span className="text-lg font-medium">Anzahl:</span>
-                  <Input 
-                    value={quantity} 
-                    onChange={setQuantity} 
-                    min={1} 
-                    max={10}
-                  />
+                  <div className="w-32">
+                    <Input 
+                      value={quantity} 
+                      onChange={setQuantity} 
+                      min={1} 
+                      max={10}
+                    />
+                  </div>
                 </div>
                 <Button 
-                  className="glass-button w-full text-lg py-6"
+                  className="glass-button w-full text-lg py-6 rounded-xl hover:scale-[1.02] transition-all duration-300"
                   onClick={handlePurchase}
                 >
                   <ShoppingCart className="w-5 h-5 mr-2" />
                   Jetzt kaufen
                 </Button>
                 <p className="text-sm text-muted-foreground text-center">
-                  Kostenloser Versand • 30 Tage Rückgaberecht • Sichere Bezahlung
+                  Sichere Bezahlung
                 </p>
               </div>
             </div>
