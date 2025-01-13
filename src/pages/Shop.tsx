@@ -1,11 +1,14 @@
 import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/number-input";
 import { ShoppingCart } from "lucide-react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Shop = () => {
   const navigate = useNavigate();
+  const [quantity, setQuantity] = useState(1);
 
   const handlePurchase = () => {
     navigate('/cart');
@@ -42,6 +45,15 @@ const Shop = () => {
               </div>
 
               <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <span className="text-lg font-medium">Anzahl:</span>
+                  <Input 
+                    value={quantity} 
+                    onChange={setQuantity} 
+                    min={1} 
+                    max={10}
+                  />
+                </div>
                 <Button 
                   className="glass-button w-full text-lg py-6"
                   onClick={handlePurchase}
