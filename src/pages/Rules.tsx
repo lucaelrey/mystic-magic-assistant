@@ -3,7 +3,7 @@ import { Navigation } from "@/components/Navigation";
 import { Book, Hash, Wand2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { CardGrid } from "@/components/CardGrid";
-import { useLocation, useNavigate, Outlet, Navigate } from "react-router-dom";
+import { useLocation, useNavigate, Outlet } from "react-router-dom";
 import { RulesOverview } from "@/components/rules/RulesOverview";
 import { ActionCardsView } from "@/components/cards/ActionCardsView";
 import { ExpandableTabs } from "@/components/ui/expandable-tabs";
@@ -12,11 +12,6 @@ import { NumberCardsView } from "@/components/cards/NumberCardsView";
 const Rules = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
-  // Wenn die Route genau /rules ist, zeige die Übersicht
-  if (location.pathname === "/rules") {
-    return <Navigate to="/rules" replace />;
-  }
 
   const tabs = [
     { title: "Übersicht", icon: Book },
@@ -35,7 +30,7 @@ const Rules = () => {
       case "/rules/action-cards":
         return 4;
       default:
-        return 0; // Default to Übersicht
+        return null;
     }
   };
 
@@ -63,7 +58,6 @@ const Rules = () => {
 
         <ExpandableTabs
           tabs={tabs}
-          selectedIndex={getSelectedTabIndex()}
           className="mb-8 mx-auto max-w-2xl"
           onChange={handleTabChange}
         />
