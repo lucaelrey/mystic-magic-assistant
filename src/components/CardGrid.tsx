@@ -23,16 +23,14 @@ export const CardGrid = ({ cards }: CardGridProps) => {
       {cards.map((card) => (
         <Card 
           key={card.id}
-          className="w-full cursor-pointer hover:scale-105 transition-transform duration-200"
+          className="w-full cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden"
           onClick={() => navigate(`/card/${card.id}`)}
         >
-          <div className="p-4">
-            <Image
-              src={card.image}
-              alt={card.name}
-              className="w-full h-auto rounded-lg"
-            />
-          </div>
+          <Image
+            src={card.image}
+            alt={card.name}
+            className="w-full h-full object-cover"
+          />
         </Card>
       ))}
     </div>
