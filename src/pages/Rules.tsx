@@ -3,7 +3,7 @@ import { Navigation } from "@/components/Navigation";
 import { FileText, Book, Wand2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { CardGrid } from "@/components/CardGrid";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Outlet } from "react-router-dom";
 import { RulesOverview } from "@/components/rules/RulesOverview";
 import { ActionCardsView } from "@/components/cards/ActionCardsView";
 import { ExpandableTabs } from "@/components/ui/expandable-tabs";
