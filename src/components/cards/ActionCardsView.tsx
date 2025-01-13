@@ -48,7 +48,7 @@ export const ActionCardsView = () => {
                 <Image
                   src={card.image}
                   alt={card.name}
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover"
                 />
               </Card>
             </DialogTrigger>
@@ -79,7 +79,7 @@ export const ActionCardsView = () => {
               <Image
                 src={card.image}
                 alt={card.name}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-cover"
               />
             </Card>
           </DrawerTrigger>
