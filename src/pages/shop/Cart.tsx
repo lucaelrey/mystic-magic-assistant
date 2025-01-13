@@ -112,11 +112,11 @@ const Cart = () => {
               <div className="glass p-4 rounded-xl space-y-4">
                 <div className="flex items-center gap-4">
                   <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-lg overflow-hidden 
-                    bg-white/5 backdrop-blur-lg border border-white/10">
+                    bg-white/5 backdrop-blur-lg">
                     <img
                       src="/lovable-uploads/cf7eccbe-9b33-4e52-aadf-a9bf531ba57b.png"
                       alt="MYSTIC - Das Kartenspiel"
-                      className="w-full h-full object-contain p-2"
+                      className="w-full h-full object-contain p-2 rounded-lg"
                     />
                   </div>
                   <div className="flex-1 min-w-0">
