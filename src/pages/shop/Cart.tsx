@@ -4,7 +4,6 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -19,44 +18,28 @@ const Cart = () => {
     setQuantity(newQuantity);
   };
 
-  const handleCheckout = async () => {
+  const handleCheckout = () => {
     try {
-      // Erstelle die Bestellung
-      const { data: order, error: orderError } = await supabase
-        .from('orders')
-        .insert({
-          total_amount: quantity * productPrice,
-          shipping_address: {}, // Wird im nächsten Schritt ausgefüllt
-          status: 'pending'
-        })
-        .select()
-        .single();
-
-      if (orderError) throw orderError;
-
-      // Erstelle die Bestellposition
-      const { error: itemError } = await supabase
-        .from('order_items')
-        .insert({
-          order_id: order.id,
+      // Speichere Warenkorbdaten im localStorage
+      const cartData = {
+        items: [{
           product_name: "Mystic Grundspiel",
           quantity: quantity,
           price_per_unit: productPrice
-        });
-
-      if (itemError) throw itemError;
-
-      toast({
-        title: "Warenkorb aktualisiert",
-        description: "Ihre Bestellung wurde erfolgreich erstellt.",
-      });
-
+        }],
+        total_amount: quantity * productPrice
+      };
+      
+      localStorage.setItem('cartData', JSON.stringify(cartData));
+      
+      // Weiterleitung zur Adresseingabe
       navigate("/checkout/address");
+      
     } catch (error) {
-      console.error('Error creating order:', error);
+      console.error('Error saving cart data:', error);
       toast({
         title: "Fehler",
-        description: "Es gab ein Problem beim Erstellen Ihrer Bestellung. Bitte versuchen Sie es erneut.",
+        description: "Es gab ein Problem beim Speichern Ihrer Warenkorbdaten. Bitte versuchen Sie es erneut.",
         variant: "destructive",
       });
     }
@@ -140,7 +123,7 @@ const Cart = () => {
                   className="w-full"
                   onClick={handleCheckout}
                 >
-                  Zur Kasse
+                  Weiter zur Adresseingabe
                 </Button>
               </div>
             </div>
