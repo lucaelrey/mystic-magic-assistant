@@ -12,8 +12,6 @@ import Cart from "./pages/shop/Cart";
 import Payment from "./pages/shop/Payment";
 import Confirmation from "./pages/shop/Confirmation";
 import Auth from "./pages/Auth";
-import AdminDashboard from "./pages/backend/Index";
-import OrderDetail from "./pages/backend/OrderDetail";
 
 const queryClient = new QueryClient();
 
@@ -35,8 +33,6 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/checkout/payment" element={<Payment />} />
           <Route path="/checkout/confirmation" element={<Confirmation />} />
-          <Route path="/backend" element={<AdminDashboard />} />
-          <Route path="/backend/orders/:id" element={<OrderDetail />} />
         </Routes>
         <Toaster />
         <Sonner />
