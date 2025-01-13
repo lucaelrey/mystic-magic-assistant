@@ -6,11 +6,13 @@ import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Cart = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   const productPrice = 29.99;
   
   const handleQuantityChange = (change: number) => {
@@ -18,8 +20,10 @@ const Cart = () => {
     setQuantity(newQuantity);
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     try {
+      setIsLoading(true);
+      
       // Speichere Warenkorbdaten im localStorage
       const cartData = {
         items: [{
@@ -32,16 +36,29 @@ const Cart = () => {
       
       localStorage.setItem('cartData', JSON.stringify(cartData));
       
-      // Weiterleitung zur Adresseingabe
-      navigate("/checkout/address");
+      // Erstelle Stripe Checkout Session
+      const { data, error } = await supabase.functions.invoke('create-checkout', {
+        body: { cartData }
+      });
+
+      if (error) throw error;
+      
+      // Weiterleitung zur Stripe Checkout Seite
+      if (data?.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('Keine Checkout URL erhalten');
+      }
       
     } catch (error) {
-      console.error('Error saving cart data:', error);
+      console.error('Error during checkout:', error);
       toast({
         title: "Fehler",
-        description: "Es gab ein Problem beim Speichern Ihrer Warenkorbdaten. Bitte versuchen Sie es erneut.",
+        description: "Es gab ein Problem beim Erstellen der Checkout-Session. Bitte versuchen Sie es erneut.",
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -122,8 +139,9 @@ const Cart = () => {
                 <Button 
                   className="w-full"
                   onClick={handleCheckout}
+                  disabled={isLoading}
                 >
-                  Weiter zur Adresseingabe
+                  {isLoading ? "Wird geladen..." : "Zur Kasse"}
                 </Button>
               </div>
             </div>
