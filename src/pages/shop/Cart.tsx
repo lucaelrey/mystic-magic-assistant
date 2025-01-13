@@ -13,7 +13,7 @@ const Cart = () => {
   const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const productPrice = 29.99;
+  const productPrice = 24.90;
   
   const handleQuantityChange = (change: number) => {
     const newQuantity = Math.max(1, quantity + change);
@@ -48,7 +48,7 @@ const Cart = () => {
         .from('order_items')
         .insert({
           order_id: orderData.id,
-          product_name: "Mystic Grundspiel",
+          product_name: "MYSTIC - Das Kartenspiel",
           quantity: quantity,
           price_per_unit: productPrice
         });
@@ -63,7 +63,7 @@ const Cart = () => {
         body: { 
           orderId: orderData.id,
           items: [{
-            product_name: "Mystic Grundspiel",
+            product_name: "MYSTIC - Das Kartenspiel",
             quantity: quantity,
             price_per_unit: productPrice
           }]
@@ -110,12 +110,12 @@ const Cart = () => {
                 <div className="flex items-center gap-4">
                   <img
                     src="/placeholder.svg"
-                    alt="Mystic Grundspiel"
+                    alt="MYSTIC - Das Kartenspiel"
                     className="w-20 h-20 object-cover rounded"
                   />
                   <div>
-                    <h3 className="font-semibold">Mystic Grundspiel</h3>
-                    <p className="text-sm text-muted-foreground">{productPrice.toFixed(2)} €</p>
+                    <h3 className="font-semibold">MYSTIC - Das Kartenspiel</h3>
+                    <p className="text-sm text-muted-foreground">{productPrice.toFixed(2)} CHF</p>
                   </div>
                 </div>
                 
@@ -157,7 +157,7 @@ const Cart = () => {
             <div className="mt-8 space-y-4">
               <div className="flex justify-between text-lg font-semibold">
                 <span>Gesamt</span>
-                <span>{(quantity * productPrice).toFixed(2)} €</span>
+                <span>{(quantity * productPrice).toFixed(2)} CHF</span>
               </div>
               
               <div className="flex gap-4">
