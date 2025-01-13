@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { CardGrid } from "@/components/CardGrid";
 import { actionCards } from "@/data/actionCards";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import Image from "@/components/ui/image";  // Updated import statement
 
 const Rules = () => {
   const [activeSection, setActiveSection] = useState<number | null>(0);
