@@ -8,6 +8,10 @@ import Rules from "./pages/Rules";
 import Game from "./pages/Game";
 import CardDetail from "./pages/CardDetail";
 import Shop from "./pages/Shop";
+import Cart from "./pages/shop/Cart";
+import Address from "./pages/shop/Address";
+import Payment from "./pages/shop/Payment";
+import Confirmation from "./pages/shop/Confirmation";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +31,10 @@ const App = () => (
           <Route path="/game" element={<Game />} />
           <Route path="/card/:id" element={<CardDetail />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout/address" element={<Address />} />
+          <Route path="/checkout/payment" element={<Payment />} />
+          <Route path="/checkout/confirmation" element={<Confirmation />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
