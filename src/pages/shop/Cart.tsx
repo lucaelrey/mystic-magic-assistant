@@ -29,7 +29,7 @@ const Cart = () => {
         .from('orders')
         .insert({
           total_amount: quantity * productPrice,
-          shipping_address: null, // Will be updated during checkout
+          shipping_address: null,
           status: 'pending'
         })
         .select()
@@ -62,7 +62,10 @@ const Cart = () => {
         }
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error during checkout:', error);
+        throw new Error(error.message);
+      }
       
       if (data?.url) {
         window.location.href = data.url;
