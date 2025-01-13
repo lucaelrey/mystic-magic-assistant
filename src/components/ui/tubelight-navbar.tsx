@@ -34,7 +34,7 @@ export function NavBar({ items, className }: NavBarProps) {
   return (
     <div className={cn("glass-nav", className)}>
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-center h-16">
           <div className="flex items-center gap-3 py-1 px-1">
             {items.map((item) => {
               const Icon = item.icon
@@ -47,7 +47,7 @@ export function NavBar({ items, className }: NavBarProps) {
                   onClick={() => setActiveTab(item.name)}
                   className={cn(
                     "relative cursor-pointer text-sm font-semibold px-6 py-2 rounded-full transition-colors",
-                    "text-foreground/80 hover:text-primary",
+                    "text-white/80 hover:text-primary",
                     isActive && "bg-primary/20 text-primary"
                   )}
                 >
