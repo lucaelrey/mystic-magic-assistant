@@ -18,7 +18,11 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/rules" element={<Rules />} />
+          <Route path="/rules" element={<Rules />}>
+            <Route index element={<Rules.Overview />} />
+            <Route path="number-cards" element={<Rules.NumberCards />} />
+            <Route path="action-cards" element={<Rules.ActionCards />} />
+          </Route>
           <Route path="/game" element={<Game />} />
           <Route path="/card/:id" element={<CardDetail />} />
         </Routes>
