@@ -22,6 +22,7 @@ import { format } from "date-fns";
 import { de } from "date-fns/locale";
 import { ArrowLeft } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { ShippingAddress } from "@/integrations/supabase/types";
 
 const OrderDetail = () => {
   const { id } = useParams();
@@ -107,6 +108,8 @@ const OrderDetail = () => {
     return <div>Bestellung nicht gefunden</div>;
   }
 
+  const shippingAddress = order.shipping_address as ShippingAddress;
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -155,11 +158,11 @@ const OrderDetail = () => {
               <div className="space-y-6">
                 <div>
                   <h3 className="font-medium mb-2">Lieferadresse</h3>
-                  {order.shipping_address && (
+                  {shippingAddress && (
                     <div className="text-sm text-muted-foreground">
-                      <p>{order.shipping_address.street}</p>
-                      <p>{order.shipping_address.city}, {order.shipping_address.postalCode}</p>
-                      <p>{order.shipping_address.country}</p>
+                      <p>{shippingAddress.street}</p>
+                      <p>{shippingAddress.city}, {shippingAddress.postalCode}</p>
+                      <p>{shippingAddress.country}</p>
                     </div>
                   )}
                 </div>
