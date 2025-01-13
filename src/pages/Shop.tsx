@@ -56,15 +56,16 @@ const Shop = () => {
                 </ul>
               </div>
 
-              <div className="space-y-6 bg-white/5 p-6 rounded-xl border border-white/10">
+              <div className="space-y-4 bg-white/5 p-6 rounded-xl border border-white/10">
                 <div className="flex items-center gap-4">
-                  <span className="text-lg font-medium min-w-24">Anzahl:</span>
-                  <div className="w-32">
+                  <span className="text-lg font-medium min-w-20">Anzahl:</span>
+                  <div className="w-24">
                     <Input 
                       value={quantity} 
                       onChange={setQuantity} 
                       min={1} 
                       max={10}
+                      className="h-11"
                     />
                   </div>
                 </div>
