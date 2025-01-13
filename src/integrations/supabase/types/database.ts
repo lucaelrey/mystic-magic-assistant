@@ -91,4 +91,4 @@ export type Database = {
       [_ in never]: never;
     };
   };
-}
+};
