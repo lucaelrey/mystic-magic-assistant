@@ -21,17 +21,12 @@ const Shop = () => {
         <Card className="glass-card max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8 p-8">
             {/* Product Image - Now appears first on mobile */}
-            <div className="relative h-[400px] md:h-full order-first">
-              <div 
-                className="absolute inset-0 rounded-lg overflow-hidden"
-                style={{
-                  background: "linear-gradient(135deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.2) 100%)",
-                }}
-              >
+            <div className="relative aspect-square order-first">
+              <div className="absolute inset-0 flex items-center justify-center">
                 <img
                   src="/lovable-uploads/cf7eccbe-9b33-4e52-aadf-a9bf531ba57b.png"
                   alt="Mystic Kartenspiel Box"
-                  className="w-full h-full object-contain p-4"
+                  className="w-full h-full object-contain"
                 />
               </div>
             </div>
