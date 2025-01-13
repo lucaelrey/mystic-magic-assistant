@@ -42,7 +42,7 @@ export const ActionCardsView = () => {
           >
             <DialogTrigger asChild>
               <Card
-                className="w-full h-48 cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden glass flex items-center justify-center p-0"
+                className="w-full aspect-[3/4] cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden glass flex items-center justify-center p-0"
                 onClick={() => handleCardClick(card)}
               >
                 <Image
@@ -73,7 +73,7 @@ export const ActionCardsView = () => {
         >
           <DrawerTrigger asChild>
             <Card
-              className="w-full h-48 cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden glass flex items-center justify-center p-0"
+              className="w-full aspect-[3/4] cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden glass flex items-center justify-center p-0"
               onClick={() => handleCardClick(card)}
             >
               <Image
