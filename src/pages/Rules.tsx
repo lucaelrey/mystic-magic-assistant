@@ -10,7 +10,6 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -18,13 +17,13 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Image from "@/components/ui/image";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const Rules = () => {
   const location = useLocation();
@@ -304,20 +303,33 @@ const ActionCards = () => {
   };
 
   const CardDetails = ({ className = "" }) => (
-    <div className={className}>
-      <Image
-        src={selectedCard?.image}
-        alt={selectedCard?.name}
-        className="w-full h-48 object-cover rounded-lg mb-4"
-      />
-      <h3 className="font-semibold mb-2">{selectedCard?.name}</h3>
-      <p className="text-muted-foreground mb-4">{selectedCard?.description}</p>
-      <h4 className="font-semibold mb-2">Regeln:</h4>
-      <ul className="list-disc list-inside space-y-1">
-        {selectedCard?.rules.map((rule: string, index: number) => (
-          <li key={index} className="text-foreground">{rule}</li>
-        ))}
-      </ul>
+    <div className={cn("space-y-6", className)}>
+      <div className="flex justify-center">
+        <Image
+          src={selectedCard?.image}
+          alt={selectedCard?.name}
+          className="w-full max-w-[240px] h-auto object-contain rounded-lg shadow-lg"
+        />
+      </div>
+      <div className="space-y-4">
+        <div className="text-center">
+          <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
+            {selectedCard?.name}
+          </h3>
+          <p className="text-muted-foreground mt-2">{selectedCard?.description}</p>
+        </div>
+        <div className="bg-muted/50 rounded-lg p-4 space-y-2">
+          <h4 className="font-semibold text-primary">Regeln:</h4>
+          <ul className="space-y-2">
+            {selectedCard?.rules.map((rule: string, index: number) => (
+              <li key={index} className="flex items-start gap-2 text-foreground">
+                <span className="text-primary mt-1">•</span>
+                <span>{rule}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 
@@ -338,22 +350,19 @@ const ActionCards = () => {
             <Dialog key={card.id} open={open && selectedCard?.id === card.id} onOpenChange={setOpen}>
               <DialogTrigger asChild>
                 <Card 
-                  className="w-full cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden"
+                  className="w-full cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden glass"
                   onClick={() => handleCardClick(card)}
                 >
                   <Image
                     src={card.image}
                     alt={card.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-48 object-cover"
                   />
                 </Card>
               </DialogTrigger>
-              <DialogContent className="glass">
+              <DialogContent className="glass sm:max-w-[425px]">
                 <DialogHeader>
-                  <DialogTitle>{card.name}</DialogTitle>
-                  <DialogDescription>
-                    <CardDetails className="mt-4" />
-                  </DialogDescription>
+                  <CardDetails className="mt-4" />
                 </DialogHeader>
               </DialogContent>
             </Dialog>
@@ -379,25 +388,22 @@ const ActionCards = () => {
           <Drawer key={card.id} open={open && selectedCard?.id === card.id} onOpenChange={setOpen}>
             <DrawerTrigger asChild>
               <Card 
-                className="w-full cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden"
+                className="w-full cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden glass"
                 onClick={() => handleCardClick(card)}
               >
                 <Image
                   src={card.image}
                   alt={card.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-48 object-cover"
                 />
               </Card>
             </DrawerTrigger>
-            <DrawerContent>
+            <DrawerContent className="px-4">
               <DrawerHeader className="text-left">
-                <DrawerTitle>{card.name}</DrawerTitle>
-                <DrawerDescription>
-                  <CardDetails className="px-4" />
-                </DrawerDescription>
+                <CardDetails className="pb-4" />
               </DrawerHeader>
               <DrawerClose asChild>
-                <Button variant="outline" className="mx-4 mb-4">Schließen</Button>
+                <Button variant="outline" className="w-full">Schließen</Button>
               </DrawerClose>
             </DrawerContent>
           </Drawer>
