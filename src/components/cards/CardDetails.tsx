@@ -18,7 +18,7 @@ export const CardDetails = ({ card, className = "" }: CardDetailsProps) => (
       <Image
         src={card.image}
         alt={card.name}
-        className="w-full max-w-[240px] h-auto object-contain rounded-lg shadow-lg"
+        className="w-full max-w-[200px] md:max-w-[240px] h-auto object-contain rounded-lg shadow-lg"
       />
     </div>
     <div className="space-y-4">

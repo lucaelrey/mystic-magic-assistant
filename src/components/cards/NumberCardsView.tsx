@@ -7,12 +7,10 @@ import {
 } from "@/components/ui/dialog";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerHeader,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Button } from "@/components/ui/button";
 import Image from "@/components/ui/image";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { CardDetails } from "./CardDetails";
@@ -78,11 +76,6 @@ export const NumberCardsView = ({ cards }: NumberCardsViewProps) => {
                 <DrawerHeader className="text-left">
                   <CardDetails card={card} className="pb-4" />
                 </DrawerHeader>
-                <DrawerClose asChild>
-                  <Button variant="outline" className="w-full">
-                    Schließen
-                  </Button>
-                </DrawerClose>
               </DrawerContent>
             </Drawer>
           )}
