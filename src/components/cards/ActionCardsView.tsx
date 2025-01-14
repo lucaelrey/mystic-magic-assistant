@@ -37,7 +37,7 @@ export const ActionCardsView = () => {
         <Image
           src={card.image}
           alt={card.name}
-          className="w-full h-full object-contain p-4"
+          className="w-full h-full object-contain"
         />
       </div>
     </div>
