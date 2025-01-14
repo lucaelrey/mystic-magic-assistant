@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
-import { LucideIcon } from "lucide-react"
+import { LucideIcon, ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface NavItem {
@@ -40,6 +40,8 @@ export function NavBar({ items, className }: NavBarProps) {
     }
   }, [activeItem])
 
+  const isExternalUrl = (url: string) => url.startsWith('http')
+
   return (
     <div className={cn("glass-nav", className)}>
       <div className="container mx-auto px-4">
@@ -48,22 +50,36 @@ export function NavBar({ items, className }: NavBarProps) {
             {items.map((item) => {
               const Icon = item.icon
               const isActive = item.isActive
+              const isExternal = isExternalUrl(item.url)
+
+              const LinkComponent = isExternal ? 'a' : Link
+              const linkProps = isExternal ? {
+                href: item.url,
+                target: "_blank",
+                rel: "noopener noreferrer"
+              } : {
+                to: item.url,
+                onClick: () => setActiveTab(item.name)
+              }
 
               return (
-                <Link
+                <LinkComponent
                   key={item.name}
-                  to={item.url}
-                  onClick={() => setActiveTab(item.name)}
+                  {...linkProps}
                   className={cn(
                     "relative cursor-pointer text-sm font-semibold px-6 py-2 rounded-full transition-colors",
-                    "text-white/80 hover:text-white",
-                    isActive && "bg-white/10 text-white"
+                    "text-white/80 hover:text-white flex items-center gap-1.5",
+                    isActive && "bg-white/10 text-white",
+                    isExternal && "bg-primary/5 hover:bg-primary/10"
                   )}
                 >
                   <span className="hidden md:inline">{item.name}</span>
                   <span className="md:hidden">
                     <Icon size={18} strokeWidth={2.5} />
                   </span>
+                  {isExternal && (
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  )}
                   {isActive && (
                     <motion.div
                       layoutId="lamp"
@@ -82,7 +98,7 @@ export function NavBar({ items, className }: NavBarProps) {
                       </div>
                     </motion.div>
                   )}
-                </Link>
+                </LinkComponent>
               )
             })}
           </div>
