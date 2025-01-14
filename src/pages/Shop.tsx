@@ -69,7 +69,9 @@ const Shop = () => {
                 </ul>
               </div>
 
-              <div className="space-y-4 md:space-y-6 glass rounded-xl md:rounded-2xl">
+              <div className="space-y-4 md:space-y-6 bg-black/20 backdrop-blur-lg 
+                p-4 md:p-8 rounded-xl md:rounded-2xl border border-white/20 
+                shadow-lg md:shadow-xl">
                 <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
                   <span className="hidden md:inline text-base md:text-lg font-medium text-white/90 
                     min-w-20 md:min-w-24">
