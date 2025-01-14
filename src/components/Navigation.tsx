@@ -26,8 +26,13 @@ export const Navigation = () => {
   const navItems = [
     { name: "Home", url: "/", icon: Home, isActive: isPathActive("/") },
     { name: "Regeln", url: "/rules", icon: Book, isActive: isPathActive("/rules") },
-    { name: "Spielen", url: "/game", icon: PlayCircle, isActive: isPathActive("/game") },
     { name: "Shop", url: "/shop", icon: ShoppingBag, isActive: isPathActive("/shop") },
+    { 
+      name: "Spielen", 
+      url: "https://play.mysticgame.ch", 
+      icon: PlayCircle, 
+      isActive: false 
+    },
   ];
 
   return <NavBar items={navItems} />;
