@@ -136,11 +136,7 @@ const Shop = () => {
                 <Button 
                   className="w-full h-12 md:h-14 text-base md:text-lg font-semibold 
                     rounded-lg md:rounded-xl
-                    bg-gradient-to-r from-white/20 to-white/10 
-                    hover:from-white/30 hover:to-white/20
                     border border-white/20 hover:border-white/30
-                    shadow-lg hover:shadow-xl
-                    backdrop-blur-lg
                     transition-all duration-300 ease-out
                     hover:scale-[1.02]
                     group"
