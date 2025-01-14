@@ -45,12 +45,12 @@ const Index = () => {
             </p>
             <div className="flex gap-4 justify-center">
               <Link to="/shop">
-                <Button variant="outline" className="glass">
+                <Button className="glass-button">
                   Mystic kaufen
                 </Button>
               </Link>
               <Link to="/rules">
-                <Button variant="outline" className="glass">
+                <Button className="glass-button">
                   Spielregeln
                 </Button>
               </Link>
