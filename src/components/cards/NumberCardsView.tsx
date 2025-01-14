@@ -14,6 +14,7 @@ import {
 import Image from "@/components/ui/image";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { CardDetails } from "./CardDetails";
+import { GlareCard } from "@/components/ui/glare-card";
 
 interface NumberCard {
   id: string;
@@ -38,24 +39,21 @@ export const NumberCardsView = ({ cards }: NumberCardsViewProps) => {
   };
 
   const renderCardContent = (card: NumberCard) => (
-    <div 
-      className="glass-card cursor-pointer"
-      onClick={() => handleCardClick(card)}
-    >
-      <div className="relative overflow-hidden rounded-lg">
+    <GlareCard className="cursor-pointer">
+      <div className="relative h-full">
         <Image
           src={card.image}
           alt={card.name}
           className="w-full h-full object-contain"
         />
       </div>
-    </div>
+    </GlareCard>
   );
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
       {cards.map((card) => (
-        <div key={card.id}>
+        <div key={card.id} onClick={() => handleCardClick(card)}>
           {isDesktop ? (
             <Dialog open={open && selectedCard?.id === card.id} onOpenChange={setOpen}>
               <DialogTrigger asChild>
