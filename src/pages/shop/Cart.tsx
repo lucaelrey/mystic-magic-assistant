@@ -17,7 +17,6 @@ const Cart = () => {
   const productPrice = 24.90;
   
   useEffect(() => {
-    // Setze die Menge aus dem Location State, falls vorhanden
     if (location.state?.quantity) {
       setQuantity(location.state.quantity);
     }
@@ -119,12 +118,11 @@ const Cart = () => {
             <div className="space-y-4 md:space-y-6">
               <div className="glass p-4 rounded-xl space-y-4">
                 <div className="flex items-center gap-4">
-                  <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-lg overflow-hidden 
-                    bg-white/5 backdrop-blur-lg">
+                  <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-lg overflow-hidden">
                     <img
                       src="/lovable-uploads/cf7eccbe-9b33-4e52-aadf-a9bf531ba57b.png"
                       alt="MYSTIC - Das Kartenspiel"
-                      className="w-full h-full object-contain p-2 rounded-lg"
+                      className="w-full h-full object-contain p-2"
                     />
                   </div>
                   <div className="flex-1 min-w-0">
