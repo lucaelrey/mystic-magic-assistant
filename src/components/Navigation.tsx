@@ -7,10 +7,20 @@ export const Navigation = () => {
 
   // Funktion zum Überprüfen, ob ein Pfad aktiv ist
   const isPathActive = (path: string) => {
-    if (path === "/") {
-      return location.pathname === "/";
+    const currentPath = location.pathname;
+    
+    // Für die Hauptroute
+    if (path === "/" && currentPath === "/") {
+      return true;
     }
-    return location.pathname.startsWith(path);
+    
+    // Für andere Routen
+    if (path !== "/") {
+      // Prüfe ob der aktuelle Pfad mit dem gegebenen Pfad beginnt
+      return currentPath.startsWith(path);
+    }
+    
+    return false;
   };
 
   const navItems = [
