@@ -15,7 +15,6 @@ import Image from "@/components/ui/image";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { CardDetails } from "./CardDetails";
 import { actionCards } from "@/data/actionCards";
-import { GlareCard } from "@/components/ui/glare-card";
 
 export const ActionCardGrid = () => {
   const [open, setOpen] = useState(false);
@@ -28,21 +27,24 @@ export const ActionCardGrid = () => {
   };
 
   const renderCardContent = (card: (typeof actionCards)[0]) => (
-    <GlareCard className="cursor-pointer">
-      <div className="relative h-full">
+    <div 
+      className="glass-card cursor-pointer"
+      onClick={() => handleCardClick(card)}
+    >
+      <div className="relative overflow-hidden rounded-lg">
         <Image
           src={card.image}
           alt={card.name}
           className="w-full h-full object-contain"
         />
       </div>
-    </GlareCard>
+    </div>
   );
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
       {actionCards.map((card) => (
-        <div key={card.id} onClick={() => handleCardClick(card)}>
+        <div key={card.id}>
           {isDesktop ? (
             <Dialog open={open && selectedCard?.id === card.id} onOpenChange={setOpen}>
               <DialogTrigger asChild>
