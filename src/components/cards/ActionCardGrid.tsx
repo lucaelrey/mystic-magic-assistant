@@ -61,7 +61,7 @@ export const ActionCardGrid = () => {
               <DrawerTrigger asChild>
                 {renderCardContent(card)}
               </DrawerTrigger>
-              <DrawerContent className="px-4">
+              <DrawerContent className="bg-[#121212] px-4">
                 <DrawerHeader className="text-left">
                   <CardDetails card={card} className="pb-4" />
                 </DrawerHeader>
