@@ -52,34 +52,42 @@ export function NavBar({ items, className }: NavBarProps) {
               const isActive = item.isActive
               const isExternal = isExternalUrl(item.url)
 
-              const LinkComponent = isExternal ? 'a' : Link
-              const linkProps = isExternal ? {
-                href: item.url,
-                target: "_blank",
-                rel: "noopener noreferrer"
-              } : {
-                to: item.url,
-                onClick: () => setActiveTab(item.name)
+              const commonClasses = cn(
+                "relative cursor-pointer text-sm font-semibold px-6 py-2 rounded-full transition-colors",
+                "text-white/80 hover:text-white flex items-center gap-1.5",
+                isActive && "bg-white/10 text-white",
+                isExternal && "bg-primary/5 hover:bg-primary/10"
+              )
+
+              if (isExternal) {
+                return (
+                  <a
+                    key={item.name}
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={commonClasses}
+                  >
+                    <span className="hidden md:inline">{item.name}</span>
+                    <span className="md:hidden">
+                      <Icon size={18} strokeWidth={2.5} />
+                    </span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                )
               }
 
               return (
-                <LinkComponent
+                <Link
                   key={item.name}
-                  {...linkProps}
-                  className={cn(
-                    "relative cursor-pointer text-sm font-semibold px-6 py-2 rounded-full transition-colors",
-                    "text-white/80 hover:text-white flex items-center gap-1.5",
-                    isActive && "bg-white/10 text-white",
-                    isExternal && "bg-primary/5 hover:bg-primary/10"
-                  )}
+                  to={item.url}
+                  onClick={() => setActiveTab(item.name)}
+                  className={commonClasses}
                 >
                   <span className="hidden md:inline">{item.name}</span>
                   <span className="md:hidden">
                     <Icon size={18} strokeWidth={2.5} />
                   </span>
-                  {isExternal && (
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  )}
                   {isActive && (
                     <motion.div
                       layoutId="lamp"
@@ -98,7 +106,7 @@ export function NavBar({ items, className }: NavBarProps) {
                       </div>
                     </motion.div>
                   )}
-                </LinkComponent>
+                </Link>
               )
             })}
           </div>
