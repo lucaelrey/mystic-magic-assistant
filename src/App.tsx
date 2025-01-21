@@ -7,6 +7,7 @@ import Cart from "./pages/shop/Cart";
 import Payment from "./pages/shop/Payment";
 import Confirmation from "./pages/shop/Confirmation";
 import Orders from "./pages/admin/Orders";
+import OrderDetail from "./pages/admin/OrderDetail";
 import Dashboard from "./pages/admin/Dashboard";
 import Auth from "./pages/Auth";
 import { useEffect, useState } from "react";
@@ -72,6 +73,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Orders />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/admin/orders/:orderId" 
+            element={
+              <ProtectedRoute>
+                <OrderDetail />
               </ProtectedRoute>
             } 
           />
