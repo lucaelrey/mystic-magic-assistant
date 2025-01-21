@@ -35,7 +35,14 @@ const Cart = () => {
         .from('orders')
         .insert({
           total_amount: quantity * productPrice,
-          status: 'pending'
+          status: 'pending',
+          shipping_address: {
+            street: "",
+            city: "",
+            postalCode: "",
+            country: ""
+          },
+          payment_status: 'pending'
         })
         .select()
         .single();
