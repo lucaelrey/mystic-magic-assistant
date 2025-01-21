@@ -11,13 +11,6 @@ import {
   DrawerHeader,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import Image from "@/components/ui/image";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { CardDetails } from "./CardDetails";
@@ -46,10 +39,10 @@ export const NumberCardsView = ({ cards }: NumberCardsViewProps) => {
 
   const renderCardContent = (card: NumberCard) => (
     <div 
-      className="glass-card cursor-pointer h-full"
+      className="glass-card cursor-pointer"
       onClick={() => handleCardClick(card)}
     >
-      <div className="relative overflow-hidden rounded-lg h-full">
+      <div className="relative overflow-hidden rounded-lg">
         <Image
           src={card.image}
           alt={card.name}
@@ -60,47 +53,34 @@ export const NumberCardsView = ({ cards }: NumberCardsViewProps) => {
   );
 
   return (
-    <Carousel
-      opts={{
-        align: "start",
-        loop: true,
-      }}
-      className="w-full relative"
-    >
-      <CarouselContent className="-ml-2 md:-ml-4">
-        {cards.map((card) => (
-          <CarouselItem 
-            key={card.id} 
-            className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3"
-          >
-            {isDesktop ? (
-              <Dialog open={open && selectedCard?.id === card.id} onOpenChange={setOpen}>
-                <DialogTrigger asChild>
-                  {renderCardContent(card)}
-                </DialogTrigger>
-                <DialogContent className="glass sm:max-w-[425px]">
-                  <DialogHeader>
-                    <CardDetails card={card} className="mt-4" />
-                  </DialogHeader>
-                </DialogContent>
-              </Dialog>
-            ) : (
-              <Drawer open={open && selectedCard?.id === card.id} onOpenChange={setOpen}>
-                <DrawerTrigger asChild>
-                  {renderCardContent(card)}
-                </DrawerTrigger>
-                <DrawerContent className="px-4">
-                  <DrawerHeader className="text-left">
-                    <CardDetails card={card} className="pb-4" />
-                  </DrawerHeader>
-                </DrawerContent>
-              </Drawer>
-            )}
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious className="hidden md:flex" />
-      <CarouselNext className="hidden md:flex" />
-    </Carousel>
+    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      {cards.map((card) => (
+        <div key={card.id}>
+          {isDesktop ? (
+            <Dialog open={open && selectedCard?.id === card.id} onOpenChange={setOpen}>
+              <DialogTrigger asChild>
+                {renderCardContent(card)}
+              </DialogTrigger>
+              <DialogContent className="glass sm:max-w-[425px]">
+                <DialogHeader>
+                  <CardDetails card={card} className="mt-4" />
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
+          ) : (
+            <Drawer open={open && selectedCard?.id === card.id} onOpenChange={setOpen}>
+              <DrawerTrigger asChild>
+                {renderCardContent(card)}
+              </DrawerTrigger>
+              <DrawerContent className="px-4">
+                <DrawerHeader className="text-left">
+                  <CardDetails card={card} className="pb-4" />
+                </DrawerHeader>
+              </DrawerContent>
+            </Drawer>
+          )}
+        </div>
+      ))}
+    </div>
   );
 };
