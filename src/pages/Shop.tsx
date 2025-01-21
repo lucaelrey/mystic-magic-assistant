@@ -19,6 +19,7 @@ const Shop = () => {
       <Navigation />
       <main className="container mx-auto px-4 pt-20 md:pt-24 pb-12">
         <Card className="glass-card max-w-6xl mx-auto overflow-visible">
+          {/* Main Product Section */}
           <div className="grid md:grid-cols-2 gap-6 md:gap-8 p-4 md:p-8">
             {/* Product Image */}
             <div className="relative aspect-square order-first group">
@@ -32,8 +33,8 @@ const Shop = () => {
               </div>
             </div>
 
-            {/* Product Description */}
-            <div className="space-y-6 md:space-y-8 order-last">
+            {/* Product Info and Purchase Module */}
+            <div className="space-y-6 md:space-y-8">
               <div className="space-y-2 md:space-y-4">
                 <h1 className="text-2xl md:text-4xl font-bold bg-clip-text text-transparent 
                   bg-gradient-to-r from-white to-white/70">
@@ -45,7 +46,7 @@ const Shop = () => {
                 </div>
               </div>
 
-              {/* Purchase Module - Moved up */}
+              {/* Purchase Module */}
               <div className="space-y-4 md:space-y-6 bg-black/20 backdrop-blur-lg 
                 p-4 md:p-8 rounded-xl md:rounded-2xl border border-white/20 
                 shadow-lg md:shadow-xl">
@@ -83,74 +84,76 @@ const Shop = () => {
                   Sichere Bezahlung mit SSL-Verschlüsselung
                 </p>
               </div>
-              
-              {/* Product Description - Moved down */}
-              <div className="prose prose-lg prose-invert">
-                <div className="space-y-4 md:space-y-6 text-white/80">
-                  <p className="text-base md:text-lg leading-relaxed">
-                    Tauche ein in die magische Welt von Mystic Cards – dem fesselnden Kartenspiel, 
-                    das Strategie, Gedächtnis und Fantasie vereint.
-                  </p>
-                  <p className="text-base md:text-lg leading-relaxed">
-                    Deine Karten sind verdeckt, ihre Werte verborgen – nur wer den Überblick behält 
-                    und seine Züge klug plant, kann triumphieren. Entdecke die magischen Elemente, 
-                    durchkreuze die Pläne deiner Gegner und reduziere geschickt deine Punkte. 
-                    Doch Vorsicht: Mit jedem Zug kann sich das Spiel wenden!
-                  </p>
+            </div>
+          </div>
 
-                  <div className="space-y-2">
-                    <h3 className="font-semibold text-white/90">Inhalt des Spiels:</h3>
-                    <ul className="list-none space-y-3">
-                      <li className="flex items-center pl-4">
-                        <span className="inline-block w-1.5 md:w-2 h-1.5 md:h-2 
-                          bg-white/40 rounded-full mr-2 md:mr-3" />
-                        <span className="text-sm md:text-base">
-                          110 hochwertige Spielkarten mit atemberaubendem Design, die Elemente 
-                          und Aktionen zum Leben erwecken.
-                        </span>
-                      </li>
-                      <li className="flex items-center pl-4">
-                        <span className="inline-block w-1.5 md:w-2 h-1.5 md:h-2 
-                          bg-white/40 rounded-full mr-2 md:mr-3" />
-                        <span className="text-sm md:text-base">
-                          Hochwertige Verpackung: Eine robuste und stilvolle Schachtel aus Karton, 
-                          perfekt für sichere Aufbewahrung und unterwegs.
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
+          {/* Product Description - Now full width below */}
+          <div className="p-4 md:p-8 border-t border-white/10">
+            <div className="prose prose-lg prose-invert max-w-none">
+              <div className="space-y-4 md:space-y-6 text-white/80">
+                <p className="text-base md:text-lg leading-relaxed">
+                  Tauche ein in die magische Welt von Mystic Cards – dem fesselnden Kartenspiel, 
+                  das Strategie, Gedächtnis und Fantasie vereint.
+                </p>
+                <p className="text-base md:text-lg leading-relaxed">
+                  Deine Karten sind verdeckt, ihre Werte verborgen – nur wer den Überblick behält 
+                  und seine Züge klug plant, kann triumphieren. Entdecke die magischen Elemente, 
+                  durchkreuze die Pläne deiner Gegner und reduziere geschickt deine Punkte. 
+                  Doch Vorsicht: Mit jedem Zug kann sich das Spiel wenden!
+                </p>
 
-                  <div className="space-y-2">
-                    <h3 className="font-semibold text-white/90">Fakten:</h3>
-                    <ul className="list-none space-y-3">
-                      <li className="flex items-center pl-4">
-                        <span className="inline-block w-1.5 md:w-2 h-1.5 md:h-2 
-                          bg-white/40 rounded-full mr-2 md:mr-3" />
-                        <span className="text-sm md:text-base">Spieleranzahl: 2–6 Spieler</span>
-                      </li>
-                      <li className="flex items-center pl-4">
-                        <span className="inline-block w-1.5 md:w-2 h-1.5 md:h-2 
-                          bg-white/40 rounded-full mr-2 md:mr-3" />
-                        <span className="text-sm md:text-base">Alter: Ab 12 Jahren</span>
-                      </li>
-                      <li className="flex items-center pl-4">
-                        <span className="inline-block w-1.5 md:w-2 h-1.5 md:h-2 
-                          bg-white/40 rounded-full mr-2 md:mr-3" />
-                        <span className="text-sm md:text-base">Spieldauer: 20–40 Minuten</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <p className="text-base md:text-lg leading-relaxed">
-                    Online Spielanleitung: Eine ausführliche Anleitung mit Regeln und 
-                    Kartenerklärungen steht online zur Verfügung.
-                  </p>
-
-                  <p className="text-base md:text-lg leading-relaxed">
-                    Erlebe spannende Spieleabende voller Taktik und Überraschungen mit 
-                    Mystic Cards und tauche ein in die geheimnisvolle Welt von Mystara!
-                  </p>
+                <div className="space-y-2">
+                  <h3 className="font-semibold text-white/90">Inhalt des Spiels:</h3>
+                  <ul className="list-none space-y-3">
+                    <li className="flex items-center pl-4">
+                      <span className="inline-block w-1.5 md:w-2 h-1.5 md:h-2 
+                        bg-white/40 rounded-full mr-2 md:mr-3" />
+                      <span className="text-sm md:text-base">
+                        110 hochwertige Spielkarten mit atemberaubendem Design, die Elemente 
+                        und Aktionen zum Leben erwecken.
+                      </span>
+                    </li>
+                    <li className="flex items-center pl-4">
+                      <span className="inline-block w-1.5 md:w-2 h-1.5 md:h-2 
+                        bg-white/40 rounded-full mr-2 md:mr-3" />
+                      <span className="text-sm md:text-base">
+                        Hochwertige Verpackung: Eine robuste und stilvolle Schachtel aus Karton, 
+                        perfekt für sichere Aufbewahrung und unterwegs.
+                      </span>
+                    </li>
+                  </ul>
                 </div>
+
+                <div className="space-y-2">
+                  <h3 className="font-semibold text-white/90">Fakten:</h3>
+                  <ul className="list-none space-y-3">
+                    <li className="flex items-center pl-4">
+                      <span className="inline-block w-1.5 md:w-2 h-1.5 md:h-2 
+                        bg-white/40 rounded-full mr-2 md:mr-3" />
+                      <span className="text-sm md:text-base">Spieleranzahl: 2–6 Spieler</span>
+                    </li>
+                    <li className="flex items-center pl-4">
+                      <span className="inline-block w-1.5 md:w-2 h-1.5 md:h-2 
+                        bg-white/40 rounded-full mr-2 md:mr-3" />
+                      <span className="text-sm md:text-base">Alter: Ab 12 Jahren</span>
+                    </li>
+                    <li className="flex items-center pl-4">
+                      <span className="inline-block w-1.5 md:w-2 h-1.5 md:h-2 
+                        bg-white/40 rounded-full mr-2 md:mr-3" />
+                      <span className="text-sm md:text-base">Spieldauer: 20–40 Minuten</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <p className="text-base md:text-lg leading-relaxed">
+                  Online Spielanleitung: Eine ausführliche Anleitung mit Regeln und 
+                  Kartenerklärungen steht online zur Verfügung.
+                </p>
+
+                <p className="text-base md:text-lg leading-relaxed">
+                  Erlebe spannende Spieleabende voller Taktik und Überraschungen mit 
+                  Mystic Cards und tauche ein in die geheimnisvolle Welt von Mystara!
+                </p>
               </div>
             </div>
           </div>
