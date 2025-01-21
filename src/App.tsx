@@ -19,7 +19,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/game" element={<Game />} />
-          <Route path="/rules" element={<Rules />} />
+          <Route path="/rules" element={<Rules />}>
+            <Route index element={<Rules.Overview />} />
+            <Route path="number-cards" element={<Rules.NumberCards />} />
+            <Route path="action-cards" element={<Rules.ActionCards />} />
+          </Route>
           <Route path="/shop" element={<Shop />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout/payment" element={<Payment />} />
