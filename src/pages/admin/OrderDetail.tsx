@@ -16,6 +16,7 @@ import { ArrowLeft, Package } from "lucide-react";
 import { OrderStatusBadge } from "@/components/admin/OrderStatusBadge";
 import { Button } from "@/components/ui/button";
 import { useNavigate, useParams } from "react-router-dom";
+import { ShippingAddress } from "@/integrations/supabase/types/shipping";
 
 const OrderDetail = () => {
   const { toast } = useToast();
@@ -50,6 +51,8 @@ const OrderDetail = () => {
   const handleBack = () => {
     navigate('/admin/orders');
   };
+
+  const shippingAddress = order?.shipping_address as ShippingAddress | null;
 
   return (
     <div className="min-h-screen">
@@ -90,12 +93,12 @@ const OrderDetail = () => {
                 </Card>
               </div>
 
-              {order.shipping_address && (
+              {shippingAddress && (
                 <Card className="p-4">
                   <h3 className="font-semibold mb-2">Lieferadresse</h3>
-                  <p>{order.shipping_address.street}</p>
-                  <p>{order.shipping_address.postalCode} {order.shipping_address.city}</p>
-                  <p>{order.shipping_address.country}</p>
+                  <p>{shippingAddress.street}</p>
+                  <p>{shippingAddress.postalCode} {shippingAddress.city}</p>
+                  <p>{shippingAddress.country}</p>
                 </Card>
               )}
 
