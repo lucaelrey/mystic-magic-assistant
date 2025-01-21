@@ -12,11 +12,24 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { ArrowLeft, Package } from "lucide-react";
+import { ArrowLeft, Package, CreditCard } from "lucide-react";
 import { OrderStatusBadge } from "@/components/admin/OrderStatusBadge";
 import { Button } from "@/components/ui/button";
 import { useNavigate, useParams } from "react-router-dom";
 import { ShippingAddress } from "@/integrations/supabase/types/shipping";
+import { Badge } from "@/components/ui/badge";
+
+const PaymentStatusBadge = ({ status }: { status: string }) => {
+  const variant = status === 'paid' ? 'default' : 'secondary';
+  const label = status === 'paid' ? 'Bezahlt' : 'Ausstehend';
+  
+  return (
+    <Badge variant={variant}>
+      <CreditCard className="w-3 h-3 mr-1" />
+      {label}
+    </Badge>
+  );
+};
 
 const OrderDetail = () => {
   const { toast } = useToast();
@@ -52,7 +65,7 @@ const OrderDetail = () => {
     navigate('/admin/orders');
   };
 
-  const shippingAddress = order?.shipping_address as ShippingAddress | null;
+  const shippingAddress = order?.shipping_address as ShippingAddress;
 
   return (
     <div className="min-h-screen">
@@ -78,7 +91,7 @@ const OrderDetail = () => {
             <div className="text-center py-8">Lädt...</div>
           ) : order ? (
             <div className="space-y-6">
-              <div className="grid gap-4 md:grid-cols-3">
+              <div className="grid gap-4 md:grid-cols-4">
                 <Card className="p-4">
                   <h3 className="font-semibold mb-2">Bestellnummer</h3>
                   <p className="font-mono">{order.id.split('-')[0]}</p>
@@ -88,19 +101,23 @@ const OrderDetail = () => {
                   <OrderStatusBadge status={order.status} />
                 </Card>
                 <Card className="p-4">
+                  <h3 className="font-semibold mb-2">Zahlungsstatus</h3>
+                  <PaymentStatusBadge status={order.payment_status} />
+                </Card>
+                <Card className="p-4">
                   <h3 className="font-semibold mb-2">Datum</h3>
                   <p>{format(new Date(order.created_at), 'dd.MM.yyyy HH:mm')}</p>
                 </Card>
               </div>
 
-              {shippingAddress && (
-                <Card className="p-4">
-                  <h3 className="font-semibold mb-2">Lieferadresse</h3>
+              <Card className="p-4">
+                <h3 className="font-semibold mb-2">Lieferadresse</h3>
+                <div className="space-y-1 text-sm">
                   <p>{shippingAddress.street}</p>
                   <p>{shippingAddress.postalCode} {shippingAddress.city}</p>
                   <p>{shippingAddress.country}</p>
-                </Card>
-              )}
+                </div>
+              </Card>
 
               <Card className="p-4">
                 <h3 className="font-semibold mb-4">Bestellte Artikel</h3>

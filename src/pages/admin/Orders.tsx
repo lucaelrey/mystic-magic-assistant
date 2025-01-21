@@ -12,10 +12,23 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { Package } from "lucide-react";
+import { Package, CreditCard } from "lucide-react";
 import { OrderStatusBadge } from "@/components/admin/OrderStatusBadge";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
+
+const PaymentStatusBadge = ({ status }: { status: string }) => {
+  const variant = status === 'paid' ? 'default' : 'secondary';
+  const label = status === 'paid' ? 'Bezahlt' : 'Ausstehend';
+  
+  return (
+    <Badge variant={variant}>
+      <CreditCard className="w-3 h-3 mr-1" />
+      {label}
+    </Badge>
+  );
+};
 
 const Orders = () => {
   const { toast } = useToast();
@@ -71,6 +84,7 @@ const Orders = () => {
                     <TableHead>Bestellnummer</TableHead>
                     <TableHead>Datum</TableHead>
                     <TableHead>Status</TableHead>
+                    <TableHead>Zahlung</TableHead>
                     <TableHead>Betrag</TableHead>
                     <TableHead>Aktionen</TableHead>
                   </TableRow>
@@ -88,7 +102,10 @@ const Orders = () => {
                         <OrderStatusBadge status={order.status} />
                       </TableCell>
                       <TableCell>
-                        CHF {(order.total_amount).toFixed(2)}
+                        <PaymentStatusBadge status={order.payment_status} />
+                      </TableCell>
+                      <TableCell>
+                        CHF {order.total_amount.toFixed(2)}
                       </TableCell>
                       <TableCell>
                         <Button
