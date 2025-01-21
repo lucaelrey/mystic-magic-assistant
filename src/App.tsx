@@ -1,44 +1,28 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
-import Rules from "./pages/Rules";
 import Game from "./pages/Game";
-import CardDetail from "./pages/CardDetail";
+import Rules from "./pages/Rules";
 import Shop from "./pages/Shop";
 import Cart from "./pages/shop/Cart";
 import Payment from "./pages/shop/Payment";
 import Confirmation from "./pages/shop/Confirmation";
-import Auth from "./pages/Auth";
+import Orders from "./pages/admin/Orders";
 
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
-      <TooltipProvider>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/rules" element={<Rules />}>
-            <Route index element={<Rules.Overview />} />
-            <Route path="number-cards" element={<Rules.NumberCards />} />
-            <Route path="action-cards" element={<Rules.ActionCards />} />
-          </Route>
-          <Route path="/game" element={<Game />} />
-          <Route path="/card/:id" element={<CardDetail />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/checkout/payment" element={<Payment />} />
-          <Route path="/checkout/confirmation" element={<Confirmation />} />
-        </Routes>
-        <Toaster />
-        <Sonner />
-      </TooltipProvider>
-    </BrowserRouter>
-  </QueryClientProvider>
-);
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/game" element={<Game />} />
+        <Route path="/rules" element={<Rules />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout/payment" element={<Payment />} />
+        <Route path="/checkout/confirmation" element={<Confirmation />} />
+        <Route path="/admin/orders" element={<Orders />} />
+      </Routes>
+    </Router>
+  );
+}
 
 export default App;
