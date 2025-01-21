@@ -7,6 +7,7 @@ import Cart from "./pages/shop/Cart";
 import Payment from "./pages/shop/Payment";
 import Confirmation from "./pages/shop/Confirmation";
 import Orders from "./pages/admin/Orders";
+import Dashboard from "./pages/admin/Dashboard";
 import Auth from "./pages/Auth";
 import { useEffect, useState } from "react";
 import { supabase } from "./integrations/supabase/client";
@@ -58,6 +59,14 @@ function App() {
           <Route path="/checkout/payment" element={<Payment />} />
           <Route path="/checkout/confirmation" element={<Confirmation />} />
           <Route path="/auth" element={<Auth />} />
+          <Route 
+            path="/admin" 
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } 
+          />
           <Route 
             path="/admin/orders" 
             element={
