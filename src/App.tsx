@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Index from "./pages/Index";
-import Game from "./pages/Game";
 import Rules from "./pages/Rules";
 import Shop from "./pages/Shop";
 import Cart from "./pages/shop/Cart";
@@ -49,7 +48,6 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/game" element={<Game />} />
           <Route path="/rules" element={<Rules />}>
             <Route index element={<Rules.Overview />} />
             <Route path="number-cards" element={<Rules.NumberCards />} />
