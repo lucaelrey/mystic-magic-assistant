@@ -98,20 +98,84 @@ export const translations = {
         },
       },
     },
-    shop: {
-      title: "Shop",
-      product: {
-        name: "MYSTIC - The Card Game",
-        description: "Experience the magical world of Mystic with this unique card game that combines strategy and mysticism.",
-        shipping: "Shipping within Switzerland included in price",
+    cards: {
+      crystalOfMystara: {
+        name: "Crystal of Mystara",
+        description: "The most powerful and pure object in Mystara, representing the balance of all elements. The crystal is free from negative influences and symbolizes ultimate harmony.",
+        rules: [
+          "Counts 0 points (best card)"
+        ]
       },
-      cart: {
-        title: "Cart",
-        total: "Total",
-        checkout: "Checkout",
-        continueShopping: "Continue Shopping",
-        remove: "Remove",
+      airSpirit: {
+        name: "Air Spirit",
+        description: "The Air Spirit is closest to the Crystal of Purity. It symbolizes freedom, lightness, and the life-giving element of air. Its purity and subtlety make it almost unbeatable.",
+        rules: [
+          "Counts 1 point"
+        ]
       },
+      fireSpirit: {
+        name: "Fire Spirit",
+        description: "The Fire Spirit embodies the element of transformation and destruction. Fire brings light and warmth but can also be unpredictable and destructive.",
+        rules: [
+          "Counts 2 points"
+        ]
+      },
+      waterBeing: {
+        name: "Water Being",
+        description: "Water stands for life and purity, yet is also powerful and dual. It can cleanse and nourish, but also strike with unpredictable force.",
+        rules: [
+          "Counts 3 points"
+        ]
+      },
+      earthGolem: {
+        name: "Earth Golem",
+        description: "The Earth Golem represents stability and strength. Earth is the foundation that carries everything, but lacks the flexibility and lightness of other elements.",
+        rules: [
+          "Counts 4 points"
+        ]
+      },
+      lightningDragon: {
+        name: "Lightning Dragon",
+        description: "The Lightning Dragon symbolizes raw energy and deadly power. Lightning is fast and powerful, but short-lived and often unpredictable.",
+        rules: [
+          "Counts 5 points"
+        ]
+      },
+      lightGuardian: {
+        name: "Light Guardian",
+        description: "Light brings truth, clarity, and dispels darkness. It is powerful, but sometimes blinding and therefore not as subtle as air or water.",
+        rules: [
+          "Counts 6 points"
+        ]
+      },
+      shadowCreature: {
+        name: "Shadow Creature",
+        description: "Shadows are mysterious, dangerous, and conceal the unknown. They swallow light but are less tangible and less constructive than other elements.",
+        rules: [
+          "Counts 7 points"
+        ]
+      },
+      mistSpirit: {
+        name: "Mist Spirit",
+        description: "The Mist Spirit stands for the mysterious and the opaque. Mist confuses and obscures the truth, making it powerful but hard to grasp.",
+        rules: [
+          "Counts 8 points"
+        ]
+      },
+      forestNymph: {
+        name: "Forest Nymph",
+        description: "The Forest Nymph represents life, growth, and permanence. She is deeply rooted and strong, but her rigidity prevents her from flexibly responding to changes.",
+        rules: [
+          "Counts 9 points"
+        ]
+      },
+      stormTitan: {
+        name: "Storm Titan",
+        description: "The Storm Titan is the most powerful and destructive element. It embodies chaos and uncontrollability. Its raw power is unmatched, but this very fact makes it the worst card in the game.",
+        rules: [
+          "Counts 10 points (worst card)"
+        ]
+      }
     },
   },
   de: {
@@ -213,20 +277,84 @@ export const translations = {
         },
       },
     },
-    shop: {
-      title: "Shop",
-      product: {
-        name: "MYSTIC - Das Kartenspiel",
-        description: "Erlebe die magische Welt von Mystic mit diesem einzigartigen Kartenspiel, das Strategie und Mystik verbindet.",
-        shipping: "Versand innerhalb der Schweiz im Preis inbegriffen",
+    cards: {
+      crystalOfMystara: {
+        name: "Crystal of Mystara",
+        description: "Der mächtigste und reinste Gegenstand in Mystara, der das Gleichgewicht aller Elemente repräsentiert. Der Kristall ist frei von negativen Einflüssen und symbolisiert ultimative Harmonie.",
+        rules: [
+          "Zählt 0 Punkte (beste Karte)"
+        ]
       },
-      cart: {
-        title: "Warenkorb",
-        total: "Gesamt",
-        checkout: "Zur Kasse",
-        continueShopping: "Weiter einkaufen",
-        remove: "Entfernen",
+      airSpirit: {
+        name: "Air Spirit",
+        description: "Der Luftgeist ist dem Kristall der Reinheit am nächsten. Er symbolisiert Freiheit, Leichtigkeit und das lebensspendende Element Luft. Seine Reinheit und Subtilität machen ihn fast unschlagbar.",
+        rules: [
+          "Zählt 1 Punkt"
+        ]
       },
+      fireSpirit: {
+        name: "Fire Spirit",
+        description: "Der Feuergeist verkörpert das Element der Transformation und der Zerstörung. Feuer bringt Licht und Wärme, kann aber auch unberechenbar und zerstörerisch sein.",
+        rules: [
+          "Zählt 2 Punkte"
+        ]
+      },
+      waterBeing: {
+        name: "Water Being",
+        description: "Wasser steht für Leben und Reinheit, ist jedoch auch mächtig und dual. Es kann reinigen und nähren, aber auch mit unvorhersehbarer Gewalt zuschlagen.",
+        rules: [
+          "Zählt 3 Punkte"
+        ]
+      },
+      earthGolem: {
+        name: "Earth Golem",
+        description: "Der Erdgolem repräsentiert Stabilität und Stärke. Die Erde ist das Fundament, das alles trägt, jedoch fehlt ihr die Flexibilität und Leichtigkeit anderer Elemente.",
+        rules: [
+          "Zählt 4 Punkte"
+        ]
+      },
+      lightningDragon: {
+        name: "Lightning Dragon",
+        description: "Der Blitzdrache symbolisiert rohe Energie und tödliche Kraft. Blitze sind schnell und mächtig, aber kurzlebig und oft unberechenbar.",
+        rules: [
+          "Zählt 5 Punkte"
+        ]
+      },
+      lightGuardian: {
+        name: "Light Guardian",
+        description: "Licht bringt Wahrheit, Klarheit und vertreibt die Dunkelheit. Es ist kraftvoll, aber manchmal blendend und daher nicht so subtil wie Luft oder Wasser.",
+        rules: [
+          "Zählt 6 Punkte"
+        ]
+      },
+      shadowCreature: {
+        name: "Shadow Creature",
+        description: "Schatten sind geheimnisvoll, gefährlich und verbergen das Unbekannte. Sie verschlucken das Licht, sind jedoch weniger greifbar und weniger konstruktiv als andere Elemente.",
+        rules: [
+          "Zählt 7 Punkte"
+        ]
+      },
+      mistSpirit: {
+        name: "Mist Spirit",
+        description: "Der Nebelgeist steht für das Geheimnisvolle und das Undurchsichtige. Nebel verwirrt und verschleiert die Wahrheit, was ihn mächtig, aber schwer fassbar macht.",
+        rules: [
+          "Zählt 8 Punkte"
+        ]
+      },
+      forestNymph: {
+        name: "Forest Nymph",
+        description: "Die Waldnymphe repräsentiert Leben, Wachstum und Beständigkeit. Sie ist tief verwurzelt und stark, aber ihre Starrheit hindert sie daran, flexibel auf Veränderungen zu reagieren.",
+        rules: [
+          "Zählt 9 Punkte"
+        ]
+      },
+      stormTitan: {
+        name: "Storm Titan",
+        description: "Der Sturmtitan ist das mächtigste und destruktivste Element. Er verkörpert Chaos und Unkontrollierbarkeit. Seine rohe Kraft ist unübertroffen, doch gerade diese macht ihn zur schlechtesten Karte im Spiel.",
+        rules: [
+          "Zählt 10 Punkte (schlechteste Karte)"
+        ]
+      }
     },
   },
 };
