@@ -1,9 +1,11 @@
 import { useLocation } from "react-router-dom";
 import { Home, Book, PlayCircle, ShoppingBag } from "lucide-react";
 import { NavBar } from "@/components/ui/tubelight-navbar";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const Navigation = () => {
   const location = useLocation();
+  const { t } = useLanguage();
 
   // Funktion zum Überprüfen, ob ein Pfad aktiv ist
   const isPathActive = (path: string) => {
@@ -24,9 +26,9 @@ export const Navigation = () => {
   };
 
   const navItems = [
-    { name: "Home", url: "/", icon: Home, isActive: isPathActive("/") },
-    { name: "Regeln", url: "/rules", icon: Book, isActive: isPathActive("/rules") },
-    { name: "Shop", url: "/shop", icon: ShoppingBag, isActive: isPathActive("/shop") },
+    { name: t('navigation.home'), url: "/", icon: Home, isActive: isPathActive("/") },
+    { name: t('navigation.rules'), url: "/rules", icon: Book, isActive: isPathActive("/rules") },
+    { name: t('navigation.shop'), url: "/shop", icon: ShoppingBag, isActive: isPathActive("/shop") },
     { 
       name: "Spielen", 
       url: "https://play.mysticgame.ch", 

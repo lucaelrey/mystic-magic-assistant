@@ -2,8 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Navigation } from "@/components/Navigation";
 import { Link } from "react-router-dom";
 import { SparklesCore } from "@/components/ui/sparkles";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -38,20 +41,20 @@ const Index = () => {
           {/* Content */}
           <div className="relative z-10 container mx-auto px-4 text-center">
             <h1 className="text-6xl font-bold mb-6 text-white">
-              Welcome to Mystic
+              {t('home.welcome')}
             </h1>
             <p className="text-xl mb-8 max-w-2xl mx-auto text-white/90">
-              Experience the magical world of Mystic - the card game that brings strategy and mysticism together in perfect harmony.
+              {t('home.subtitle')}
             </p>
             <div className="flex gap-4 justify-center">
               <Link to="/shop">
                 <Button className="glass-button">
-                  Mystic kaufen
+                  {t('home.buyNow')}
                 </Button>
               </Link>
               <Link to="/rules">
                 <Button className="glass-button">
-                  Spielregeln
+                  {t('home.viewRules')}
                 </Button>
               </Link>
             </div>
