@@ -60,7 +60,7 @@ export const actionCards = [
     image: "/lovable-uploads/fd043999-a569-4ba5-a257-58a7f3db18d7.png",
     description: "Decke eine Karte auf",
     rules: [
-      "Decke eine Karte eines Gegners auf",
+      "Decke eine Karte eines Gegners oder eine Karte von dir auf",
       "Die Karte bleibt offen liegen",
       "Kann nicht gegen geschützte Spieler eingesetzt werden"
     ]
