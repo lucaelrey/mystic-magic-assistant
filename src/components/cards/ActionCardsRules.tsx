@@ -23,6 +23,7 @@ export const ActionCardsRules = () => (
             <li>Pro Zug kann nur eine Aktionskarte eingesetzt werden</li>
             <li>Geschützte Spieler sind immun gegen die meisten Aktionskarten</li>
             <li>Aktionskarten kommen nach der Nutzung auf den Ablagestapel</li>
+            <li className="text-red-500 font-medium">Alle Aktionskarten zählen 11 Punkte (höchste Punktzahl im Spiel)</li>
           </ul>
         </div>
       </div>
