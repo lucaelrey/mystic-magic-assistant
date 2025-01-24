@@ -1,21 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Languages } from "lucide-react";
-import { Language } from "@/i18n/translations";
 
 export const LanguageSwitcher = () => {
   const { language, setLanguage } = useLanguage();
-
-  const toggleLanguage = () => {
-    const newLanguage: Language = language === 'de' ? 'en' : 'de';
-    setLanguage(newLanguage);
-  };
 
   return (
     <Button
       variant="ghost"
       size="icon"
-      onClick={toggleLanguage}
+      onClick={() => setLanguage(language === 'de' ? 'en' : 'de')}
       className="relative group"
     >
       <Languages className="h-5 w-5" />
