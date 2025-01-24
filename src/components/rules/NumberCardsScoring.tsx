@@ -13,7 +13,7 @@ export const NumberCardsScoring = () => (
         </ul>
         <h3 className="font-semibold mb-2">Punktewertung:</h3>
         <ul className="list-disc list-inside pl-4 space-y-2">
-          <li>Jede Karte zählt ihren aufgedruckten Wert als Minuspunkte</li>
+          <li>Jede Karte zählt ihren aufgedruckten Wert als Punkte</li>
           <li>Das Ziel ist es, möglichst wenig Punkte zu sammeln</li>
         </ul>
       </div>
