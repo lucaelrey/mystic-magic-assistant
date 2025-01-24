@@ -113,14 +113,6 @@ const Shop = () => {
                         und Aktionen zum Leben erwecken.
                       </span>
                     </li>
-                    <li className="flex items-center pl-4">
-                      <span className="inline-block w-1.5 md:w-2 h-1.5 md:h-2 
-                        bg-white/40 rounded-full mr-2 md:mr-3" />
-                      <span className="text-sm md:text-base">
-                        Hochwertige Verpackung: Eine robuste und stilvolle Schachtel aus Karton, 
-                        perfekt für sichere Aufbewahrung und unterwegs.
-                      </span>
-                    </li>
                   </ul>
                 </div>
 
