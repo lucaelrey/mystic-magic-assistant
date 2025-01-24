@@ -133,7 +133,7 @@ export const translations = {
   },
 };
 
-export type Language = keyof typeof translations;
+export type Language = 'en' | 'de';
 export type TranslationKey = keyof typeof translations.en;
 
 export const getTranslation = (lang: Language, key: string): string | string[] => {
