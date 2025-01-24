@@ -26,6 +26,7 @@ export const NavBar = ({ items }: NavBarProps) => {
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden p-2 text-white/60 hover:text-white"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -67,7 +68,7 @@ export const NavBar = ({ items }: NavBarProps) => {
         className={cn(
           "fixed inset-x-0 top-16 bg-background/95 backdrop-blur-sm border-b border-border/40 md:hidden",
           "transition-all duration-300 ease-in-out",
-          isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+          isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
         )}
       >
         <div className="container px-4 py-4 flex flex-col gap-4">
@@ -84,12 +85,12 @@ export const NavBar = ({ items }: NavBarProps) => {
               )}
             >
               <item.icon className="h-5 w-5" />
-              <span>{item.name}</span>
+              <span className="text-sm font-medium">{item.name}</span>
             </Link>
           ))}
           
           {/* Language Switcher - Mobile */}
-          <div className="px-3 py-2">
+          <div className="px-3 py-2 mt-2 border-t border-border/40">
             <LanguageSwitcher />
           </div>
         </div>
