@@ -12,6 +12,7 @@ import Dashboard from "./pages/admin/Dashboard";
 import Auth from "./pages/Auth";
 import { useEffect, useState } from "react";
 import { supabase } from "./integrations/supabase/client";
+import { LanguageProvider } from "./contexts/LanguageContext";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -47,45 +48,47 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/rules" element={<Rules />}>
-            <Route index element={<Rules.Overview />} />
-            <Route path="number-cards" element={<Rules.NumberCards />} />
-            <Route path="action-cards" element={<Rules.ActionCards />} />
-          </Route>
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout/payment" element={<Payment />} />
-          <Route path="/checkout/confirmation" element={<Confirmation />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route 
-            path="/admin" 
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/admin/orders" 
-            element={
-              <ProtectedRoute>
-                <Orders />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/admin/orders/:orderId" 
-            element={
-              <ProtectedRoute>
-                <OrderDetail />
-              </ProtectedRoute>
-            } 
-          />
-        </Routes>
-      </Router>
+      <LanguageProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/rules" element={<Rules />}>
+              <Route index element={<Rules.Overview />} />
+              <Route path="number-cards" element={<Rules.NumberCards />} />
+              <Route path="action-cards" element={<Rules.ActionCards />} />
+            </Route>
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout/payment" element={<Payment />} />
+            <Route path="/checkout/confirmation" element={<Confirmation />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route 
+              path="/admin" 
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/admin/orders" 
+              element={
+                <ProtectedRoute>
+                  <Orders />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/admin/orders/:orderId" 
+              element={
+                <ProtectedRoute>
+                  <OrderDetail />
+                </ProtectedRoute>
+              } 
+            />
+          </Routes>
+        </Router>
+      </LanguageProvider>
     </QueryClientProvider>
   );
 }
