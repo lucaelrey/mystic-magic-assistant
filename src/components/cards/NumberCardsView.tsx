@@ -42,6 +42,8 @@ export const NumberCardsView = ({ cards }: NumberCardsViewProps) => {
   const getTranslatedCard = (card: NumberCard) => {
     const translationKey = `cards.${card.id.replace(/-/g, '')}`;
     const translatedRules = t(`${translationKey}.rules`);
+    const translatedName = t(`${translationKey}.name`);
+    const translatedDescription = t(`${translationKey}.description`);
     
     // Ensure rules is always an array
     let rulesArray: string[];
@@ -55,10 +57,14 @@ export const NumberCardsView = ({ cards }: NumberCardsViewProps) => {
       console.warn(`Translation missing for ${translationKey}.rules`);
     }
     
+    // Ensure name and description are strings
+    const name = typeof translatedName === 'string' ? translatedName : card.name;
+    const description = typeof translatedDescription === 'string' ? translatedDescription : card.description;
+    
     return {
       ...card,
-      name: t(`${translationKey}.name`) || card.name,
-      description: t(`${translationKey}.description`) || card.description,
+      name,
+      description,
       rules: rulesArray,
     };
   };
@@ -71,7 +77,9 @@ export const NumberCardsView = ({ cards }: NumberCardsViewProps) => {
       <div className="relative overflow-hidden rounded-lg">
         <Image
           src={card.image}
-          alt={t(`cards.${card.id.replace(/-/g, '')}.name`) || card.name}
+          alt={typeof t(`cards.${card.id.replace(/-/g, '')}.name`) === 'string' 
+            ? t(`cards.${card.id.replace(/-/g, '')}.name`) as string 
+            : card.name}
           className="w-full h-full object-contain"
         />
       </div>
