@@ -7,7 +7,7 @@ interface CardDetailsProps {
     image: string;
     name: string;
     description: string;
-    rules: string[] | string;
+    rules: string[];
   };
   className?: string;
 }
@@ -31,19 +31,12 @@ export const CardDetails = ({ card, className = "" }: CardDetailsProps) => (
       <div className="bg-muted/50 rounded-lg p-4 space-y-2">
         <h4 className="font-semibold text-primary">Regeln:</h4>
         <ul className="space-y-2">
-          {Array.isArray(card.rules) ? (
-            card.rules.map((rule, index) => (
-              <li key={index} className="flex items-start gap-2 text-foreground">
-                <span className="text-primary mt-1">•</span>
-                <span>{rule}</span>
-              </li>
-            ))
-          ) : (
-            <li className="flex items-start gap-2 text-foreground">
+          {card.rules.map((rule, index) => (
+            <li key={index} className="flex items-start gap-2 text-foreground">
               <span className="text-primary mt-1">•</span>
-              <span>{card.rules}</span>
+              <span>{rule}</span>
             </li>
-          )}
+          ))}
         </ul>
       </div>
     </div>
