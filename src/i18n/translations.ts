@@ -234,7 +234,7 @@ export const translations = {
 export type Language = keyof typeof translations;
 export type TranslationKey = keyof typeof translations.en;
 
-export const getTranslation = (lang: Language, key: string) => {
+export const getTranslation = (lang: Language, key: string): string | string[] => {
   const keys = key.split('.');
   let current: any = translations[lang];
   
