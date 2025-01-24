@@ -77,8 +77,7 @@ const NumberCards = () => {
       image: "/lovable-uploads/92d9a031-41af-41d1-a4b7-5680558048b7.png",
       description: "Der mächtigste und reinste Gegenstand in Mystara, der das Gleichgewicht aller Elemente repräsentiert. Der Kristall ist frei von negativen Einflüssen und symbolisiert ultimative Harmonie.",
       rules: [
-        "Zählt 0 Punkte (beste Karte)",
-        "Kann nicht durch Aktionskarten beeinflusst werden"
+        "Zählt 0 Punkte (beste Karte)"
       ]
     },
     {
@@ -87,8 +86,7 @@ const NumberCards = () => {
       image: "/lovable-uploads/4a0a91dc-19d7-461e-bc2d-cc08e928bd9b.png",
       description: "Der Luftgeist ist dem Kristall der Reinheit am nächsten. Er symbolisiert Freiheit, Leichtigkeit und das lebensspendende Element Luft. Seine Reinheit und Subtilität machen ihn fast unschlagbar.",
       rules: [
-        "Zählt 1 Punkt",
-        "Kann mit anderen Karten getauscht werden"
+        "Zählt 1 Punkt"
       ]
     },
     {
@@ -97,8 +95,7 @@ const NumberCards = () => {
       image: "/lovable-uploads/2c656447-f2b8-4b82-bbdc-03acbf485470.png",
       description: "Der Feuergeist verkörpert das Element der Transformation und der Zerstörung. Feuer bringt Licht und Wärme, kann aber auch unberechenbar und zerstörerisch sein.",
       rules: [
-        "Zählt 2 Punkte",
-        "Kann mit anderen Karten getauscht werden"
+        "Zählt 2 Punkte"
       ]
     },
     {
@@ -107,8 +104,7 @@ const NumberCards = () => {
       image: "/lovable-uploads/5eb7f9b5-7e62-4a0e-9a0b-475371b47d96.png",
       description: "Wasser steht für Leben und Reinheit, ist jedoch auch mächtig und dual. Es kann reinigen und nähren, aber auch mit unvorhersehbarer Gewalt zuschlagen.",
       rules: [
-        "Zählt 3 Punkte",
-        "Kann mit anderen Karten getauscht werden"
+        "Zählt 3 Punkte"
       ]
     },
     {
@@ -117,8 +113,7 @@ const NumberCards = () => {
       image: "/lovable-uploads/c0447c65-09b5-4d92-9af0-75382d8eeecc.png",
       description: "Der Erdgolem repräsentiert Stabilität und Stärke. Die Erde ist das Fundament, das alles trägt, jedoch fehlt ihr die Flexibilität und Leichtigkeit anderer Elemente.",
       rules: [
-        "Zählt 4 Punkte",
-        "Kann mit anderen Karten getauscht werden"
+        "Zählt 4 Punkte"
       ]
     },
     {
@@ -127,8 +122,7 @@ const NumberCards = () => {
       image: "/lovable-uploads/0da30d74-c2d9-4359-b2ec-d719a8a8f163.png",
       description: "Der Blitzdrache symbolisiert rohe Energie und tödliche Kraft. Blitze sind schnell und mächtig, aber kurzlebig und oft unberechenbar.",
       rules: [
-        "Zählt 5 Punkte",
-        "Kann mit anderen Karten getauscht werden"
+        "Zählt 5 Punkte"
       ]
     },
     {
@@ -137,8 +131,7 @@ const NumberCards = () => {
       image: "/lovable-uploads/4f1166a6-f569-4660-8359-62ca221f471c.png",
       description: "Licht bringt Wahrheit, Klarheit und vertreibt die Dunkelheit. Es ist kraftvoll, aber manchmal blendend und daher nicht so subtil wie Luft oder Wasser.",
       rules: [
-        "Zählt 6 Punkte",
-        "Kann mit anderen Karten getauscht werden"
+        "Zählt 6 Punkte"
       ]
     },
     {
@@ -147,8 +140,7 @@ const NumberCards = () => {
       image: "/lovable-uploads/1a601945-594a-4edc-a523-9a553e15d77e.png",
       description: "Schatten sind geheimnisvoll, gefährlich und verbergen das Unbekannte. Sie verschlucken das Licht, sind jedoch weniger greifbar und weniger konstruktiv als andere Elemente.",
       rules: [
-        "Zählt 7 Punkte",
-        "Kann mit anderen Karten getauscht werden"
+        "Zählt 7 Punkte"
       ]
     },
     {
@@ -157,8 +149,7 @@ const NumberCards = () => {
       image: "/lovable-uploads/0a26debc-50c7-449d-abd5-b921e7556958.png",
       description: "Der Nebelgeist steht für das Geheimnisvolle und das Undurchsichtige. Nebel verwirrt und verschleiert die Wahrheit, was ihn mächtig, aber schwer fassbar macht.",
       rules: [
-        "Zählt 8 Punkte",
-        "Kann mit anderen Karten getauscht werden"
+        "Zählt 8 Punkte"
       ]
     },
     {
@@ -167,8 +158,7 @@ const NumberCards = () => {
       image: "/lovable-uploads/30e449f4-8a6f-4938-9688-f11bc193aea6.png",
       description: "Die Waldnymphe repräsentiert Leben, Wachstum und Beständigkeit. Sie ist tief verwurzelt und stark, aber ihre Starrheit hindert sie daran, flexibel auf Veränderungen zu reagieren.",
       rules: [
-        "Zählt 9 Punkte",
-        "Kann mit anderen Karten getauscht werden"
+        "Zählt 9 Punkte"
       ]
     },
     {
@@ -177,8 +167,7 @@ const NumberCards = () => {
       image: "/lovable-uploads/cedd5823-0f83-410b-bd70-9346042f118f.png",
       description: "Der Sturmtitan ist das mächtigste und destruktivste Element. Er verkörpert Chaos und Unkontrollierbarkeit. Seine rohe Kraft ist unübertroffen, doch gerade diese macht ihn zur schlechtesten Karte im Spiel.",
       rules: [
-        "Zählt 10 Punkte (schlechteste Karte)",
-        "Kann mit anderen Karten getauscht werden"
+        "Zählt 10 Punkte (schlechteste Karte)"
       ]
     }
   ];
