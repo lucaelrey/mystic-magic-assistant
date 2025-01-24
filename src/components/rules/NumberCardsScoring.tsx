@@ -1,22 +1,29 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-export const NumberCardsScoring = () => (
-  <Card className="glass">
-    <CardContent className="pt-6">
-      <h2 className="text-2xl font-semibold mb-4">Zahlenkarten</h2>
-      <div className="space-y-4">
-        <h3 className="font-semibold mb-2">Werte und Verteilung:</h3>
-        <ul className="list-disc list-inside pl-4 space-y-2">
-          <li>Die Zahlenkarten haben Werte von 0 bis 10</li>
-          <li>Jeder Wert ist mehrfach im Spiel vorhanden</li>
-        </ul>
-        <h3 className="font-semibold mb-2">Punktewertung:</h3>
-        <ul className="list-disc list-inside pl-4 space-y-2">
-          <li>Jede Karte zählt ihren aufgedruckten Wert als Punkte</li>
-          <li>Das Ziel ist es, möglichst wenig Punkte zu sammeln</li>
-        </ul>
-      </div>
-    </CardContent>
-  </Card>
-);
+export const NumberCardsScoring = () => {
+  const { t } = useLanguage();
+  
+  return (
+    <Card className="glass">
+      <CardContent className="pt-6">
+        <h2 className="text-2xl font-semibold mb-4">{t('rules.numberCards.title')}</h2>
+        <div className="space-y-4">
+          <h3 className="font-semibold mb-2">{t('rules.numberCards.values')}</h3>
+          <ul className="list-disc list-inside pl-4 space-y-2">
+            {t('rules.numberCards.rules').map((rule: string, index: number) => (
+              <li key={index}>{rule}</li>
+            ))}
+          </ul>
+          <h3 className="font-semibold mb-2">{t('rules.numberCards.scoring.title')}</h3>
+          <ul className="list-disc list-inside pl-4 space-y-2">
+            {t('rules.numberCards.scoring.rules').map((rule: string, index: number) => (
+              <li key={index}>{rule}</li>
+            ))}
+          </ul>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};

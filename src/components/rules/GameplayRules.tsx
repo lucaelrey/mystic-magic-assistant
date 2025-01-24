@@ -1,46 +1,45 @@
 import React from "react";
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-export const GameplayRules = () => (
-  <AccordionItem value="gameplay">
-    <AccordionTrigger className="text-2xl font-semibold">
-      Spielverlauf
-    </AccordionTrigger>
-    <AccordionContent>
-      <p className="mb-4">
-        Gespielt wird nacheinander im Uhrzeigersinn. Wenn ein Spieler an
-        der Reihe ist, kann er eine der folgenden Optionen wählen:
-      </p>
-      <div className="space-y-4">
-        <div>
-          <h3 className="font-semibold mb-2">1. Nachziehstapelkarte ziehen:</h3>
-          <ul className="list-disc list-inside pl-4">
-            <li>Die oberste Karte des Nachziehstapels ziehen und dann:</li>
-            <ul className="list-circle list-inside pl-8 space-y-1">
-              <li>direkt auf den Ablagestapel werfen oder</li>
-              <li>mit einer Karte der eigenen Auslage ersetzen oder</li>
-              <li>
-                wenn es sich um eine Aktionskarte handelt, die Aktion
-                ausführen
-              </li>
+export const GameplayRules = () => {
+  const { t } = useLanguage();
+  
+  return (
+    <AccordionItem value="gameplay">
+      <AccordionTrigger className="text-2xl font-semibold">
+        {t('rules.overview.gameplay.title')}
+      </AccordionTrigger>
+      <AccordionContent>
+        <p className="mb-4">
+          {t('rules.overview.gameplay.description')}
+        </p>
+        <div className="space-y-4">
+          <div>
+            <h3 className="font-semibold mb-2">
+              {t('rules.overview.gameplay.drawCard.title')}
+            </h3>
+            <ul className="list-disc list-inside pl-4">
+              <li>{t('rules.overview.gameplay.description')}</li>
+              <ul className="list-circle list-inside pl-8 space-y-1">
+                {t('rules.overview.gameplay.drawCard.options').map((option: string, index: number) => (
+                  <li key={index}>{option}</li>
+                ))}
+              </ul>
             </ul>
-          </ul>
+          </div>
+          <div>
+            <h3 className="font-semibold mb-2">
+              {t('rules.overview.gameplay.takeDiscard.title')}
+            </h3>
+            <ul className="list-disc list-inside pl-4 space-y-2">
+              {t('rules.overview.gameplay.takeDiscard.rules').map((rule: string, index: number) => (
+                <li key={index}>{rule}</li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <div>
-          <h3 className="font-semibold mb-2">2. Ablagestapelkarte nehmen:</h3>
-          <ul className="list-disc list-inside pl-4 space-y-2">
-            <li>
-              Die oberste Karte des Ablagestapels nehmen und durch eine
-              Karte der eigenen Auslage ersetzen.
-            </li>
-            <li>
-              Hat ein Spieler eine identische Karte wie die gerade auf den
-              Ablagestapel gelegte, kann er bis zu zwei dieser Karten
-              direkt auf den Ablagestapel werfen.
-            </li>
-          </ul>
-        </div>
-      </div>
-    </AccordionContent>
-  </AccordionItem>
-);
+      </AccordionContent>
+    </AccordionItem>
+  );
+};
