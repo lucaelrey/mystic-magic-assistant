@@ -12,13 +12,13 @@ export const NumberCardsScoring = () => {
         <div className="space-y-4">
           <h3 className="font-semibold mb-2">{t('rules.numberCards.values')}</h3>
           <ul className="list-disc list-inside pl-4 space-y-2">
-            {t('rules.numberCards.rules').map((rule: string, index: number) => (
+            {(t('rules.numberCards.rules') as string[]).map((rule: string, index: number) => (
               <li key={index}>{rule}</li>
             ))}
           </ul>
           <h3 className="font-semibold mb-2">{t('rules.numberCards.scoring.title')}</h3>
           <ul className="list-disc list-inside pl-4 space-y-2">
-            {t('rules.numberCards.scoring.rules').map((rule: string, index: number) => (
+            {(t('rules.numberCards.scoring.rules') as string[]).map((rule: string, index: number) => (
               <li key={index}>{rule}</li>
             ))}
           </ul>

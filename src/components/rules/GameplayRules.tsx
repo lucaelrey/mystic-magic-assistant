@@ -22,7 +22,7 @@ export const GameplayRules = () => {
             <ul className="list-disc list-inside pl-4">
               <li>{t('rules.overview.gameplay.description')}</li>
               <ul className="list-circle list-inside pl-8 space-y-1">
-                {t('rules.overview.gameplay.drawCard.options').map((option: string, index: number) => (
+                {(t('rules.overview.gameplay.drawCard.options') as string[]).map((option: string, index: number) => (
                   <li key={index}>{option}</li>
                 ))}
               </ul>
@@ -33,7 +33,7 @@ export const GameplayRules = () => {
               {t('rules.overview.gameplay.takeDiscard.title')}
             </h3>
             <ul className="list-disc list-inside pl-4 space-y-2">
-              {t('rules.overview.gameplay.takeDiscard.rules').map((rule: string, index: number) => (
+              {(t('rules.overview.gameplay.takeDiscard.rules') as string[]).map((rule: string, index: number) => (
                 <li key={index}>{rule}</li>
               ))}
             </ul>

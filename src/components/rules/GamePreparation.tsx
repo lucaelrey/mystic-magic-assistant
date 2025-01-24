@@ -12,7 +12,7 @@ export const GamePreparation = () => {
       </AccordionTrigger>
       <AccordionContent>
         <ol className="list-decimal list-inside space-y-2">
-          {t('rules.overview.preparation.steps').map((step: string, index: number) => (
+          {(t('rules.overview.preparation.steps') as string[]).map((step: string, index: number) => (
             <li key={index}>{step}</li>
           ))}
         </ol>
