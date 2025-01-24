@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/number-input";
 import { ShoppingCart } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Shop = () => {
   const navigate = useNavigate();
@@ -146,8 +146,10 @@ const Shop = () => {
                 </div>
 
                 <p className="text-base md:text-lg leading-relaxed">
-                  Online Spielanleitung: Eine ausführliche Anleitung mit Regeln und 
-                  Kartenerklärungen steht online zur Verfügung.
+                  <Link to="/rules" className="text-primary hover:text-primary/80 transition-colors">
+                    Online Spielanleitung: Eine ausführliche Anleitung mit Regeln und 
+                    Kartenerklärungen steht online zur Verfügung.
+                  </Link>
                 </p>
 
                 <p className="text-base md:text-lg leading-relaxed">
