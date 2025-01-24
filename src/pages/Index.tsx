@@ -57,24 +57,6 @@ const Index = () => {
             </div>
           </div>
         </section>
-
-        {/* Features Section */}
-        <section className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-6 py-16">
-            <div className="glass-card p-6">
-              <h3 className="text-xl font-semibold mb-4">Learn to Play</h3>
-              <p>Master the art of Mystic with our comprehensive guide and tutorials.</p>
-            </div>
-            <div className="glass-card p-6">
-              <h3 className="text-xl font-semibold mb-4">Track Your Games</h3>
-              <p>Keep score and track your progress with our built-in game assistant.</p>
-            </div>
-            <div className="glass-card p-6">
-              <h3 className="text-xl font-semibold mb-4">Join the Community</h3>
-              <p>Connect with other players and share your Mystic experience.</p>
-            </div>
-          </div>
-        </section>
       </main>
     </div>
   );
