@@ -41,11 +41,13 @@ export const NumberCardsView = ({ cards }: NumberCardsViewProps) => {
 
   const getTranslatedCard = (card: NumberCard) => {
     const translationKey = `cards.${card.id.replace(/-/g, '')}`;
+    const translatedRules = t(`${translationKey}.rules`);
+    
     return {
       ...card,
       name: t(`${translationKey}.name`) as string,
       description: t(`${translationKey}.description`) as string,
-      rules: t(`${translationKey}.rules`) as string[],
+      rules: Array.isArray(translatedRules) ? translatedRules : [translatedRules as string],
     };
   };
 
