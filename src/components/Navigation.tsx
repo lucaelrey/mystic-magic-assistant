@@ -3,6 +3,13 @@ import { Home, Book, PlayCircle, ShoppingBag } from "lucide-react";
 import { NavBar } from "@/components/ui/tubelight-navbar";
 import { useLanguage } from "@/contexts/LanguageContext";
 
+interface NavItem {
+  name: string;
+  url: string;
+  icon: React.ElementType;
+  isActive: boolean;
+}
+
 export const Navigation = () => {
   const location = useLocation();
   const { t } = useLanguage();
@@ -25,10 +32,25 @@ export const Navigation = () => {
     return false;
   };
 
-  const navItems = [
-    { name: t('navigation.home'), url: "/", icon: Home, isActive: isPathActive("/") },
-    { name: t('navigation.rules'), url: "/rules", icon: Book, isActive: isPathActive("/rules") },
-    { name: t('navigation.shop'), url: "/shop", icon: ShoppingBag, isActive: isPathActive("/shop") },
+  const navItems: NavItem[] = [
+    { 
+      name: t('navigation.home').toString(), 
+      url: "/", 
+      icon: Home, 
+      isActive: isPathActive("/") 
+    },
+    { 
+      name: t('navigation.rules').toString(), 
+      url: "/rules", 
+      icon: Book, 
+      isActive: isPathActive("/rules") 
+    },
+    { 
+      name: t('navigation.shop').toString(), 
+      url: "/shop", 
+      icon: ShoppingBag, 
+      isActive: isPathActive("/shop") 
+    },
     { 
       name: "Spielen", 
       url: "https://play.mysticgame.ch", 
