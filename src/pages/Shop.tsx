@@ -42,8 +42,11 @@ const Shop = () => {
                 </h1>
                 <div className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent 
                   bg-gradient-to-r from-white/90 to-white/70">
-                  24.90 CHF
+                  29.90 CHF
                 </div>
+                <p className="text-sm md:text-base text-white/70">
+                  Versand per A-Post innerhalb der Schweiz im Preis inbegriffen
+                </p>
               </div>
 
               {/* Purchase Module */}
