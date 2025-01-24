@@ -93,7 +93,7 @@ export const actionCards = [
     image: "/lovable-uploads/4d2f9912-9154-4676-8e38-e435160ad2cc.png",
     description: "Tausche Karten",
     rules: [
-      "Tausche eine deiner Karten mit der eines Gegners",
+      "Tausche eine deiner Karten mit der eines Gegners oder je eine Karte von zwei Gegnern",
       "Die Position der Karten wird getauscht",
       "Kann nicht gegen geschützte Spieler eingesetzt werden"
     ]
