@@ -16,7 +16,7 @@ const CrystalHomeIcon: React.FC = () => (
   <Image 
     src="/lovable-uploads/acaea78e-8d8d-4aff-848d-48e80bd5061a.png" 
     alt="Crystal Home"
-    className="w-10 h-10 object-contain" // Doubled from w-5 h-5 to w-10 h-10
+    className="w-10 h-10 object-contain"
   />
 );
 
@@ -24,18 +24,14 @@ export const Navigation = () => {
   const location = useLocation();
   const { t } = useLanguage();
 
-  // Funktion zum Überprüfen, ob ein Pfad aktiv ist
   const isPathActive = (path: string) => {
     const currentPath = location.pathname;
     
-    // Für die Hauptroute
     if (path === "/" && currentPath === "/") {
       return true;
     }
     
-    // Für andere Routen
     if (path !== "/") {
-      // Prüfe ob der aktuelle Pfad mit dem gegebenen Pfad beginnt
       return currentPath.startsWith(path);
     }
     
@@ -44,7 +40,7 @@ export const Navigation = () => {
 
   const navItems: NavItem[] = [
     { 
-      name: "", // Empty string to show only the icon
+      name: "", 
       url: "/", 
       icon: CrystalHomeIcon,
       isActive: isPathActive("/") 
@@ -62,7 +58,7 @@ export const Navigation = () => {
       isActive: isPathActive("/shop") 
     },
     { 
-      name: "Assistant", // Changed from "Spielen" to "Assistant"
+      name: "Assistant",
       url: "https://play.mysticgame.ch", 
       icon: PlayCircle, 
       isActive: false 

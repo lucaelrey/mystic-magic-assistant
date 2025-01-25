@@ -2,44 +2,37 @@ import { cn } from "@/lib/utils";
 import { Link, useLocation } from "react-router-dom";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
-interface TubelightNavbarProps {
+interface NavBarProps {
   items: {
-    href: string;
-    title: string;
+    name: string;
+    url: string;
+    icon: React.ElementType | React.FC;
+    isActive: boolean;
   }[];
 }
 
-export function TubelightNavbar({ items }: TubelightNavbarProps) {
-  const location = useLocation();
-
+export function NavBar({ items }: NavBarProps) {
   return (
     <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center px-4">
-        <div className="flex flex-1 items-center justify-between">
-          <div className="flex items-center justify-center gap-2 md:gap-6">
-            {items.map((item, index) => (
+        <div className="flex items-center justify-between space-x-4">
+          {items.map((item, index) => {
+            const Icon = item.icon;
+            return (
               <Link
                 key={index}
-                to={item.href}
+                to={item.url}
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary relative py-4",
-                  location.pathname === item.href
-                    ? "text-foreground"
-                    : "text-foreground/60"
+                  "flex items-center space-x-2 text-sm font-medium transition-colors hover:text-primary",
+                  item.isActive ? "text-foreground" : "text-foreground/60"
                 )}
               >
-                <div className="relative">
-                  {item.title}
-                  {location.pathname === item.href && (
-                    <div className="absolute bottom-0 left-0 right-0 -mb-[20px] h-[2px] bg-foreground" />
-                  )}
-                </div>
+                <Icon className="h-5 w-5" />
+                <span>{item.name}</span>
               </Link>
-            ))}
-            <div className="flex items-center">
-              <LanguageSwitcher />
-            </div>
-          </div>
+            )
+          })}
+          <LanguageSwitcher />
         </div>
       </div>
     </nav>
