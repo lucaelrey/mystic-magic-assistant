@@ -19,14 +19,14 @@ export const NavBar = ({ items }: NavBarProps) => {
       <div className="container flex h-16 items-center px-4">
         <div className="flex flex-1 items-center justify-between">
           {/* Navigation Items - Both Mobile and Desktop */}
-          <div className="flex items-center gap-2 md:gap-6">
+          <div className="flex items-center justify-center w-full md:justify-start md:w-auto gap-2 md:gap-6">
             {items.map((item, index) => (
               <Link
                 key={index}
                 to={item.url}
                 target={item.url.startsWith('http') ? '_blank' : undefined}
                 className={cn(
-                  "group relative px-2 md:px-3 py-2 transition-colors",
+                  "group relative px-3 py-2 transition-colors flex-1 md:flex-auto text-center",
                   "hover:text-white/90",
                   item.isActive ? "text-white" : "text-white/60"
                 )}
@@ -35,7 +35,7 @@ export const NavBar = ({ items }: NavBarProps) => {
                   className="absolute inset-0 transform bg-white/10 rounded-lg transition-transform group-hover:scale-105" 
                   style={{ opacity: item.isActive ? 0.1 : 0 }} 
                 />
-                <div className="relative flex flex-col md:flex-row items-center gap-1 md:gap-2">
+                <div className="relative flex flex-col items-center gap-1">
                   <item.icon className="h-5 w-5" />
                   <span className="text-[10px] md:text-sm font-medium">{item.name}</span>
                 </div>
@@ -44,7 +44,7 @@ export const NavBar = ({ items }: NavBarProps) => {
           </div>
 
           {/* Language Switcher */}
-          <div className="flex items-center">
+          <div className="hidden md:flex items-center">
             <LanguageSwitcher />
           </div>
         </div>
