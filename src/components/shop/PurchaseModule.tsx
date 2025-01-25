@@ -57,11 +57,18 @@ export const PurchaseModule = ({
           text-white" />
         {language === 'en' ? 'Buy Now' : 'Jetzt kaufen'}
       </Button>
-      <p className="text-xs md:text-sm font-medium text-white text-center">
-        {language === 'en' ? 
-          'Secure payment with SSL encryption' : 
-          'Sichere Bezahlung mit SSL-Verschlüsselung'}
-      </p>
+      <div className="space-y-2 text-center">
+        <p className="text-xs md:text-sm font-medium text-white">
+          {language === 'en' ? 
+            'Secure payment with SSL encryption' : 
+            'Sichere Bezahlung mit SSL-Verschlüsselung'}
+        </p>
+        <p className="text-xs md:text-sm font-medium text-white/80">
+          {language === 'en' ? 
+            'A-Post shipping included' : 
+            'A-Post Versand inbegriffen'}
+        </p>
+      </div>
     </div>
   );
 };

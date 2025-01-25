@@ -98,9 +98,9 @@ const Cart = () => {
       <Navigation />
       <main className="container mx-auto px-4 md:px-6 pt-20 md:pt-24 pb-12">
         <Card className="glass-card max-w-4xl mx-auto overflow-visible">
-          <div className="p-6 md:p-8">
+          <div className="p-6 md:p-8 space-y-8">
             {/* Header */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <ShoppingBag className="w-6 h-6 md:w-7 md:h-7 text-white/90" />
                 <h1 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent 
@@ -112,7 +112,11 @@ const Cart = () => {
 
             {/* Product Card */}
             <div className="space-y-8">
-              <div className="glass rounded-xl p-6">
+              <div className="glass rounded-xl p-6 md:p-8
+                bg-gradient-to-br from-white/10 to-white/5
+                border border-white/10 hover:border-white/20
+                transition-all duration-300 ease-out
+                group">
                 <div className="flex items-start gap-6">
                   <CartProductImage />
                   <div className="flex-1 min-w-0 space-y-4">
@@ -135,19 +139,29 @@ const Cart = () => {
               </div>
 
               {/* Summary Card */}
-              <div className="glass rounded-xl p-6 space-y-6">
+              <div className="glass rounded-xl p-6 md:p-8 space-y-6
+                bg-gradient-to-br from-white/10 to-white/5
+                border border-white/10 hover:border-white/20
+                transition-all duration-300">
                 <div className="flex justify-between items-center text-xl 
                   font-semibold text-white">
                   <span>{language === 'en' ? 'Total' : 'Gesamt'}</span>
                   <span>{(quantity * productPrice).toFixed(2)} CHF</span>
                 </div>
 
-                <div className="pt-4 border-t border-white/10">
-                  <p className="text-sm text-white/70 text-center mb-6">
-                    {language === 'en' 
-                      ? 'Secure payment with SSL encryption' 
-                      : 'Sichere Bezahlung mit SSL-Verschlüsselung'}
-                  </p>
+                <div className="pt-4 border-t border-white/10 space-y-6">
+                  <div className="space-y-2 text-center">
+                    <p className="text-sm text-white">
+                      {language === 'en' ? 
+                        'Secure payment with SSL encryption' : 
+                        'Sichere Bezahlung mit SSL-Verschlüsselung'}
+                    </p>
+                    <p className="text-sm text-white/80">
+                      {language === 'en' ? 
+                        'A-Post shipping included' : 
+                        'A-Post Versand inbegriffen'}
+                    </p>
+                  </div>
                   
                   <div className="flex flex-col gap-4">
                     <Button 
@@ -155,7 +169,10 @@ const Cart = () => {
                         bg-gradient-to-r from-white/20 to-white/10 
                         hover:from-white/30 hover:to-white/20
                         border border-white/20 hover:border-white/30
-                        shadow-lg hover:shadow-xl transition-all duration-300"
+                        shadow-lg hover:shadow-xl 
+                        transition-all duration-300
+                        rounded-xl
+                        group"
                       onClick={handleCheckout}
                       disabled={isLoading}
                     >
@@ -169,6 +186,8 @@ const Cart = () => {
                       className="w-full h-12 md:h-14 text-base font-medium
                         bg-white/5 border-white/10 hover:bg-white/10 
                         hover:border-white/20 text-white
+                        rounded-xl
+                        transition-all duration-300
                         flex items-center justify-center gap-2"
                       onClick={() => navigate(-1)}
                     >
