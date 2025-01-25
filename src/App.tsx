@@ -14,6 +14,7 @@ import OrderDetail from "@/pages/admin/OrderDetail";
 import ContentList from "@/pages/admin/cms/ContentList";
 import ContentForm from "@/pages/admin/cms/ContentForm";
 import AdminGuard from "@/components/auth/AdminGuard";
+import NotFound from "@/pages/NotFound";
 import "./App.css";
 
 // Create a client
@@ -91,6 +92,7 @@ function App() {
                 </AdminGuard>
               }
             />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </LanguageProvider>
