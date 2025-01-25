@@ -8,25 +8,24 @@ const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') || '', {
 
 const endpointSecret = Deno.env.get('STRIPE_WEBHOOK_SECRET') || '';
 
-// Initialize Supabase client
+// Initialize Supabase client with service role key
 const supabaseAdmin = createClient(
   Deno.env.get('SUPABASE_URL') || '',
   Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '',
+  {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false
+    }
+  }
 );
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
-
 serve(async (req) => {
-  // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
-  }
-
   try {
     const signature = req.headers.get('stripe-signature');
+    
+    console.log('Received webhook request');
+    
     if (!signature) {
       console.error('No Stripe signature found in request');
       return new Response('No signature', { status: 400 });
@@ -38,7 +37,7 @@ serve(async (req) => {
     try {
       event = stripe.webhooks.constructEvent(body, signature, endpointSecret);
     } catch (err) {
-      console.error(`⚠️ Webhook signature verification failed.`, err.message);
+      console.error(`⚠️ Webhook signature verification failed:`, err.message);
       return new Response(`Webhook Error: ${err.message}`, { status: 400 });
     }
 
@@ -69,7 +68,6 @@ serve(async (req) => {
     }
 
     return new Response(JSON.stringify({ received: true }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 200,
     });
   } catch (err) {
