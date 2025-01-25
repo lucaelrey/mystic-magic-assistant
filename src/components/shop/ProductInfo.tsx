@@ -10,7 +10,7 @@ export const ProductInfo = ({ title, price, shippingInfo }: ProductInfoProps) =>
   return (
     <div className="space-y-2 md:space-y-4">
       <h1 className="text-2xl md:text-4xl font-bold bg-clip-text text-transparent 
-        bg-gradient-to-r from-white to-white/70 text-center">
+        bg-gradient-to-r from-white to-white/70 text-left">
         {title}
       </h1>
       <div className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent 

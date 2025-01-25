@@ -17,7 +17,7 @@ export const PurchaseModule = ({
     <div className="space-y-4 md:space-y-6 bg-black/20 backdrop-blur-lg 
       p-4 md:p-8 rounded-xl md:rounded-2xl border border-white/20 
       shadow-lg md:shadow-xl">
-      <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
+      <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6 justify-center">
         <span className="text-base md:text-lg font-medium text-white/90">
           Anzahl:
         </span>
