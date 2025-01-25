@@ -7,10 +7,10 @@ export const GamePreparation = () => {
   
   return (
     <AccordionItem value="preparation">
-      <AccordionTrigger className="text-2xl font-semibold">
+      <AccordionTrigger className="text-2xl font-semibold text-left">
         {t('rules.overview.preparation.title')}
       </AccordionTrigger>
-      <AccordionContent>
+      <AccordionContent className="text-left">
         <ol className="list-decimal list-inside space-y-2">
           {(t('rules.overview.preparation.steps') as string[]).map((step: string, index: number) => (
             <li key={index}>{step}</li>

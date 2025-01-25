@@ -7,10 +7,10 @@ export const GeneralRules = () => {
   
   return (
     <AccordionItem value="general">
-      <AccordionTrigger className="text-2xl font-semibold">
+      <AccordionTrigger className="text-2xl font-semibold text-left">
         {t('rules.overview.general.title')}
       </AccordionTrigger>
-      <AccordionContent>
+      <AccordionContent className="text-left">
         <p className="mb-4">
           {t('rules.overview.general.description')}
         </p>
