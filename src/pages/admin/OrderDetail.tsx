@@ -50,33 +50,41 @@ const OrderDetail = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <Navigation />
-      <main className="container mx-auto px-4 pt-24">
+      <main className="container mx-auto px-4 pt-24 pb-12">
         <Card className="p-6">
           <OrderDetailHeader onBack={handleBack} />
 
           {isLoading ? (
-            <div className="text-center py-8">Lädt...</div>
+            <div className="flex justify-center items-center py-12">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
           ) : order ? (
-            <div className="space-y-6">
+            <div className="space-y-8">
               <OrderSummaryCards order={order} />
               
-              <Card className="p-4">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="font-semibold">Bestellstatus</h3>
-                  <OrderStatusSelect 
-                    orderId={order.id}
-                    currentStatus={order.status}
-                    onStatusChange={handleStatusChange}
-                  />
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-6">
+                  <OrderShippingAddress shippingAddress={order.shipping_address} />
                 </div>
-              </Card>
-
-              <OrderShippingAddress shippingAddress={order.shipping_address} />
+                
+                <div className="space-y-6">
+                  <Card className="p-6">
+                    <div className="space-y-4">
+                      <h3 className="font-semibold text-lg">Bestellstatus</h3>
+                      <OrderStatusSelect 
+                        orderId={order.id}
+                        currentStatus={order.status}
+                        onStatusChange={handleStatusChange}
+                      />
+                    </div>
+                  </Card>
+                </div>
+              </div>
               
-              <Card className="p-4">
-                <h3 className="font-semibold mb-4">Bestellte Artikel</h3>
+              <Card className="p-6">
+                <h3 className="font-semibold text-lg mb-6">Bestellte Artikel</h3>
                 <OrderItemsTable 
                   orderItems={order.order_items} 
                   totalAmount={order.total_amount} 
@@ -84,7 +92,7 @@ const OrderDetail = () => {
               </Card>
             </div>
           ) : (
-            <div className="text-center py-8">
+            <div className="text-center py-8 text-muted-foreground">
               Bestellung nicht gefunden
             </div>
           )}
