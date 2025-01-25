@@ -1,7 +1,7 @@
-import { generalTranslations } from './translations/general';
-import { homeTranslations } from './translations/home';
-import { shopTranslations } from './translations/shop';
-import { rulesTranslations } from './translations/rules';
+import { generalTranslations } from './general';
+import { homeTranslations } from './home';
+import { shopTranslations } from './shop';
+import { rulesTranslations } from './rules';
 
 export const translations = {
   en: {
