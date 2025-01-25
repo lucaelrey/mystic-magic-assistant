@@ -15,6 +15,7 @@ import ContentForm from "@/pages/admin/cms/ContentForm";
 import Dashboard from "@/pages/admin/Dashboard";
 import AdminGuard from "@/components/auth/AdminGuard";
 import Auth from "@/pages/Auth";
+import { Outlet } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
@@ -58,7 +59,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <AdminGuard />,
+    element: <AdminGuard><Outlet /></AdminGuard>,
     children: [
       {
         index: true,
