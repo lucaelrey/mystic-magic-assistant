@@ -19,7 +19,7 @@ export const NavBar = ({ items }: NavBarProps) => {
       <div className="container flex h-16 items-center px-4">
         <div className="flex flex-1 items-center justify-between">
           {/* Navigation Items - Both Mobile and Desktop */}
-          <div className="flex items-center justify-center w-full md:justify-start md:w-auto gap-2 md:gap-6">
+          <div className="flex items-center justify-center w-full gap-2 md:gap-6">
             {items.map((item, index) => (
               <Link
                 key={index}
@@ -41,11 +41,10 @@ export const NavBar = ({ items }: NavBarProps) => {
                 </div>
               </Link>
             ))}
-          </div>
-
-          {/* Language Switcher */}
-          <div className="hidden md:flex items-center">
-            <LanguageSwitcher />
+            {/* Language Switcher - Now visible on both mobile and desktop */}
+            <div className="flex items-center">
+              <LanguageSwitcher />
+            </div>
           </div>
         </div>
       </div>
