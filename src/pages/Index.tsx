@@ -6,6 +6,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Database } from "@/integrations/supabase/types";
+import { PostgrestSingleResponse } from "@supabase/supabase-js";
 
 type HeroContent = Database['public']['Tables']['cms_content']['Row'] & {
   translations: Array<Database['public']['Tables']['cms_translations']['Row']>;
@@ -17,7 +18,7 @@ const Index = () => {
   const { data: heroContent } = useQuery({
     queryKey: ["cms-content", "product", language],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error }: PostgrestSingleResponse<HeroContent> = await supabase
         .from("cms_content")
         .select(`
           *,
@@ -33,7 +34,7 @@ const Index = () => {
         return null;
       }
 
-      return data as HeroContent;
+      return data;
     },
   });
 
