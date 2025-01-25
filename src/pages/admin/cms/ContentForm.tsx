@@ -55,33 +55,9 @@ const ContentForm = () => {
       return data;
     },
     enabled: !!id,
-    meta: {
-      onSuccess: (data: any) => {
-        if (!data) return;
-        
-        // Transform translations array into object
-        const translations = {
-          de: data.translations.find((t: any) => t.language === "de") || {
-            title: "",
-            description: "",
-            content: {},
-          },
-          en: data.translations.find((t: any) => t.language === "en") || {
-            title: "",
-            description: "",
-            content: {},
-          },
-        };
-
-        form.reset({
-          type: data.type,
-          key: data.key,
-          translations,
-        });
-      },
-    },
   });
 
+  // Effect to update form when content is loaded
   React.useEffect(() => {
     if (content) {
       const translations = {
