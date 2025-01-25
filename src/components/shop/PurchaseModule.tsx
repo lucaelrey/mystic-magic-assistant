@@ -17,9 +17,11 @@ export const PurchaseModule = ({
   const { language } = useLanguage();
   
   return (
-    <div className="space-y-6 bg-white/5 backdrop-blur-lg 
+    <div className="space-y-6 
+      bg-gradient-to-b from-white/15 to-white/10
+      backdrop-blur-[2px] backdrop-saturate-150
       p-6 md:p-8 rounded-xl md:rounded-2xl 
-      border border-white/10 hover:border-white/20
+      border border-white/20
       shadow-lg hover:shadow-xl
       transition-all duration-300">
       <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
@@ -33,9 +35,9 @@ export const PurchaseModule = ({
             min={1} 
             max={10}
             className="h-12 shadow-lg 
-              bg-white/5 hover:bg-white/10
-              border border-white/20 hover:border-white/30
-              ring-white/20 hover:ring-white/30 focus-within:ring-white/40
+              bg-white/10 hover:bg-white/15
+              border border-white/30 hover:border-white/40
+              ring-white/30 hover:ring-white/40 focus-within:ring-white/50
               transition-all duration-300"
           />
         </div>
@@ -43,8 +45,8 @@ export const PurchaseModule = ({
       <Button 
         className="w-full h-12 md:h-14 text-base md:text-lg font-semibold 
           rounded-lg md:rounded-xl
-          bg-white/10 hover:bg-white/15
-          border border-white/20 hover:border-white/30
+          bg-white/15 hover:bg-white/20
+          border border-white/30 hover:border-white/40
           shadow-lg hover:shadow-xl
           transition-all duration-300 ease-out
           hover:scale-[1.02]
@@ -58,7 +60,7 @@ export const PurchaseModule = ({
         {language === 'en' ? 'Buy Now' : 'Jetzt kaufen'}
       </Button>
       <div className="space-y-2 text-center">
-        <p className="text-xs md:text-sm font-medium text-white">
+        <p className="text-xs md:text-sm font-medium text-white/90">
           {language === 'en' ? 
             'Secure payment with SSL encryption' : 
             'Sichere Bezahlung mit SSL-Verschlüsselung'}
