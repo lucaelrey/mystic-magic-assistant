@@ -1,34 +1,11 @@
 import { Navigation } from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
-import { format } from "date-fns";
-import { Package, CreditCard } from "lucide-react";
-import { OrderStatusBadge } from "@/components/admin/OrderStatusBadge";
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { Badge } from "@/components/ui/badge";
-
-const PaymentStatusBadge = ({ status }: { status: string }) => {
-  const variant = status === 'paid' ? 'default' : 'secondary';
-  const label = status === 'paid' ? 'Bezahlt' : 'Ausstehend';
-  
-  return (
-    <Badge variant={variant}>
-      <CreditCard className="w-3 h-3 mr-1" />
-      {label}
-    </Badge>
-  );
-};
+import { OrdersHeader } from "@/components/admin/orders/OrdersHeader";
+import { OrdersTable } from "@/components/admin/orders/OrdersTable";
 
 const Orders = () => {
   const { toast } = useToast();
@@ -43,7 +20,7 @@ const Orders = () => {
           *,
           order_items (*)
         `)
-        .eq('payment_status', 'paid') // Nur bezahlte Bestellungen laden
+        .eq('payment_status', 'paid')
         .order('created_at', { ascending: false });
 
       if (error) {
@@ -69,59 +46,13 @@ const Orders = () => {
       <main className="container mx-auto px-4 pt-24">
         <Card className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <Package className="h-6 w-6 text-primary" />
-              <h1 className="text-2xl font-bold">Bezahlte Bestellungen</h1>
-            </div>
+            <OrdersHeader />
           </div>
 
           {isLoading ? (
             <div className="text-center py-8">Lädt...</div>
           ) : (
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Bestellnummer</TableHead>
-                    <TableHead>Datum</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Zahlung</TableHead>
-                    <TableHead>Betrag</TableHead>
-                    <TableHead>Aktionen</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {orders?.map((order) => (
-                    <TableRow key={order.id}>
-                      <TableCell className="font-mono">
-                        {order.id.split('-')[0]}
-                      </TableCell>
-                      <TableCell>
-                        {format(new Date(order.created_at), 'dd.MM.yyyy HH:mm')}
-                      </TableCell>
-                      <TableCell>
-                        <OrderStatusBadge status={order.status} />
-                      </TableCell>
-                      <TableCell>
-                        <PaymentStatusBadge status={order.payment_status} />
-                      </TableCell>
-                      <TableCell>
-                        CHF {order.total_amount.toFixed(2)}
-                      </TableCell>
-                      <TableCell>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleViewOrder(order.id)}
-                        >
-                          Details
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
+            <OrdersTable orders={orders} onViewOrder={handleViewOrder} />
           )}
         </Card>
       </main>
