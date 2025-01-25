@@ -23,8 +23,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "@/components/ui/image";
+
+// Helper function to safely get preview image from metadata
+const getPreviewImage = (metadata: any): string | null => {
+  if (typeof metadata === 'object' && metadata !== null && 'previewImage' in metadata) {
+    return metadata.previewImage as string;
+  }
+  return null;
+};
 
 const ContentList = () => {
   const navigate = useNavigate();
@@ -158,7 +165,7 @@ const ContentList = () => {
                   const deTranslation = getTranslation(content.translations, 'de');
                   const enTranslation = getTranslation(content.translations, 'en');
                   const isExpanded = expandedRows.includes(content.id);
-                  const previewImage = content.metadata?.previewImage || null;
+                  const previewImage = getPreviewImage(content.metadata);
 
                   return (
                     <React.Fragment key={content.id}>
