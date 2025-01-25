@@ -7,7 +7,7 @@ export const NumberCardsScoring = () => {
 
   if (isLoading) {
     return (
-      <Card className="glass">
+      <Card className="glass bg-black/40 backdrop-blur-xl border-white/10">
         <CardContent className="pt-6">
           <div className="animate-pulse space-y-4">
             <div className="h-6 bg-primary/10 rounded w-1/4"></div>
@@ -28,7 +28,7 @@ export const NumberCardsScoring = () => {
   const { values, rules, scoring } = translation.content;
   
   return (
-    <Card className="glass">
+    <Card className="glass bg-black/40 backdrop-blur-xl border-white/10">
       <CardContent className="pt-6 text-left">
         <h2 className="text-2xl font-semibold mb-4">{translation.title}</h2>
         <div className="space-y-4">
