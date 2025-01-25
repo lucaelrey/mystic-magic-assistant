@@ -14,10 +14,10 @@ export const ProductInfo = ({ title, price, shippingInfo }: ProductInfoProps) =>
         {title}
       </h1>
       <div className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent 
-        bg-gradient-to-r from-white/90 to-white/70">
+        bg-gradient-to-r from-white/90 to-white/70 text-left">
         {price}
       </div>
-      <p className="text-sm md:text-base text-white/70">
+      <p className="text-sm md:text-base text-white/70 text-left">
         {shippingInfo}
       </p>
     </div>
