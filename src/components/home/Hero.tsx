@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Database } from "@/integrations/supabase/types";
 import { PostgrestSingleResponse } from "@supabase/supabase-js";
+import Image from "@/components/ui/image";
 
 type HeroContent = Database['public']['Tables']['cms_content']['Row'] & {
   cms_translations: Array<Database['public']['Tables']['cms_translations']['Row']>;
@@ -70,9 +71,11 @@ export const Hero = () => {
       </div>
       
       <div className="relative z-10 container mx-auto px-4 text-center">
-        <h1 className="text-6xl font-bold mb-6 text-white">
-          {translatedHero?.title || t('home.welcome')}
-        </h1>
+        <Image 
+          src="/lovable-uploads/1f58f033-504f-4263-b603-62d580d14fd2.png"
+          alt="MYSTIC"
+          className="w-full max-w-2xl mx-auto mb-6"
+        />
         <p className="text-xl mb-8 max-w-2xl mx-auto text-white/90">
           {translatedHero?.description || t('home.subtitle')}
         </p>
