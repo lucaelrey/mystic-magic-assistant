@@ -6,24 +6,12 @@ import { Card } from "@/components/ui/card";
 import { Package, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
+import { ContentTypeSelect } from "@/components/cms/ContentTypeSelect";
+import { ContentKeyField } from "@/components/cms/ContentKeyField";
+import { TranslationFields } from "@/components/cms/TranslationFields";
 
 const ContentForm = () => {
   const { id } = useParams();
@@ -69,12 +57,16 @@ const ContentForm = () => {
 
   const createMutation = useMutation({
     mutationFn: async (values: any) => {
-      const { data, error } = await supabase.from("cms_content").insert([
-        {
-          type: values.type,
-          key: values.key,
-        },
-      ]).select().single();
+      const { data, error } = await supabase
+        .from("cms_content")
+        .insert([
+          {
+            type: values.type,
+            key: values.key,
+          },
+        ])
+        .select()
+        .single();
 
       if (error) throw error;
 
@@ -138,101 +130,20 @@ const ContentForm = () => {
           ) : (
             <Form {...form}>
               <div className="space-y-6">
-                <FormField
-                  control={form.control}
-                  name="type"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Typ</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Wähle einen Typ" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="action_card">Aktionskarte</SelectItem>
-                          <SelectItem value="number_card">Zahlenkarte</SelectItem>
-                          <SelectItem value="rule">Regel</SelectItem>
-                          <SelectItem value="product">Produkt</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="key"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Schlüssel</FormLabel>
-                      <FormControl>
-                        <Input placeholder="z.B. card-1" {...field} />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
+                <ContentTypeSelect form={form} />
+                <ContentKeyField form={form} />
 
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <h3 className="font-semibold">Deutsch</h3>
-                    <FormField
-                      control={form.control}
-                      name="translations.de.title"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Titel</FormLabel>
-                          <FormControl>
-                            <Input {...field} />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="translations.de.description"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Beschreibung</FormLabel>
-                          <FormControl>
-                            <Textarea {...field} />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  <div className="space-y-4">
-                    <h3 className="font-semibold">English</h3>
-                    <FormField
-                      control={form.control}
-                      name="translations.en.title"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Title</FormLabel>
-                          <FormControl>
-                            <Input {...field} />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="translations.en.description"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Description</FormLabel>
-                          <FormControl>
-                            <Textarea {...field} />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
+                  <TranslationFields 
+                    form={form} 
+                    language="de" 
+                    title="Deutsch" 
+                  />
+                  <TranslationFields 
+                    form={form} 
+                    language="en" 
+                    title="English" 
+                  />
                 </div>
               </div>
             </Form>
