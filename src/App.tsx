@@ -12,6 +12,7 @@ import Orders from "@/pages/admin/Orders";
 import OrderDetail from "@/pages/admin/OrderDetail";
 import ContentList from "@/pages/admin/cms/ContentList";
 import ContentForm from "@/pages/admin/cms/ContentForm";
+import AdminGuard from "@/components/auth/AdminGuard";
 import "./App.css";
 
 // Create a client
@@ -40,12 +41,54 @@ function App() {
             <Route path="/shop" element={<Shop />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/admin" element={<Dashboard />} />
-            <Route path="/admin/orders" element={<Orders />} />
-            <Route path="/admin/orders/:id" element={<OrderDetail />} />
-            <Route path="/admin/cms" element={<ContentList />} />
-            <Route path="/admin/cms/new" element={<ContentForm />} />
-            <Route path="/admin/cms/:id" element={<ContentForm />} />
+            <Route
+              path="/admin"
+              element={
+                <AdminGuard>
+                  <Dashboard />
+                </AdminGuard>
+              }
+            />
+            <Route
+              path="/admin/orders"
+              element={
+                <AdminGuard>
+                  <Orders />
+                </AdminGuard>
+              }
+            />
+            <Route
+              path="/admin/orders/:id"
+              element={
+                <AdminGuard>
+                  <OrderDetail />
+                </AdminGuard>
+              }
+            />
+            <Route
+              path="/admin/cms"
+              element={
+                <AdminGuard>
+                  <ContentList />
+                </AdminGuard>
+              }
+            />
+            <Route
+              path="/admin/cms/new"
+              element={
+                <AdminGuard>
+                  <ContentForm />
+                </AdminGuard>
+              }
+            />
+            <Route
+              path="/admin/cms/:id"
+              element={
+                <AdminGuard>
+                  <ContentForm />
+                </AdminGuard>
+              }
+            />
           </Routes>
         </BrowserRouter>
       </LanguageProvider>

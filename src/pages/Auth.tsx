@@ -77,17 +77,15 @@ const Auth = () => {
                 },
               },
             }}
+            providers={[]}
+            view="sign_in"
+            showLinks={false}
             localization={{
               variables: {
                 sign_in: {
                   email_label: "E-Mail",
                   password_label: "Passwort",
                   button_label: "Anmelden",
-                },
-                sign_up: {
-                  email_label: "E-Mail",
-                  password_label: "Passwort",
-                  button_label: "Registrieren",
                 },
               },
             }}
