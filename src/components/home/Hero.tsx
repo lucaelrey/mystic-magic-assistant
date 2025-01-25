@@ -72,7 +72,7 @@ export const Hero = () => {
       
       <div className="relative z-10 container mx-auto px-4 text-center">
         <Image 
-          src="/lovable-uploads/1f58f033-504f-4263-b603-62d580d14fd2.png"
+          src="/lovable-uploads/c2532bcb-8d98-48b1-8d8f-d8ce6084c83f.png"
           alt="MYSTIC"
           className="w-full max-w-lg mx-auto mb-6"
         />
