@@ -5,39 +5,26 @@ import { SparklesCore } from "@/components/ui/sparkles";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { Database } from "@/integrations/supabase/types";
 
-interface CMSContent {
-  id: string;
-  type: string;
-  key: string;
-  published: boolean;
-  translations: {
-    language: string;
-    title: string;
-    description: string;
-    content: any;
-  }[];
-}
+type HeroContent = Database['public']['Tables']['cms_content']['Row'] & {
+  translations: Array<Database['public']['Tables']['cms_translations']['Row']>;
+};
 
 const Index = () => {
-  const { t, currentLanguage } = useLanguage();
+  const { t, language } = useLanguage();
 
   const { data: heroContent } = useQuery({
-    queryKey: ["cms-content", "hero", currentLanguage],
+    queryKey: ["cms-content", "product", language],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("cms_content")
         .select(`
           *,
-          translations (
-            language,
-            title,
-            description,
-            content
-          )
+          translations (*)
         `)
-        .eq("type", "hero")
-        .eq("key", "main")
+        .eq("type", "product")
+        .eq("key", "hero")
         .eq("published", true)
         .single();
 
@@ -46,13 +33,13 @@ const Index = () => {
         return null;
       }
 
-      return data as CMSContent;
+      return data as HeroContent;
     },
   });
 
-  const getTranslatedContent = (content: CMSContent | null) => {
+  const getTranslatedContent = (content: HeroContent | null) => {
     if (!content) return null;
-    return content.translations.find(t => t.language === currentLanguage);
+    return content.translations.find(t => t.language === language);
   };
 
   const translatedHero = getTranslatedContent(heroContent);
