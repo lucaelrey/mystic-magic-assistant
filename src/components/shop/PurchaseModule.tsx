@@ -34,7 +34,7 @@ export const PurchaseModule = () => {
         </span>
         <NumberInput
           value={quantity}
-          onValueChange={setQuantity}
+          onChange={setQuantity}
           min={1}
           max={99}
           className="w-32"

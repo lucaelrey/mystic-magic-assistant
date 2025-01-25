@@ -8,6 +8,7 @@ type Props = {
   min?: number
   max?: number
   onChange?: (value: number) => void
+  onValueChange?: (value: number) => void  // Added to support both naming conventions
   className?: string
 }
 
@@ -16,6 +17,7 @@ export const NumberInput = ({
   min = -Infinity,
   max = Infinity,
   onChange,
+  onValueChange,
   className,
 }: Props) => {
   const defaultValue = React.useRef(value)
@@ -23,12 +25,17 @@ export const NumberInput = ({
   const [animated, setAnimated] = React.useState(true)
   const [showCaret, setShowCaret] = React.useState(true)
   
+  const handleChange = (newValue: number) => {
+    onChange?.(newValue)
+    onValueChange?.(newValue) // Support both callback props
+  }
+
   const handleInput: React.ChangeEventHandler<HTMLInputElement> = ({
     currentTarget: el,
   }) => {
     setAnimated(false)
     if (el.value === "") {
-      onChange?.(defaultValue.current)
+      handleChange(defaultValue.current)
       return
     }
     const num = parseInt(el.value)
@@ -40,7 +47,7 @@ export const NumberInput = ({
       el.value = String(value)
     } else {
       el.value = String(num)
-      onChange?.(num)
+      handleChange(num)
     }
   }
 
@@ -52,7 +59,7 @@ export const NumberInput = ({
         inputRef.current?.focus()
       }
       const newVal = Math.min(Math.max(value + diff, min), max)
-      onChange?.(newVal)
+      handleChange(newVal)
     }
 
   return (
@@ -107,4 +114,4 @@ export const NumberInput = ({
   )
 }
 
-export default { NumberInput }
+export default NumberInput
