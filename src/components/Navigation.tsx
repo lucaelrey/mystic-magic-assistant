@@ -16,7 +16,7 @@ const CrystalHomeIcon: React.FC = () => (
   <Image 
     src="/lovable-uploads/acaea78e-8d8d-4aff-848d-48e80bd5061a.png" 
     alt="Crystal Home"
-    className="w-5 h-5 object-contain"
+    className="w-10 h-10 object-contain" // Doubled from w-5 h-5 to w-10 h-10
   />
 );
 
@@ -62,7 +62,7 @@ export const Navigation = () => {
       isActive: isPathActive("/shop") 
     },
     { 
-      name: "Spielen", 
+      name: "Assistant", // Changed from "Spielen" to "Assistant"
       url: "https://play.mysticgame.ch", 
       icon: PlayCircle, 
       isActive: false 
