@@ -46,12 +46,13 @@ const OrderDetail = () => {
           order_items (*)
         `)
         .eq('id', orderId)
+        .eq('payment_status', 'paid') // Nur bezahlte Bestellungen laden
         .single();
 
       if (error) {
         toast({
           title: "Fehler",
-          description: "Die Bestellung konnte nicht geladen werden.",
+          description: "Die Bestellung konnte nicht geladen werden oder ist nicht bezahlt.",
           variant: "destructive",
         });
         throw error;
@@ -154,7 +155,7 @@ const OrderDetail = () => {
               </Card>
             </div>
           ) : (
-            <div className="text-center py-8">Bestellung nicht gefunden</div>
+            <div className="text-center py-8">Bestellung nicht gefunden oder nicht bezahlt</div>
           )}
         </Card>
       </main>

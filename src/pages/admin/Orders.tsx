@@ -43,6 +43,7 @@ const Orders = () => {
           *,
           order_items (*)
         `)
+        .eq('payment_status', 'paid') // Nur bezahlte Bestellungen laden
         .order('created_at', { ascending: false });
 
       if (error) {
@@ -70,7 +71,7 @@ const Orders = () => {
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
               <Package className="h-6 w-6 text-primary" />
-              <h1 className="text-2xl font-bold">Bestellungen</h1>
+              <h1 className="text-2xl font-bold">Bezahlte Bestellungen</h1>
             </div>
           </div>
 
