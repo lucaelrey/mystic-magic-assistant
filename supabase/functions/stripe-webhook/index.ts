@@ -36,7 +36,6 @@ serve(async (req) => {
     let event;
 
     try {
-      // Use constructEventAsync instead of constructEvent
       event = await stripe.webhooks.constructEventAsync(
         body,
         signature,
@@ -54,13 +53,38 @@ serve(async (req) => {
       
       console.log('Processing completed checkout session:', session.id);
       console.log('Order ID from metadata:', session.metadata?.order_id);
+
+      // Retrieve the complete session to get shipping details
+      const expandedSession = await stripe.checkout.sessions.retrieve(session.id, {
+        expand: ['shipping_details', 'customer_details']
+      });
+
+      console.log('Shipping details:', expandedSession.shipping_details);
+      console.log('Customer details:', expandedSession.customer_details);
+
+      // Split the name into first and last name
+      const fullName = expandedSession.shipping_details?.name || '';
+      const [firstName = '', ...lastNameParts] = fullName.split(' ');
+      const lastName = lastNameParts.join(' ');
+
+      // Prepare shipping address data
+      const shippingAddress = {
+        firstName,
+        lastName,
+        street: expandedSession.shipping_details?.address?.line1 || '',
+        city: expandedSession.shipping_details?.address?.city || '',
+        postalCode: expandedSession.shipping_details?.address?.postal_code || '',
+        country: expandedSession.shipping_details?.address?.country || '',
+        email: expandedSession.customer_details?.email || '',
+      };
       
-      // Update order payment status in database
+      // Update order payment status and shipping address in database
       const { error } = await supabaseAdmin
         .from('orders')
         .update({ 
           payment_status: 'paid',
           payment_intent_id: session.payment_intent,
+          shipping_address: shippingAddress,
           updated_at: new Date().toISOString()
         })
         .eq('id', session.metadata?.order_id);
@@ -70,7 +94,7 @@ serve(async (req) => {
         return new Response('Error updating order', { status: 500 });
       }
 
-      console.log(`✅ Successfully updated order ${session.metadata?.order_id} status to paid`);
+      console.log(`✅ Successfully updated order ${session.metadata?.order_id} with shipping details and payment status`);
     }
 
     return new Response(JSON.stringify({ received: true }), {
