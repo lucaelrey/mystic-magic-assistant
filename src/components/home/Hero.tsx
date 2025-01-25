@@ -76,9 +76,12 @@ export const Hero = () => {
           alt="MYSTIC"
           className="w-full max-w-lg mx-auto mb-6"
         />
-        <p className="text-xl mb-8 max-w-2xl mx-auto text-white/90">
-          {translatedHero?.description || t('home.subtitle')}
-        </p>
+        <div 
+          className="text-xl mb-8 max-w-2xl mx-auto text-white/90"
+          dangerouslySetInnerHTML={{
+            __html: translatedHero?.description || t('home.subtitle')
+          }}
+        />
         <div className="flex gap-4 justify-center">
           <Link to="/shop">
             <Button className="glass-button">
