@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { CartProductImage } from "@/components/shop/CartProductImage";
 import { CartQuantityControls } from "@/components/shop/CartQuantityControls";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Cart = () => {
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const productPrice = 29.90;
+  const { language } = useLanguage();
   
   useEffect(() => {
     if (location.state?.quantity) {
@@ -48,13 +50,13 @@ const Cart = () => {
         .single();
 
       if (orderError) throw orderError;
-      if (!orderData) throw new Error('No order data returned');
+      if (!orderData) throw new Error(language === 'en' ? 'No order data returned' : 'Keine Bestelldaten zurückgegeben');
 
       const { error: itemError } = await supabase
         .from('order_items')
         .insert({
           order_id: orderData.id,
-          product_name: "MYSTIC - Das Kartenspiel",
+          product_name: language === 'en' ? "MYSTIC - The Card Game" : "MYSTIC - Das Kartenspiel",
           quantity: quantity,
           price_per_unit: productPrice
         });
@@ -65,7 +67,7 @@ const Cart = () => {
         body: { 
           orderId: orderData.id,
           items: [{
-            product_name: "MYSTIC - Das Kartenspiel",
+            product_name: language === 'en' ? "MYSTIC - The Card Game" : "MYSTIC - Das Kartenspiel",
             quantity: quantity,
             price_per_unit: productPrice
           }]
@@ -73,15 +75,17 @@ const Cart = () => {
       });
 
       if (error) throw error;
-      if (!data?.url) throw new Error('Keine Checkout URL erhalten');
+      if (!data?.url) throw new Error(language === 'en' ? 'No checkout URL received' : 'Keine Checkout URL erhalten');
 
       window.location.href = data.url;
       
     } catch (error) {
       console.error('Error during checkout:', error);
       toast({
-        title: "Fehler",
-        description: "Es gab ein Problem beim Erstellen der Checkout-Session. Bitte versuchen Sie es erneut.",
+        title: language === 'en' ? "Error" : "Fehler",
+        description: language === 'en' ? 
+          "There was a problem creating the checkout session. Please try again." :
+          "Es gab ein Problem beim Erstellen der Checkout-Session. Bitte versuchen Sie es erneut.",
         variant: "destructive",
       });
     } finally {
@@ -98,7 +102,7 @@ const Cart = () => {
             <div className="flex items-center justify-between mb-6">
               <h1 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent 
                 bg-gradient-to-r from-white to-white/70">
-                Warenkorb
+                {language === 'en' ? 'Cart' : 'Warenkorb'}
               </h1>
               <ShoppingBag className="w-5 h-5 md:w-6 md:h-6 text-white/70" />
             </div>
@@ -109,7 +113,7 @@ const Cart = () => {
                   <CartProductImage />
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold text-base md:text-lg text-white/90 truncate">
-                      MYSTIC - Das Kartenspiel
+                      {language === 'en' ? "MYSTIC - The Card Game" : "MYSTIC - Das Kartenspiel"}
                     </h3>
                     <p className="text-sm md:text-base font-medium text-white/70">
                       {productPrice.toFixed(2)} CHF
@@ -129,7 +133,7 @@ const Cart = () => {
               <div className="glass p-4 md:p-6 rounded-xl">
                 <div className="flex justify-between items-center text-lg 
                   font-semibold text-white/90">
-                  <span>Gesamt</span>
+                  <span>{language === 'en' ? 'Total' : 'Gesamt'}</span>
                   <span>{(quantity * productPrice).toFixed(2)} CHF</span>
                 </div>
               </div>
@@ -142,7 +146,7 @@ const Cart = () => {
                     hover:border-white/20"
                   onClick={() => navigate(-1)}
                 >
-                  Zurück zum Shop
+                  {language === 'en' ? 'Back to Shop' : 'Zurück zum Shop'}
                 </Button>
                 <Button 
                   className="w-full h-12 md:h-14 text-base font-medium
@@ -153,7 +157,9 @@ const Cart = () => {
                   onClick={handleCheckout}
                   disabled={isLoading}
                 >
-                  {isLoading ? "Wird geladen..." : "Zur Kasse"}
+                  {isLoading ? 
+                    (language === 'en' ? "Loading..." : "Wird geladen...") : 
+                    (language === 'en' ? "Checkout" : "Zur Kasse")}
                 </Button>
               </div>
             </div>

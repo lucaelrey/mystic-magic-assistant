@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Minus, Plus, Trash2 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface CartQuantityControlsProps {
   quantity: number;
@@ -13,6 +14,8 @@ export const CartQuantityControls = ({
   onQuantityChange,
   onReset,
 }: CartQuantityControlsProps) => {
+  const { language } = useLanguage();
+  
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center gap-2">
@@ -51,7 +54,7 @@ export const CartQuantityControls = ({
           hover:bg-white/5"
       >
         <Trash2 className="w-3 h-3 md:w-4 md:h-4 mr-2" />
-        Entfernen
+        {language === 'en' ? 'Remove' : 'Entfernen'}
       </Button>
     </div>
   );

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/number-input";
 import { ShoppingCart } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface PurchaseModuleProps {
   quantity: number;
@@ -13,13 +14,15 @@ export const PurchaseModule = ({
   onQuantityChange,
   onPurchase,
 }: PurchaseModuleProps) => {
+  const { language } = useLanguage();
+  
   return (
     <div className="space-y-4 md:space-y-6 bg-black/20 backdrop-blur-lg 
       p-4 md:p-8 rounded-xl md:rounded-2xl border border-white/20 
       shadow-lg md:shadow-xl">
       <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6 justify-center">
         <span className="text-base md:text-lg font-medium text-white/90">
-          Anzahl:
+          {language === 'en' ? 'Quantity:' : 'Anzahl:'}
         </span>
         <div className="w-full md:w-32">
           <Input 
@@ -44,10 +47,12 @@ export const PurchaseModule = ({
       >
         <ShoppingCart className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3 
           transition-transform duration-300 group-hover:scale-110" />
-        Jetzt kaufen
+        {language === 'en' ? 'Buy Now' : 'Jetzt kaufen'}
       </Button>
       <p className="text-xs md:text-sm font-medium text-white/60">
-        Sichere Bezahlung mit SSL-Verschlüsselung
+        {language === 'en' ? 
+          'Secure payment with SSL encryption' : 
+          'Sichere Bezahlung mit SSL-Verschlüsselung'}
       </p>
     </div>
   );

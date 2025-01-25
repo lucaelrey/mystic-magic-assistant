@@ -6,10 +6,12 @@ import { ProductImage } from "@/components/shop/ProductImage";
 import { ProductInfo } from "@/components/shop/ProductInfo";
 import { PurchaseModule } from "@/components/shop/PurchaseModule";
 import { ProductDescription } from "@/components/shop/ProductDescription";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Shop = () => {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
+  const { language } = useLanguage();
 
   const handlePurchase = () => {
     navigate('/cart', { state: { quantity } });
@@ -24,15 +26,17 @@ const Shop = () => {
           <div className="grid md:grid-cols-2 gap-6 md:gap-8 p-4 md:p-8">
             <ProductImage 
               src="/lovable-uploads/cf7eccbe-9b33-4e52-aadf-a9bf531ba57b.png"
-              alt="Mystic Kartenspiel Box"
+              alt={language === 'en' ? "Mystic Card Game Box" : "Mystic Kartenspiel Box"}
             />
 
             {/* Product Info and Purchase Module */}
             <div className="space-y-6 md:space-y-8">
               <ProductInfo 
-                title="MYSTIC - Das Kartenspiel"
+                title={language === 'en' ? "MYSTIC - The Card Game" : "MYSTIC - Das Kartenspiel"}
                 price="29.90 CHF"
-                shippingInfo="Versand per A-Post innerhalb der Schweiz im Preis inbegriffen"
+                shippingInfo={language === 'en' ? 
+                  "Shipping within Switzerland included in price" : 
+                  "Versand per A-Post innerhalb der Schweiz im Preis inbegriffen"}
               />
 
               <PurchaseModule 
