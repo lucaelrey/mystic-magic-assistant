@@ -1,4 +1,4 @@
-import { ShippingAddress } from './shipping';
+import { Json } from './json';
 
 export type OrderItem = {
   id: string;
@@ -16,5 +16,7 @@ export type Order = {
   user_id: string | null;
   status: string;
   total_amount: number;
-  shipping_address: ShippingAddress | null;
+  shipping_address: Json;
+  payment_status: string;
+  payment_intent_id: string | null;
 };
