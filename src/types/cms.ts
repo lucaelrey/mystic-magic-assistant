@@ -1,4 +1,4 @@
-export type ContentType = 'action_card' | 'number_card' | 'rule' | 'product';
+export type ContentType = 'action_card' | 'number_card' | 'rule';
 export type Language = 'de' | 'en';
 
 export interface ContentTranslation {

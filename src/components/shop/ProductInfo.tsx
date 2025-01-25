@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 interface ProductInfoProps {
   title: string;
   price: string;
