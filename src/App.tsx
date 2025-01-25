@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "@/pages/Index";
 import Rules from "@/pages/Rules";
 import CardDetail from "@/pages/CardDetail";
@@ -16,24 +17,26 @@ import "./App.css";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/rules" element={<Rules />} />
-        <Route path="/cards/:id" element={<CardDetail />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/shop/cart" element={<Cart />} />
-        <Route path="/shop/payment" element={<Payment />} />
-        <Route path="/shop/confirmation" element={<Confirmation />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/admin" element={<Dashboard />} />
-        <Route path="/admin/orders" element={<Orders />} />
-        <Route path="/admin/orders/:id" element={<OrderDetail />} />
-        <Route path="/admin/cms" element={<ContentList />} />
-        <Route path="/admin/cms/new" element={<ContentForm />} />
-        <Route path="/admin/cms/:id" element={<ContentForm />} />
-      </Routes>
-    </BrowserRouter>
+    <LanguageProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/rules" element={<Rules />} />
+          <Route path="/cards/:id" element={<CardDetail />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/shop/cart" element={<Cart />} />
+          <Route path="/shop/payment" element={<Payment />} />
+          <Route path="/shop/confirmation" element={<Confirmation />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/admin" element={<Dashboard />} />
+          <Route path="/admin/orders" element={<Orders />} />
+          <Route path="/admin/orders/:id" element={<OrderDetail />} />
+          <Route path="/admin/cms" element={<ContentList />} />
+          <Route path="/admin/cms/new" element={<ContentForm />} />
+          <Route path="/admin/cms/:id" element={<ContentForm />} />
+        </Routes>
+      </BrowserRouter>
+    </LanguageProvider>
   );
 }
 
