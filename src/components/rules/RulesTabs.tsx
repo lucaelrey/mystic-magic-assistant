@@ -2,17 +2,28 @@ import React from "react";
 import { Book, Hash, Wand2 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ExpandableTabs } from "@/components/ui/expandable-tabs";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const RulesTabs = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { language } = useLanguage();
 
   const tabs = [
-    { title: "Übersicht", icon: Book },
+    { 
+      title: language === 'de' ? "Übersicht" : "Overview", 
+      icon: Book 
+    },
     { type: "separator" as const },
-    { title: "Zahlenkarten", icon: Hash },
+    { 
+      title: language === 'de' ? "Zahlenkarten" : "Number Cards", 
+      icon: Hash 
+    },
     { type: "separator" as const },
-    { title: "Aktionskarten", icon: Wand2 },
+    { 
+      title: language === 'de' ? "Aktionskarten" : "Action Cards", 
+      icon: Wand2 
+    },
   ];
 
   const getSelectedTabIndex = () => {
