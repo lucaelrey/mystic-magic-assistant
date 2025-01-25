@@ -22,7 +22,7 @@ export const CardDetails = ({ card, className = "" }: CardDetailsProps) => (
       />
     </div>
     <div className="space-y-4">
-      <div className="text-left">
+      <div className="text-center">
         <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
           {card.name}
         </h3>
