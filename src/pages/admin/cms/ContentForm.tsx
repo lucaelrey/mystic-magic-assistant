@@ -55,30 +55,32 @@ const ContentForm = () => {
       return data;
     },
     enabled: !!id,
-    onSuccess: (data) => {
-      if (data) {
-        // Transform translations array into object
-        const translations = {
-          de: data.translations.find((t: any) => t.language === "de") || {
-            title: "",
-            description: "",
-            content: {},
-          },
-          en: data.translations.find((t: any) => t.language === "en") || {
-            title: "",
-            description: "",
-            content: {},
-          },
-        };
+    meta: {
+      onSuccess: (data: any) => {
+        if (data) {
+          // Transform translations array into object
+          const translations = {
+            de: data.translations.find((t: any) => t.language === "de") || {
+              title: "",
+              description: "",
+              content: {},
+            },
+            en: data.translations.find((t: any) => t.language === "en") || {
+              title: "",
+              description: "",
+              content: {},
+            },
+          };
 
-        // Reset form with loaded data
-        form.reset({
-          type: data.type,
-          key: data.key,
-          translations,
-        });
+          // Reset form with loaded data
+          form.reset({
+            type: data.type,
+            key: data.key,
+            translations,
+          });
+        }
       }
-    },
+    }
   });
 
   const createMutation = useMutation({
