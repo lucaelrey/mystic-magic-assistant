@@ -37,54 +37,119 @@ const createOrderConfirmationEmail = (data: OrderEmailData) => {
   const formattedAmount = (data.totalAmount / 100).toFixed(2);
   
   return {
-    subject: `Bestellbestätigung #${data.orderNumber}`,
+    subject: `Bestellbestätigung #${data.orderNumber} - Mystic Kartenspiel`,
     html: `
-      <h1>Vielen Dank für deine Bestellung!</h1>
-      <p>Hallo ${data.shippingAddress.firstName} ${data.shippingAddress.lastName},</p>
-      <p>wir haben deine Bestellung #${data.orderNumber} erfolgreich erhalten.</p>
-      
-      <h2>Bestellübersicht:</h2>
-      <ul>
-        ${data.items.map(item => `
-          <li>${item.product_name} - ${item.quantity}x CHF ${item.price_per_unit.toFixed(2)}</li>
-        `).join('')}
-      </ul>
-      <p><strong>Gesamtbetrag: CHF ${formattedAmount}</strong></p>
-      
-      <h2>Lieferadresse:</h2>
-      <p>
-        ${data.shippingAddress.firstName} ${data.shippingAddress.lastName}<br>
-        ${data.shippingAddress.street}<br>
-        ${data.shippingAddress.postalCode} ${data.shippingAddress.city}<br>
-        ${data.shippingAddress.country}
-      </p>
-      
-      <p>Wir werden dich informieren, sobald deine Bestellung versendet wurde.</p>
-      
-      <p>Beste Grüße,<br>Dein Mystic Team</p>
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { text-align: center; margin-bottom: 30px; }
+          .order-details { background: #f9f9f9; padding: 20px; border-radius: 5px; margin: 20px 0; }
+          .product-list { margin: 20px 0; }
+          .total { font-weight: bold; font-size: 1.1em; margin-top: 20px; }
+          .footer { margin-top: 30px; text-align: center; color: #666; font-size: 0.9em; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Vielen Dank für deine Bestellung!</h1>
+          </div>
+          
+          <p>Hallo ${data.shippingAddress.firstName} ${data.shippingAddress.lastName},</p>
+          
+          <p>wir freuen uns, dir mitteilen zu können, dass wir deine Bestellung <strong>#${data.orderNumber}</strong> erfolgreich erhalten haben.</p>
+          
+          <div class="order-details">
+            <h2>Bestellübersicht:</h2>
+            <div class="product-list">
+              ${data.items.map(item => `
+                <div>
+                  <p>${item.product_name}<br>
+                  Menge: ${item.quantity}x<br>
+                  Preis pro Stück: CHF ${item.price_per_unit.toFixed(2)}</p>
+                </div>
+              `).join('')}
+            </div>
+            <div class="total">
+              Gesamtbetrag: CHF ${formattedAmount}
+            </div>
+          </div>
+          
+          <div class="shipping-address">
+            <h2>Lieferadresse:</h2>
+            <p>
+              ${data.shippingAddress.firstName} ${data.shippingAddress.lastName}<br>
+              ${data.shippingAddress.street}<br>
+              ${data.shippingAddress.postalCode} ${data.shippingAddress.city}<br>
+              ${data.shippingAddress.country}
+            </p>
+          </div>
+          
+          <p>Wir werden deine Bestellung sorgfältig verpacken und schnellstmöglich versenden. 
+          Sobald dein Paket unterwegs ist, erhältst du von uns eine weitere E-Mail.</p>
+          
+          <p>Falls du Fragen zu deiner Bestellung hast, antworte einfach auf diese E-Mail.</p>
+          
+          <div class="footer">
+            <p>Herzliche Grüße,<br>
+            Dein Mystic Team</p>
+          </div>
+        </div>
+      </body>
+      </html>
     `
   };
 };
 
 const createShippingConfirmationEmail = (data: OrderEmailData) => {
   return {
-    subject: `Deine Bestellung #${data.orderNumber} wurde versandt`,
+    subject: `Deine Bestellung #${data.orderNumber} wurde versandt - Mystic Kartenspiel`,
     html: `
-      <h1>Deine Bestellung wurde versandt!</h1>
-      <p>Hallo ${data.shippingAddress.firstName} ${data.shippingAddress.lastName},</p>
-      <p>gute Nachrichten! Deine Bestellung #${data.orderNumber} wurde soeben versandt.</p>
-      
-      <h2>Lieferadresse:</h2>
-      <p>
-        ${data.shippingAddress.firstName} ${data.shippingAddress.lastName}<br>
-        ${data.shippingAddress.street}<br>
-        ${data.shippingAddress.postalCode} ${data.shippingAddress.city}<br>
-        ${data.shippingAddress.country}
-      </p>
-      
-      <p>Wir wünschen dir viel Spaß mit deinem neuen Mystic Kartenspiel!</p>
-      
-      <p>Beste Grüße,<br>Dein Mystic Team</p>
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { text-align: center; margin-bottom: 30px; }
+          .shipping-info { background: #f9f9f9; padding: 20px; border-radius: 5px; margin: 20px 0; }
+          .footer { margin-top: 30px; text-align: center; color: #666; font-size: 0.9em; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Deine Bestellung ist unterwegs!</h1>
+          </div>
+          
+          <p>Hallo ${data.shippingAddress.firstName} ${data.shippingAddress.lastName},</p>
+          
+          <p>gute Nachrichten! Deine Bestellung <strong>#${data.orderNumber}</strong> wurde soeben versandt.</p>
+          
+          <div class="shipping-info">
+            <h2>Lieferadresse:</h2>
+            <p>
+              ${data.shippingAddress.firstName} ${data.shippingAddress.lastName}<br>
+              ${data.shippingAddress.street}<br>
+              ${data.shippingAddress.postalCode} ${data.shippingAddress.city}<br>
+              ${data.shippingAddress.country}
+            </p>
+          </div>
+          
+          <p>Die Lieferung erfolgt in der Regel innerhalb von 2-3 Werktagen.</p>
+          
+          <p>Wir wünschen dir viel Spaß mit deinem neuen Mystic Kartenspiel!</p>
+          
+          <div class="footer">
+            <p>Herzliche Grüße,<br>
+            Dein Mystic Team</p>
+          </div>
+        </div>
+      </body>
+      </html>
     `
   };
 };
