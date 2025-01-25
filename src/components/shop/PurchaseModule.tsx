@@ -20,11 +20,11 @@ export const PurchaseModule = ({
     <div className="space-y-6 
       bg-gradient-to-b from-white/15 to-white/10
       backdrop-blur-[2px] backdrop-saturate-150
-      p-6 md:p-8 rounded-xl md:rounded-2xl 
+      p-6 rounded-xl md:rounded-2xl 
       border border-white/20
       shadow-lg hover:shadow-xl
       transition-all duration-300">
-      <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+      <div className="flex flex-col items-center md:flex-row md:items-center gap-4 md:gap-6">
         <span className="text-base md:text-lg font-medium text-white">
           {language === 'en' ? 'Quantity:' : 'Anzahl:'}
         </span>

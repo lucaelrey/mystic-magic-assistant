@@ -8,7 +8,10 @@ interface ProductImageProps {
 
 export const ProductImage = ({ src, alt, className }: ProductImageProps) => {
   return (
-    <div className={cn("relative aspect-square order-first group", className)}>
+    <div className={cn(
+      "relative aspect-square w-full max-w-[500px] mx-auto group", 
+      className
+    )}>
       <div className="absolute inset-0 flex items-center justify-center">
         <img
           src={src}
