@@ -25,9 +25,11 @@ import {
 } from "@/components/ui/select";
 import { RichTextEditor } from "@/components/cms/RichTextEditor";
 
+type EmailTemplateType = "order_confirmation" | "shipping_confirmation" | "custom";
+
 interface EmailTemplateFormData {
   name: string;
-  type: string;
+  type: EmailTemplateType;
   subject: string;
   html_content: string;
   variables?: Record<string, any>;
@@ -68,10 +70,10 @@ const EmailTemplateForm = () => {
     if (template) {
       form.reset({
         name: template.name,
-        type: template.type,
+        type: template.type as EmailTemplateType,
         subject: template.subject,
         html_content: template.html_content,
-        variables: template.variables,
+        variables: template.variables as Record<string, any>,
       });
     }
   }, [template, form]);
