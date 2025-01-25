@@ -1,6 +1,6 @@
 import { Navigation } from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
-import { Package } from "lucide-react";
+import { Package, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -23,6 +23,14 @@ const Dashboard = () => {
               <p className="text-muted-foreground mb-4">Verwalte und überprüfe alle eingegangenen Bestellungen.</p>
               <Button variant="outline" className="w-full">
                 Zu den Bestellungen
+              </Button>
+            </Card>
+
+            <Card className="p-6 hover:bg-accent transition-colors cursor-pointer" onClick={() => navigate('/admin/cms')}>
+              <h2 className="text-lg font-semibold mb-2">CMS</h2>
+              <p className="text-muted-foreground mb-4">Verwalte Inhalte wie Karten, Regeln und Produkte.</p>
+              <Button variant="outline" className="w-full">
+                Zum CMS
               </Button>
             </Card>
           </div>

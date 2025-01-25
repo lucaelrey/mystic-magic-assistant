@@ -9,6 +9,184 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      cms_content: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          key: string
+          metadata: Json | null
+          published: boolean
+          type: Database["public"]["Enums"]["content_type"]
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          key: string
+          metadata?: Json | null
+          published?: boolean
+          type: Database["public"]["Enums"]["content_type"]
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          key?: string
+          metadata?: Json | null
+          published?: boolean
+          type?: Database["public"]["Enums"]["content_type"]
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      cms_content_media: {
+        Row: {
+          content_id: string
+          created_at: string
+          media_id: string
+        }
+        Insert: {
+          content_id: string
+          created_at?: string
+          media_id: string
+        }
+        Update: {
+          content_id?: string
+          created_at?: string
+          media_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_content_media_content_id_fkey"
+            columns: ["content_id"]
+            isOneToOne: false
+            referencedRelation: "cms_content"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cms_content_media_media_id_fkey"
+            columns: ["media_id"]
+            isOneToOne: false
+            referencedRelation: "cms_media"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_media: {
+        Row: {
+          content_type: string
+          created_at: string
+          created_by: string | null
+          filename: string
+          filepath: string
+          id: string
+          metadata: Json | null
+          size: number
+        }
+        Insert: {
+          content_type: string
+          created_at?: string
+          created_by?: string | null
+          filename: string
+          filepath: string
+          id?: string
+          metadata?: Json | null
+          size: number
+        }
+        Update: {
+          content_type?: string
+          created_at?: string
+          created_by?: string | null
+          filename?: string
+          filepath?: string
+          id?: string
+          metadata?: Json | null
+          size?: number
+        }
+        Relationships: []
+      }
+      cms_translations: {
+        Row: {
+          content: Json | null
+          content_id: string | null
+          created_at: string
+          description: string | null
+          id: string
+          language: Database["public"]["Enums"]["supported_language"]
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          content?: Json | null
+          content_id?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          language: Database["public"]["Enums"]["supported_language"]
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          content?: Json | null
+          content_id?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          language?: Database["public"]["Enums"]["supported_language"]
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_translations_content_id_fkey"
+            columns: ["content_id"]
+            isOneToOne: false
+            referencedRelation: "cms_content"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_versions: {
+        Row: {
+          content_data: Json
+          content_id: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          version_number: number
+        }
+        Insert: {
+          content_data: Json
+          content_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          version_number: number
+        }
+        Update: {
+          content_data?: Json
+          content_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          version_number?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_versions_content_id_fkey"
+            columns: ["content_id"]
+            isOneToOne: false
+            referencedRelation: "cms_content"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       order_items: {
         Row: {
           created_at: string
@@ -115,6 +293,8 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "user"
+      content_type: "action_card" | "number_card" | "rule" | "product"
+      supported_language: "de" | "en"
     }
     CompositeTypes: {
       [_ in never]: never
