@@ -1,21 +1,13 @@
 import { Navigation } from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { ProductImage } from "@/components/shop/ProductImage";
 import { ProductInfo } from "@/components/shop/ProductInfo";
-import { PurchaseModule } from "@/components/shop/PurchaseModule";
 import { ProductDescription } from "@/components/shop/ProductDescription";
+import { PurchaseModule } from "@/components/shop/PurchaseModule";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Shop = () => {
-  const navigate = useNavigate();
-  const [quantity, setQuantity] = useState(1);
   const { language } = useLanguage();
-
-  const handlePurchase = () => {
-    navigate('/shop/cart', { state: { quantity } });
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-background/95">
@@ -35,23 +27,14 @@ const Shop = () => {
               <ProductInfo 
                 title={language === 'en' ? "MYSTIC - The Card Game" : "MYSTIC - Das Kartenspiel"}
                 price="29.90 CHF"
-                shippingInfo={language === 'en' ? 
-                  "Shipping within Switzerland included in price" : 
-                  "Versand per A-Post innerhalb der Schweiz im Preis inbegriffen"}
+                shippingInfo={language === 'en' ? "Free shipping in Switzerland" : "Versandkostenfrei in der Schweiz"}
               />
-
-              <PurchaseModule 
-                quantity={quantity}
-                onQuantityChange={setQuantity}
-                onPurchase={handlePurchase}
-              />
+              <PurchaseModule />
             </div>
           </div>
 
-          {/* Product Description */}
-          <div className="p-4 md:p-8 border-t border-white/10">
-            <ProductDescription />
-          </div>
+          {/* Product Description Section */}
+          <ProductDescription />
         </Card>
       </main>
     </div>

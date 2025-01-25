@@ -16,8 +16,7 @@ export const ProductImage = ({ src, alt, className }: ProductImageProps) => {
         <img
           src={src}
           alt={alt}
-          className="w-full h-full object-contain rounded-xl md:rounded-2xl 
-            transition-transform duration-300 group-hover:scale-105"
+          className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
         />
       </div>
     </div>

@@ -6,7 +6,7 @@ export const CartProductImage = () => {
       <Image
         src="/lovable-uploads/cf7eccbe-9b33-4e52-aadf-a9bf531ba57b.png"
         alt="MYSTIC - Das Kartenspiel"
-        className="w-full h-full object-cover"
+        className="w-full h-full object-contain"
       />
     </div>
   );

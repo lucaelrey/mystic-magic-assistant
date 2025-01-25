@@ -1,21 +1,25 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/number-input";
-import { ShoppingCart } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
+import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { NumberInput } from "@/components/ui/number-input";
 
-interface PurchaseModuleProps {
-  quantity: number;
-  onQuantityChange: (value: number) => void;
-  onPurchase: () => void;
-}
-
-export const PurchaseModule = ({
-  quantity,
-  onQuantityChange,
-  onPurchase,
-}: PurchaseModuleProps) => {
+export const PurchaseModule = () => {
+  const [quantity, setQuantity] = useState(1);
+  const { toast } = useToast();
+  const navigate = useNavigate();
   const { language } = useLanguage();
-  
+
+  const handleAddToCart = () => {
+    // Logic to add the product to the cart
+    toast({
+      title: language === 'en' ? 'Added to Cart' : 'In den Warenkorb gelegt',
+      description: `${quantity} ${language === 'en' ? 'item(s)' : 'Artikel'} added to your cart.`,
+    });
+    navigate("/shop/cart");
+  };
+
   return (
     <div className="space-y-6 
       bg-gradient-to-b from-white/15 to-white/10
@@ -28,49 +32,21 @@ export const PurchaseModule = ({
         <span className="text-base md:text-lg font-medium text-white">
           {language === 'en' ? 'Quantity:' : 'Anzahl:'}
         </span>
-        <div className="w-full md:w-32">
-          <Input 
-            value={quantity} 
-            onChange={onQuantityChange} 
-            min={1} 
-            max={10}
-            className="h-12 shadow-lg 
-              bg-white/10 hover:bg-white/15
-              border border-white/30 hover:border-white/40
-              ring-white/30 hover:ring-white/40 focus-within:ring-white/50
-              transition-all duration-300"
-          />
-        </div>
+        <NumberInput
+          value={quantity}
+          onValueChange={setQuantity}
+          min={1}
+          max={99}
+          className="w-32"
+        />
       </div>
+
       <Button 
-        className="w-full h-12 md:h-14 text-base md:text-lg font-semibold 
-          rounded-lg md:rounded-xl
-          bg-white/15 hover:bg-white/20
-          border border-white/30 hover:border-white/40
-          shadow-lg hover:shadow-xl
-          transition-all duration-300 ease-out
-          hover:scale-[1.02]
-          group
-          text-white"
-        onClick={onPurchase}
+        onClick={handleAddToCart}
+        className="w-full glass-button text-base md:text-lg py-6"
       >
-        <ShoppingCart className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3 
-          transition-transform duration-300 group-hover:scale-110
-          text-white" />
-        {language === 'en' ? 'Buy Now' : 'Jetzt kaufen'}
+        {language === 'en' ? 'Add to Cart' : 'In den Warenkorb'}
       </Button>
-      <div className="space-y-2 text-center">
-        <p className="text-xs md:text-sm font-medium text-white/90">
-          {language === 'en' ? 
-            'Secure payment with SSL encryption' : 
-            'Sichere Bezahlung mit SSL-Verschlüsselung'}
-        </p>
-        <p className="text-xs md:text-sm font-medium text-white/80">
-          {language === 'en' ? 
-            'A-Post shipping included' : 
-            'A-Post Versand inbegriffen'}
-        </p>
-      </div>
     </div>
   );
 };
