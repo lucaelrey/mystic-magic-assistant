@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Navigation } from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
-import { Package, Plus, ChevronLeft, ChevronDown, ChevronUp } from "lucide-react";
+import { Package, Plus, ChevronLeft, ChevronDown, ChevronUp, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -15,15 +15,22 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Image from "@/components/ui/image";
 
 const ContentList = () => {
   const navigate = useNavigate();
   const [expandedRows, setExpandedRows] = useState<string[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedType, setSelectedType] = useState<string>("all");
 
   const { data: contents, isLoading } = useQuery({
     queryKey: ["cms-contents"],
@@ -58,6 +65,27 @@ const ContentList = () => {
     return translations?.find(t => t.language === language) || null;
   };
 
+  const filteredContents = contents?.filter(content => {
+    const matchesType = selectedType === "all" || content.type === selectedType;
+    const deTranslation = getTranslation(content.translations, 'de');
+    const enTranslation = getTranslation(content.translations, 'en');
+    
+    const matchesSearch = searchTerm === "" || 
+      deTranslation?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      enTranslation?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      deTranslation?.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      enTranslation?.description?.toLowerCase().includes(searchTerm.toLowerCase());
+
+    return matchesType && matchesSearch;
+  });
+
+  const contentTypes = [
+    { value: "all", label: "Alle" },
+    { value: "action_card", label: "Aktionskarten" },
+    { value: "number_card", label: "Zahlenkarten" },
+    { value: "rule", label: "Regeln" },
+  ];
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -82,6 +110,32 @@ const ContentList = () => {
             </Button>
           </div>
 
+          <div className="space-y-4 mb-6">
+            <div className="flex gap-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Suche nach Titel oder Beschreibung..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+              <Select value={selectedType} onValueChange={setSelectedType}>
+                <SelectTrigger className="w-[200px]">
+                  <SelectValue placeholder="Typ auswählen" />
+                </SelectTrigger>
+                <SelectContent>
+                  {contentTypes.map((type) => (
+                    <SelectItem key={type.value} value={type.value}>
+                      {type.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
           {isLoading ? (
             <div className="text-center py-4">Lädt...</div>
           ) : (
@@ -89,6 +143,7 @@ const ContentList = () => {
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[30px]"></TableHead>
+                  <TableHead>Vorschau</TableHead>
                   <TableHead>Typ</TableHead>
                   <TableHead>Key</TableHead>
                   <TableHead>DE Titel</TableHead>
@@ -99,10 +154,11 @@ const ContentList = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {contents?.map((content) => {
+                {filteredContents?.map((content) => {
                   const deTranslation = getTranslation(content.translations, 'de');
                   const enTranslation = getTranslation(content.translations, 'en');
                   const isExpanded = expandedRows.includes(content.id);
+                  const previewImage = content.metadata?.previewImage || null;
 
                   return (
                     <React.Fragment key={content.id}>
@@ -114,7 +170,22 @@ const ContentList = () => {
                             <ChevronDown className="h-4 w-4" />
                           )}
                         </TableCell>
-                        <TableCell className="font-medium">{content.type}</TableCell>
+                        <TableCell>
+                          {previewImage && (
+                            <div className="w-12 h-12 relative">
+                              <Image
+                                src={previewImage}
+                                alt={deTranslation?.title || "Vorschau"}
+                                className="rounded-md object-cover w-full h-full"
+                              />
+                            </div>
+                          )}
+                        </TableCell>
+                        <TableCell className="font-medium">
+                          <Badge variant="outline">
+                            {contentTypes.find(t => t.value === content.type)?.label || content.type}
+                          </Badge>
+                        </TableCell>
                         <TableCell>{content.key}</TableCell>
                         <TableCell>{deTranslation?.title || "Kein Titel"}</TableCell>
                         <TableCell>{enTranslation?.title || "No Title"}</TableCell>
@@ -141,7 +212,7 @@ const ContentList = () => {
                       </TableRow>
                       {isExpanded && (
                         <TableRow>
-                          <TableCell colSpan={8}>
+                          <TableCell colSpan={9}>
                             <div className="p-4 bg-muted/50 rounded-lg space-y-4">
                               <div className="grid grid-cols-2 gap-4">
                                 <div>
