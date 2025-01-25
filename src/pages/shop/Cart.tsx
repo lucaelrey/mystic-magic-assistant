@@ -97,7 +97,7 @@ const Cart = () => {
     <div className="min-h-screen w-full bg-gradient-to-b from-background to-background/95">
       <Navigation />
       <main className="container mx-auto px-4 md:px-6 pt-20 md:pt-24 pb-12">
-        <Card className="glass-card max-w-4xl mx-auto overflow-visible">
+        <Card className="glass-card max-w-4xl mx-auto overflow-visible bg-black/40 backdrop-blur-xl border-white/10">
           <div className="p-6 md:p-8 space-y-8">
             {/* Header */}
             <div className="flex items-center justify-between">
@@ -113,7 +113,7 @@ const Cart = () => {
             {/* Product Card */}
             <div className="space-y-8">
               <div className="glass rounded-xl p-6 md:p-8
-                bg-gradient-to-br from-white/10 to-white/5
+                bg-black/40 backdrop-blur-xl
                 border border-white/10 hover:border-white/20
                 transition-all duration-300 ease-out
                 group">
@@ -140,7 +140,7 @@ const Cart = () => {
 
               {/* Summary Card */}
               <div className="glass rounded-xl p-6 md:p-8 space-y-6
-                bg-gradient-to-br from-white/10 to-white/5
+                bg-black/40 backdrop-blur-xl
                 border border-white/10 hover:border-white/20
                 transition-all duration-300">
                 <div className="flex justify-between items-center text-xl 
