@@ -12,14 +12,14 @@ export const OrderShippingAddress = ({ shippingAddress }: OrderShippingAddressPr
   
   return (
     <Card className="p-6">
-      <h3 className="font-semibold text-lg mb-4">Lieferadresse</h3>
+      <h3 className="font-semibold text-lg mb-4 text-left">Lieferadresse</h3>
       <div className="space-y-4">
         <div className="flex items-start gap-3">
           <User className="h-4 w-4 text-muted-foreground mt-1" />
-          <p className="font-medium">{address.firstName} {address.lastName}</p>
+          <p className="font-medium text-left">{address.firstName} {address.lastName}</p>
         </div>
         
-        <div className="pl-7 space-y-1 text-sm">
+        <div className="pl-7 space-y-1 text-sm text-left">
           <p>{address.street}</p>
           <p>{address.postalCode} {address.city}</p>
           <p>{address.country}</p>
@@ -28,14 +28,14 @@ export const OrderShippingAddress = ({ shippingAddress }: OrderShippingAddressPr
         {address.email && (
           <div className="flex items-start gap-3">
             <Mail className="h-4 w-4 text-muted-foreground mt-1" />
-            <p className="text-sm">{address.email}</p>
+            <p className="text-sm text-left">{address.email}</p>
           </div>
         )}
         
         {address.phone && (
           <div className="flex items-start gap-3">
             <Phone className="h-4 w-4 text-muted-foreground mt-1" />
-            <p className="text-sm">{address.phone}</p>
+            <p className="text-sm text-left">{address.phone}</p>
           </div>
         )}
       </div>

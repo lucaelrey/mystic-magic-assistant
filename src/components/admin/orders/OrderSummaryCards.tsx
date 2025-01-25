@@ -30,7 +30,7 @@ export const OrderSummaryCards = ({ order }: OrderSummaryCardsProps) => {
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2 text-muted-foreground">
             <Package className="h-4 w-4" />
-            <h3 className="font-medium">Status</h3>
+            <h3 className="font-medium text-left">Status</h3>
           </div>
           <OrderStatusBadge status={order.status} />
         </div>
@@ -40,7 +40,7 @@ export const OrderSummaryCards = ({ order }: OrderSummaryCardsProps) => {
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2 text-muted-foreground">
             <CreditCard className="h-4 w-4" />
-            <h3 className="font-medium">Zahlungsstatus</h3>
+            <h3 className="font-medium text-left">Zahlungsstatus</h3>
           </div>
           <PaymentStatusBadge status={order.payment_status} />
         </div>

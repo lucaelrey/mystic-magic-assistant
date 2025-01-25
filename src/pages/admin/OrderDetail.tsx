@@ -72,7 +72,7 @@ const OrderDetail = () => {
                 <div className="space-y-6">
                   <Card className="p-6">
                     <div className="space-y-4">
-                      <h3 className="font-semibold text-lg">Bestellstatus</h3>
+                      <h3 className="font-semibold text-lg text-left">Bestellstatus</h3>
                       <OrderStatusSelect 
                         orderId={order.id}
                         currentStatus={order.status}
@@ -84,7 +84,7 @@ const OrderDetail = () => {
               </div>
               
               <Card className="p-6">
-                <h3 className="font-semibold text-lg mb-6">Bestellte Artikel</h3>
+                <h3 className="font-semibold text-lg mb-6 text-left">Bestellte Artikel</h3>
                 <OrderItemsTable 
                   orderItems={order.order_items} 
                   totalAmount={order.total_amount} 

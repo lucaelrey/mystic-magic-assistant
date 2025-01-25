@@ -25,7 +25,7 @@ export const OrderItemsTable = ({ orderItems, totalAmount }: OrderItemsTableProp
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Artikel</TableHead>
+            <TableHead className="text-left">Artikel</TableHead>
             <TableHead className="text-right">Menge</TableHead>
             <TableHead className="text-right">Preis pro Stück</TableHead>
             <TableHead className="text-right">Gesamtpreis</TableHead>
@@ -34,7 +34,7 @@ export const OrderItemsTable = ({ orderItems, totalAmount }: OrderItemsTableProp
         <TableBody>
           {orderItems.map((item) => (
             <TableRow key={item.id}>
-              <TableCell className="font-medium">{item.product_name}</TableCell>
+              <TableCell className="font-medium text-left">{item.product_name}</TableCell>
               <TableCell className="text-right">{item.quantity}</TableCell>
               <TableCell className="text-right">CHF {item.price_per_unit.toFixed(2)}</TableCell>
               <TableCell className="text-right">
