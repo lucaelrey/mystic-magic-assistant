@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { OrdersHeader } from "@/components/admin/orders/OrdersHeader";
 import { OrdersTable } from "@/components/admin/orders/OrdersTable";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
 
 const Orders = () => {
   const { toast } = useToast();
@@ -46,7 +48,17 @@ const Orders = () => {
       <main className="container mx-auto px-4 pt-24">
         <Card className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <OrdersHeader />
+            <div className="flex items-center gap-3">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => navigate("/admin")}
+                className="mr-2"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <OrdersHeader />
+            </div>
           </div>
 
           {isLoading ? (

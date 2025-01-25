@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Navigation } from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
-import { Plus, Edit, Trash, Eye } from "lucide-react";
+import { Plus, Edit, Trash, Eye, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -66,6 +66,14 @@ const EmailTemplates = () => {
         <Card className="p-6">
           <div className="flex items-center justify-between gap-3 mb-6">
             <div className="flex items-center gap-3">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => navigate("/admin")}
+                className="mr-2"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
               <h1 className="text-2xl font-bold">E-Mail-Vorlagen</h1>
             </div>
             <Button onClick={() => navigate("/admin/email-templates/new")}>
