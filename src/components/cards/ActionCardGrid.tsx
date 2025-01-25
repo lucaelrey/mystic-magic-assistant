@@ -15,15 +15,29 @@ import Image from "@/components/ui/image";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { CardDetails } from "./CardDetails";
 import { actionCards } from "@/data/actionCards";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const ActionCardGrid = () => {
   const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<(typeof actionCards)[0] | null>(null);
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  const { language } = useLanguage();
 
   const handleCardClick = (card: (typeof actionCards)[0]) => {
     setSelectedCard(card);
     setOpen(true);
+  };
+
+  const getTranslatedCard = (card: (typeof actionCards)[0]) => {
+    if (language === 'en') {
+      return {
+        ...card,
+        name: card.name_en || card.name,
+        description: card.description_en || card.description,
+        rules: card.rules_en || card.rules,
+      };
+    }
+    return card;
   };
 
   const renderCardContent = (card: (typeof actionCards)[0]) => (
@@ -34,7 +48,7 @@ export const ActionCardGrid = () => {
       <div className="relative overflow-hidden rounded-lg">
         <Image
           src={card.image}
-          alt={card.name}
+          alt={getTranslatedCard(card).name}
           className="w-full h-full object-contain"
         />
       </div>
@@ -52,7 +66,7 @@ export const ActionCardGrid = () => {
               </DialogTrigger>
               <DialogContent className="glass sm:max-w-[425px]">
                 <DialogHeader>
-                  <CardDetails card={card} className="mt-4" />
+                  <CardDetails card={getTranslatedCard(card)} className="mt-4" />
                 </DialogHeader>
               </DialogContent>
             </Dialog>
@@ -63,7 +77,7 @@ export const ActionCardGrid = () => {
               </DrawerTrigger>
               <DrawerContent className="bg-[#121212] px-4">
                 <DrawerHeader className="text-left">
-                  <CardDetails card={card} className="pb-4" />
+                  <CardDetails card={getTranslatedCard(card)} className="pb-4" />
                 </DrawerHeader>
               </DrawerContent>
             </Drawer>
