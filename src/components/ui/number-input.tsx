@@ -11,13 +11,13 @@ type Props = {
   className?: string
 }
 
-export function Input({
+export const NumberInput = ({
   value = 0,
   min = -Infinity,
   max = Infinity,
   onChange,
   className,
-}: Props) {
+}: Props) => {
   const defaultValue = React.useRef(value)
   const inputRef = React.useRef<HTMLInputElement>(null)
   const [animated, setAnimated] = React.useState(true)
@@ -107,4 +107,4 @@ export function Input({
   )
 }
 
-export default { Input }
+export default { NumberInput }
