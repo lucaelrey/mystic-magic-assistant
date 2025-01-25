@@ -14,7 +14,7 @@ const Shop = () => {
   const { language } = useLanguage();
 
   const handlePurchase = () => {
-    navigate('/cart', { state: { quantity } });
+    navigate('/shop/cart', { state: { quantity } });
   };
 
   return (
