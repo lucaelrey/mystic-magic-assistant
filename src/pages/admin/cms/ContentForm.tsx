@@ -57,31 +57,53 @@ const ContentForm = () => {
     enabled: !!id,
     meta: {
       onSuccess: (data: any) => {
-        if (data) {
-          // Transform translations array into object
-          const translations = {
-            de: data.translations.find((t: any) => t.language === "de") || {
-              title: "",
-              description: "",
-              content: {},
-            },
-            en: data.translations.find((t: any) => t.language === "en") || {
-              title: "",
-              description: "",
-              content: {},
-            },
-          };
+        if (!data) return;
+        
+        // Transform translations array into object
+        const translations = {
+          de: data.translations.find((t: any) => t.language === "de") || {
+            title: "",
+            description: "",
+            content: {},
+          },
+          en: data.translations.find((t: any) => t.language === "en") || {
+            title: "",
+            description: "",
+            content: {},
+          },
+        };
 
-          // Reset form with loaded data
-          form.reset({
-            type: data.type,
-            key: data.key,
-            translations,
-          });
-        }
-      }
-    }
+        form.reset({
+          type: data.type,
+          key: data.key,
+          translations,
+        });
+      },
+    },
   });
+
+  React.useEffect(() => {
+    if (content) {
+      const translations = {
+        de: content.translations.find((t: any) => t.language === "de") || {
+          title: "",
+          description: "",
+          content: {},
+        },
+        en: content.translations.find((t: any) => t.language === "en") || {
+          title: "",
+          description: "",
+          content: {},
+        },
+      };
+
+      form.reset({
+        type: content.type,
+        key: content.key,
+        translations,
+      });
+    }
+  }, [content, form]);
 
   const createMutation = useMutation({
     mutationFn: async (values: any) => {
