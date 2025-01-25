@@ -17,7 +17,8 @@ const Auth = () => {
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === "SIGNED_IN" && session) {
-        navigate(returnPath);
+        // Reload the page after successful sign in
+        window.location.href = returnPath;
       }
       if (event === "USER_UPDATED") {
         const { error } = await supabase.auth.getSession();
