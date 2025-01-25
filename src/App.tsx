@@ -5,9 +5,7 @@ import Index from "@/pages/Index";
 import Rules from "@/pages/Rules";
 import CardDetail from "@/pages/CardDetail";
 import Shop from "@/pages/Shop";
-import Cart from "@/pages/shop/Cart";
-import Payment from "@/pages/shop/Payment";
-import Confirmation from "@/pages/shop/Confirmation";
+import Cart from "@/pages/Cart";
 import Auth from "@/pages/Auth";
 import Dashboard from "@/pages/admin/Dashboard";
 import Orders from "@/pages/admin/Orders";
@@ -40,9 +38,7 @@ function App() {
             </Route>
             <Route path="/cards/:id" element={<CardDetail />} />
             <Route path="/shop" element={<Shop />} />
-            <Route path="/shop/cart" element={<Cart />} />
-            <Route path="/shop/payment" element={<Payment />} />
-            <Route path="/shop/confirmation" element={<Confirmation />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/admin" element={<Dashboard />} />
             <Route path="/admin/orders" element={<Orders />} />
