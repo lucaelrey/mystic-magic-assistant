@@ -17,10 +17,12 @@ export const PurchaseModule = ({
   const { language } = useLanguage();
   
   return (
-    <div className="space-y-4 md:space-y-6 bg-black/20 backdrop-blur-lg 
-      p-4 md:p-8 rounded-xl md:rounded-2xl border border-white/20 
-      shadow-lg md:shadow-xl">
-      <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6 justify-center">
+    <div className="space-y-6 bg-white/5 backdrop-blur-lg 
+      p-6 md:p-8 rounded-xl md:rounded-2xl 
+      border border-white/10 hover:border-white/20
+      shadow-lg hover:shadow-xl
+      transition-all duration-300">
+      <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
         <span className="text-base md:text-lg font-medium text-white/90">
           {language === 'en' ? 'Quantity:' : 'Anzahl:'}
         </span>
@@ -30,16 +32,20 @@ export const PurchaseModule = ({
             onChange={onQuantityChange} 
             min={1} 
             max={10}
-            className="h-12 md:h-12 shadow-lg ring-white/30 
-              hover:ring-white/40 focus-within:ring-primary/50
-              w-48"
+            className="h-12 shadow-lg 
+              bg-white/5 hover:bg-white/10
+              border border-white/20 hover:border-white/30
+              ring-white/20 hover:ring-white/30 focus-within:ring-white/40
+              transition-all duration-300"
           />
         </div>
       </div>
       <Button 
         className="w-full h-12 md:h-14 text-base md:text-lg font-semibold 
           rounded-lg md:rounded-xl
+          bg-white/10 hover:bg-white/15
           border border-white/20 hover:border-white/30
+          shadow-lg hover:shadow-xl
           transition-all duration-300 ease-out
           hover:scale-[1.02]
           group"
@@ -49,7 +55,7 @@ export const PurchaseModule = ({
           transition-transform duration-300 group-hover:scale-110" />
         {language === 'en' ? 'Buy Now' : 'Jetzt kaufen'}
       </Button>
-      <p className="text-xs md:text-sm font-medium text-white/60">
+      <p className="text-xs md:text-sm font-medium text-white/60 text-center">
         {language === 'en' ? 
           'Secure payment with SSL encryption' : 
           'Sichere Bezahlung mit SSL-Verschlüsselung'}
