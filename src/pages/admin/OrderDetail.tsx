@@ -2,17 +2,19 @@ import { Navigation } from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { OrderDetailHeader } from "@/components/admin/orders/OrderDetailHeader";
 import { OrderSummaryCards } from "@/components/admin/orders/OrderSummaryCards";
 import { OrderShippingAddress } from "@/components/admin/orders/OrderShippingAddress";
 import { OrderItemsTable } from "@/components/admin/orders/OrderItemsTable";
+import { OrderStatusSelect } from "@/components/admin/orders/OrderStatusSelect";
 
 const OrderDetail = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { orderId } = useParams();
+  const { id: orderId } = useParams();
+  const queryClient = useQueryClient();
 
   const { data: order, isLoading } = useQuery({
     queryKey: ['admin-order', orderId],
@@ -24,13 +26,12 @@ const OrderDetail = () => {
           order_items (*)
         `)
         .eq('id', orderId)
-        .eq('payment_status', 'paid')
         .single();
 
       if (error) {
         toast({
           title: "Fehler",
-          description: "Die Bestellung konnte nicht geladen werden oder ist nicht bezahlt.",
+          description: "Die Bestellung konnte nicht geladen werden.",
           variant: "destructive",
         });
         throw error;
@@ -39,6 +40,10 @@ const OrderDetail = () => {
       return data;
     },
   });
+
+  const handleStatusChange = async (newStatus: string) => {
+    await queryClient.invalidateQueries({ queryKey: ['admin-order', orderId] });
+  };
 
   const handleBack = () => {
     navigate('/admin/orders');
@@ -56,7 +61,20 @@ const OrderDetail = () => {
           ) : order ? (
             <div className="space-y-6">
               <OrderSummaryCards order={order} />
+              
+              <Card className="p-4">
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="font-semibold">Bestellstatus</h3>
+                  <OrderStatusSelect 
+                    orderId={order.id}
+                    currentStatus={order.status}
+                    onStatusChange={handleStatusChange}
+                  />
+                </div>
+              </Card>
+
               <OrderShippingAddress shippingAddress={order.shipping_address} />
+              
               <Card className="p-4">
                 <h3 className="font-semibold mb-4">Bestellte Artikel</h3>
                 <OrderItemsTable 
@@ -67,7 +85,7 @@ const OrderDetail = () => {
             </div>
           ) : (
             <div className="text-center py-8">
-              Bestellung nicht gefunden oder nicht bezahlt
+              Bestellung nicht gefunden
             </div>
           )}
         </Card>
