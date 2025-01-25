@@ -1,30 +1,24 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { Resend } from "npm:resend@2.0.0";
 
-const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-interface EmailRequest {
-  to: string[];
-  subject: string;
-  html: string;
-}
-
-interface OrderEmailData {
+interface OrderData {
   orderNumber: string;
   totalAmount: number;
   shippingAddress: {
     firstName: string;
     lastName: string;
-    street: string;
-    postalCode: string;
-    city: string;
-    country: string;
     email: string;
+    street: string;
+    city: string;
+    postalCode: string;
+    country: string;
   };
   items: Array<{
     product_name: string;
@@ -33,188 +27,100 @@ interface OrderEmailData {
   }>;
 }
 
-const createOrderConfirmationEmail = (data: OrderEmailData) => {
-  const formattedAmount = (data.totalAmount / 100).toFixed(2);
-  
-  return {
-    subject: `Bestellbestätigung #${data.orderNumber} - Mystic Kartenspiel`,
-    html: `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-          .header { text-align: center; margin-bottom: 30px; }
-          .order-details { background: #f9f9f9; padding: 20px; border-radius: 5px; margin: 20px 0; }
-          .product-list { margin: 20px 0; }
-          .total { font-weight: bold; font-size: 1.1em; margin-top: 20px; }
-          .footer { margin-top: 30px; text-align: center; color: #666; font-size: 0.9em; }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <div class="header">
-            <h1>Vielen Dank für deine Bestellung!</h1>
-          </div>
-          
-          <p>Hallo ${data.shippingAddress.firstName} ${data.shippingAddress.lastName},</p>
-          
-          <p>wir freuen uns, dir mitteilen zu können, dass wir deine Bestellung <strong>#${data.orderNumber}</strong> erfolgreich erhalten haben.</p>
-          
-          <div class="order-details">
-            <h2>Bestellübersicht:</h2>
-            <div class="product-list">
-              ${data.items.map(item => `
-                <div>
-                  <p>${item.product_name}<br>
-                  Menge: ${item.quantity}x<br>
-                  Preis pro Stück: CHF ${item.price_per_unit.toFixed(2)}</p>
-                </div>
-              `).join('')}
-            </div>
-            <div class="total">
-              Gesamtbetrag: CHF ${formattedAmount}
-            </div>
-          </div>
-          
-          <div class="shipping-address">
-            <h2>Lieferadresse:</h2>
-            <p>
-              ${data.shippingAddress.firstName} ${data.shippingAddress.lastName}<br>
-              ${data.shippingAddress.street}<br>
-              ${data.shippingAddress.postalCode} ${data.shippingAddress.city}<br>
-              ${data.shippingAddress.country}
-            </p>
-          </div>
-          
-          <p>Wir werden deine Bestellung sorgfältig verpacken und schnellstmöglich versenden. 
-          Sobald dein Paket unterwegs ist, erhältst du von uns eine weitere E-Mail.</p>
-          
-          <p>Falls du Fragen zu deiner Bestellung hast, antworte einfach auf diese E-Mail.</p>
-          
-          <div class="footer">
-            <p>Herzliche Grüße,<br>
-            Dein Mystic Team</p>
-          </div>
-        </div>
-      </body>
-      </html>
-    `
-  };
-};
-
-const createShippingConfirmationEmail = (data: OrderEmailData) => {
-  return {
-    subject: `Deine Bestellung #${data.orderNumber} wurde versandt - Mystic Kartenspiel`,
-    html: `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-          .header { text-align: center; margin-bottom: 30px; }
-          .shipping-info { background: #f9f9f9; padding: 20px; border-radius: 5px; margin: 20px 0; }
-          .footer { margin-top: 30px; text-align: center; color: #666; font-size: 0.9em; }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <div class="header">
-            <h1>Deine Bestellung ist unterwegs!</h1>
-          </div>
-          
-          <p>Hallo ${data.shippingAddress.firstName} ${data.shippingAddress.lastName},</p>
-          
-          <p>gute Nachrichten! Deine Bestellung <strong>#${data.orderNumber}</strong> wurde soeben versandt.</p>
-          
-          <div class="shipping-info">
-            <h2>Lieferadresse:</h2>
-            <p>
-              ${data.shippingAddress.firstName} ${data.shippingAddress.lastName}<br>
-              ${data.shippingAddress.street}<br>
-              ${data.shippingAddress.postalCode} ${data.shippingAddress.city}<br>
-              ${data.shippingAddress.country}
-            </p>
-          </div>
-          
-          <p>Die Lieferung erfolgt in der Regel innerhalb von 2-3 Werktagen.</p>
-          
-          <p>Wir wünschen dir viel Spaß mit deinem neuen Mystic Kartenspiel!</p>
-          
-          <div class="footer">
-            <p>Herzliche Grüße,<br>
-            Dein Mystic Team</p>
-          </div>
-        </div>
-      </body>
-      </html>
-    `
-  };
-};
+interface EmailRequest {
+  type: string;
+  orderData: OrderData;
+}
 
 const handler = async (req: Request): Promise<Response> => {
-  // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const { type, orderData } = await req.json();
-    
+    const { type, orderData }: EmailRequest = await req.json();
+    console.log("Sending email for type:", type);
+    console.log("Order data:", orderData);
+
     let emailContent;
-    if (type === 'order_confirmation') {
-      emailContent = createOrderConfirmationEmail(orderData);
-    } else if (type === 'shipping_confirmation') {
-      emailContent = createShippingConfirmationEmail(orderData);
-    } else {
-      throw new Error('Invalid email type');
+    let subject;
+
+    switch (type) {
+      case "order_confirmation":
+        subject = "Bestellbestätigung - MYSTIC Kartenspiel";
+        emailContent = `
+          <h1>Vielen Dank für Ihre Bestellung!</h1>
+          <p>Sehr geehrte(r) ${orderData.shippingAddress.firstName} ${orderData.shippingAddress.lastName},</p>
+          <p>Wir haben Ihre Bestellung #${orderData.orderNumber} erfolgreich erhalten.</p>
+          
+          <h2>Bestellübersicht:</h2>
+          ${orderData.items.map(item => `
+            <p>${item.product_name} - ${item.quantity}x - CHF ${item.price_per_unit.toFixed(2)}</p>
+          `).join('')}
+          
+          <p><strong>Gesamtbetrag: CHF ${orderData.totalAmount.toFixed(2)}</strong></p>
+          
+          <h2>Lieferadresse:</h2>
+          <p>
+            ${orderData.shippingAddress.firstName} ${orderData.shippingAddress.lastName}<br>
+            ${orderData.shippingAddress.street}<br>
+            ${orderData.shippingAddress.postalCode} ${orderData.shippingAddress.city}<br>
+            ${orderData.shippingAddress.country}
+          </p>
+          
+          <p>Wir werden Ihre Bestellung schnellstmöglich bearbeiten und versenden.</p>
+          <p>Mit freundlichen Grüssen<br>Ihr MYSTIC Team</p>
+        `;
+        break;
+
+      case "shipping_confirmation":
+        subject = "Versandbestätigung - MYSTIC Kartenspiel";
+        emailContent = `
+          <h1>Ihre Bestellung wurde versendet!</h1>
+          <p>Sehr geehrte(r) ${orderData.shippingAddress.firstName} ${orderData.shippingAddress.lastName},</p>
+          <p>Ihre Bestellung #${orderData.orderNumber} wurde soeben versendet.</p>
+          
+          <p>Die Lieferung erfolgt an:</p>
+          <p>
+            ${orderData.shippingAddress.firstName} ${orderData.shippingAddress.lastName}<br>
+            ${orderData.shippingAddress.street}<br>
+            ${orderData.shippingAddress.postalCode} ${orderData.shippingAddress.city}<br>
+            ${orderData.shippingAddress.country}
+          </p>
+          
+          <p>Mit freundlichen Grüssen<br>Ihr MYSTIC Team</p>
+        `;
+        break;
+
+      default:
+        throw new Error(`Unbekannter E-Mail-Typ: ${type}`);
     }
 
-    // Override recipient email for testing
-    const emailRequest: EmailRequest = {
-      to: ["contact@nussbaumer.agency"], // Temporarily override recipient
-      subject: emailContent.subject,
-      html: emailContent.html,
-    };
+    const emailResponse = await resend.emails.send({
+      from: "MYSTIC Game <no-reply@transactional.mysticgame.ch>",
+      to: [orderData.shippingAddress.email],
+      subject: subject,
+      html: emailContent,
+    });
 
-    console.log('Sending email:', emailRequest);
+    console.log("Email sent successfully:", emailResponse);
 
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
+    return new Response(JSON.stringify(emailResponse), {
+      status: 200,
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${RESEND_API_KEY}`,
+        ...corsHeaders,
       },
-      body: JSON.stringify({
-        from: "Mystic <no-reply@mystic-game.ch>", // Updated sender email
-        ...emailRequest,
-      }),
     });
-
-    if (res.ok) {
-      const data = await res.json();
-      console.log('Email sent successfully:', data);
-
-      return new Response(JSON.stringify(data), {
-        status: 200,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    } else {
-      const error = await res.text();
-      console.error('Error sending email:', error);
-      return new Response(JSON.stringify({ error }), {
-        status: 400,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
   } catch (error: any) {
     console.error("Error in send-email function:", error);
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({ error: error.message }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      }
+    );
   }
 };
 
