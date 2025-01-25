@@ -1,5 +1,6 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import { useEffect } from 'react';
 
 interface RichTextEditorProps {
   value: string;
@@ -9,11 +10,20 @@ interface RichTextEditorProps {
 export const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
   const editor = useEditor({
     extensions: [StarterKit],
-    content: value,
+    content: '',
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
     },
   });
+
+  useEffect(() => {
+    if (editor && value) {
+      // Nur setzen, wenn sich der Wert tatsächlich geändert hat
+      if (editor.getHTML() !== value) {
+        editor.commands.setContent(value);
+      }
+    }
+  }, [editor, value]);
 
   if (!editor) {
     return null;
@@ -50,7 +60,7 @@ export const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
           •
         </button>
       </div>
-      <EditorContent editor={editor} className="p-2" />
+      <EditorContent editor={editor} className="p-2 min-h-[200px]" />
     </div>
   );
 };
