@@ -8,7 +8,7 @@ import { Database } from "@/integrations/supabase/types";
 import { PostgrestSingleResponse } from "@supabase/supabase-js";
 
 type HeroContent = Database['public']['Tables']['cms_content']['Row'] & {
-  translations: Array<Database['public']['Tables']['cms_translations']['Row']>;
+  cms_translations: Array<Database['public']['Tables']['cms_translations']['Row']>;
 };
 
 export const Hero = () => {
@@ -21,7 +21,7 @@ export const Hero = () => {
         .from("cms_content")
         .select(`
           *,
-          translations (*)
+          cms_translations (*)
         `)
         .eq("type", "product")
         .eq("key", "hero")
@@ -39,7 +39,7 @@ export const Hero = () => {
 
   const getTranslatedContent = (content: HeroContent | null) => {
     if (!content) return null;
-    return content.translations.find(t => t.language === language);
+    return content.cms_translations.find(t => t.language === language);
   };
 
   const translatedHero = getTranslatedContent(heroContent);
