@@ -7,7 +7,7 @@ export const ActionCardsRules = () => {
   
   return (
     <Card className="glass">
-      <CardContent className="pt-6">
+      <CardContent className="pt-6 text-left">
         <h2 className="text-2xl font-semibold mb-4">{t('rules.actionCards.title')}</h2>
         <div className="space-y-4">
           <p className="mb-4">
