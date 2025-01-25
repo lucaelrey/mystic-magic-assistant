@@ -3,7 +3,7 @@ import { Form } from "@/components/ui/form";
 import { UseFormReturn } from "react-hook-form";
 import { ContentTypeSelect } from "./ContentTypeSelect";
 import { ContentKeyField } from "./ContentKeyField";
-import { TranslationFields } from "./TranslationFields";
+import { TranslationTabs } from "./TranslationTabs";
 
 interface FormContentProps {
   form: UseFormReturn<any>;
@@ -18,21 +18,11 @@ export const FormContent = ({ form, isLoading }: FormContentProps) => {
   return (
     <Form {...form}>
       <div className="space-y-6">
-        <ContentTypeSelect form={form} />
-        <ContentKeyField form={form} />
-
         <div className="grid md:grid-cols-2 gap-6">
-          <TranslationFields 
-            form={form} 
-            language="de" 
-            title="Deutsch" 
-          />
-          <TranslationFields 
-            form={form} 
-            language="en" 
-            title="English" 
-          />
+          <ContentTypeSelect form={form} />
+          <ContentKeyField form={form} />
         </div>
+        <TranslationTabs form={form} />
       </div>
     </Form>
   );
