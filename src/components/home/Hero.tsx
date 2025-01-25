@@ -74,7 +74,7 @@ export const Hero = () => {
         <Image 
           src="/lovable-uploads/1f58f033-504f-4263-b603-62d580d14fd2.png"
           alt="MYSTIC"
-          className="w-full max-w-2xl mx-auto mb-6"
+          className="w-full max-w-xl mx-auto mb-6"
         />
         <p className="text-xl mb-8 max-w-2xl mx-auto text-white/90">
           {translatedHero?.description || t('home.subtitle')}
