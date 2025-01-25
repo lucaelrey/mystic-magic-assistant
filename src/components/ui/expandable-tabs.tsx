@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useOnClickOutside } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
 
@@ -57,12 +56,6 @@ export function ExpandableTabs({
   onChange,
 }: ExpandableTabsProps) {
   const [selected, setSelected] = React.useState<number | null>(defaultSelected);
-  const outsideClickRef = React.useRef(null);
-
-  useOnClickOutside(outsideClickRef, () => {
-    setSelected(null);
-    onChange?.(null);
-  });
 
   const handleSelect = (index: number) => {
     setSelected(index);
@@ -75,7 +68,6 @@ export function ExpandableTabs({
 
   return (
     <div
-      ref={outsideClickRef}
       className={cn(
         "flex flex-wrap items-center gap-2 rounded-2xl border bg-background p-1 shadow-sm",
         className
