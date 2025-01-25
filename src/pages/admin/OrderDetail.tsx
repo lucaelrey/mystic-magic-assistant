@@ -77,6 +77,7 @@ const OrderDetail = () => {
                         orderId={order.id}
                         currentStatus={order.status}
                         onStatusChange={handleStatusChange}
+                        order={order}
                       />
                     </div>
                   </Card>

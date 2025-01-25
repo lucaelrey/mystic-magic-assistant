@@ -187,6 +187,45 @@ export type Database = {
           },
         ]
       }
+      email_templates: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          html_content: string
+          id: string
+          name: string
+          subject: string
+          type: Database["public"]["Enums"]["email_template_type"]
+          updated_at: string | null
+          updated_by: string | null
+          variables: Json | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          html_content: string
+          id?: string
+          name: string
+          subject: string
+          type: Database["public"]["Enums"]["email_template_type"]
+          updated_at?: string | null
+          updated_by?: string | null
+          variables?: Json | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          html_content?: string
+          id?: string
+          name?: string
+          subject?: string
+          type?: Database["public"]["Enums"]["email_template_type"]
+          updated_at?: string | null
+          updated_by?: string | null
+          variables?: Json | null
+        }
+        Relationships: []
+      }
       order_items: {
         Row: {
           created_at: string
@@ -294,6 +333,10 @@ export type Database = {
     Enums: {
       app_role: "admin" | "user"
       content_type: "action_card" | "number_card" | "rule" | "product"
+      email_template_type:
+        | "order_confirmation"
+        | "shipping_confirmation"
+        | "custom"
       supported_language: "de" | "en"
     }
     CompositeTypes: {
