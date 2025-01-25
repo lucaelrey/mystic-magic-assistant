@@ -28,6 +28,7 @@ serve(async (req) => {
   try {
     const signature = req.headers.get('stripe-signature');
     if (!signature) {
+      console.error('No Stripe signature found in request');
       return new Response('No signature', { status: 400 });
     }
 
