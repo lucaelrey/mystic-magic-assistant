@@ -18,11 +18,10 @@ export const PurchaseModule = ({
       p-4 md:p-8 rounded-xl md:rounded-2xl border border-white/20 
       shadow-lg md:shadow-xl">
       <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
-        <span className="hidden md:inline text-base md:text-lg font-medium text-white/90 
-          min-w-20 md:min-w-24">
+        <span className="text-base md:text-lg font-medium text-white/90">
           Anzahl:
         </span>
-        <div className="w-full md:w-32 mx-auto md:mx-0">
+        <div className="w-full md:w-32">
           <Input 
             value={quantity} 
             onChange={onQuantityChange} 
@@ -30,7 +29,7 @@ export const PurchaseModule = ({
             max={10}
             className="h-12 md:h-12 shadow-lg ring-white/30 
               hover:ring-white/40 focus-within:ring-primary/50
-              w-48 mx-auto"
+              w-48"
           />
         </div>
       </div>
@@ -47,7 +46,7 @@ export const PurchaseModule = ({
           transition-transform duration-300 group-hover:scale-110" />
         Jetzt kaufen
       </Button>
-      <p className="text-xs md:text-sm font-medium text-center text-white/60">
+      <p className="text-xs md:text-sm font-medium text-white/60">
         Sichere Bezahlung mit SSL-Verschlüsselung
       </p>
     </div>

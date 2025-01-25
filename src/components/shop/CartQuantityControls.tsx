@@ -15,7 +15,7 @@ export const CartQuantityControls = ({
 }: CartQuantityControlsProps) => {
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex items-center gap-2">
         <Button 
           variant="outline" 
           size="icon"
@@ -47,7 +47,7 @@ export const CartQuantityControls = ({
         variant="ghost" 
         size="sm"
         onClick={onReset}
-        className="self-center text-white/60 hover:text-white/80 
+        className="self-start text-white/60 hover:text-white/80 
           hover:bg-white/5"
       >
         <Trash2 className="w-3 h-3 md:w-4 md:h-4 mr-2" />
