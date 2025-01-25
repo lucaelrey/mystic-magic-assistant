@@ -172,8 +172,9 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error('Invalid email type');
     }
 
+    // Override recipient email for testing
     const emailRequest: EmailRequest = {
-      to: [orderData.shippingAddress.email],
+      to: ["contact@nussbaumer.agency"], // Temporarily override recipient
       subject: emailContent.subject,
       html: emailContent.html,
     };
@@ -187,7 +188,7 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Mystic <onboarding@resend.dev>", // Changed this line to use Resend's default domain
+        from: "Mystic <onboarding@resend.dev>", // Using Resend's default domain
         ...emailRequest,
       }),
     });
