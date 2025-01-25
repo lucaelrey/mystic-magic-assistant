@@ -74,7 +74,13 @@ const Auth = () => {
                   colors: {
                     brand: 'hsl(var(--primary))',
                     brandAccent: 'hsl(var(--primary))',
+                    inputText: 'hsl(var(--foreground))',
                   },
+                },
+              },
+              style: {
+                input: {
+                  color: 'hsl(var(--foreground))',
                 },
               },
             }}
