@@ -3,9 +3,9 @@ import { Hero } from "@/components/home/Hero";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen w-full">
       <Navigation />
-      <main>
+      <main className="w-full">
         <Hero />
       </main>
     </div>
