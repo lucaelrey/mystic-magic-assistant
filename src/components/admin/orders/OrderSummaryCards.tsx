@@ -20,9 +20,9 @@ export const OrderSummaryCards = ({ order }: OrderSummaryCardsProps) => {
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2 text-muted-foreground">
             <Hash className="h-4 w-4" />
-            <h3 className="font-medium">Bestellnummer</h3>
+            <h3 className="font-medium text-left">Bestellnummer</h3>
           </div>
-          <p className="font-mono text-sm">{order.id.split('-')[0]}</p>
+          <p className="font-mono text-sm text-left">{order.id.split('-')[0]}</p>
         </div>
       </Card>
       
@@ -50,9 +50,9 @@ export const OrderSummaryCards = ({ order }: OrderSummaryCardsProps) => {
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2 text-muted-foreground">
             <Calendar className="h-4 w-4" />
-            <h3 className="font-medium">Datum</h3>
+            <h3 className="font-medium text-left">Datum</h3>
           </div>
-          <p className="text-sm">{format(new Date(order.created_at), 'dd.MM.yyyy HH:mm')}</p>
+          <p className="text-sm text-left">{format(new Date(order.created_at), 'dd.MM.yyyy HH:mm')}</p>
         </div>
       </Card>
     </div>

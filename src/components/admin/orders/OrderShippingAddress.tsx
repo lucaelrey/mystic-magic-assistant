@@ -14,8 +14,8 @@ export const OrderShippingAddress = ({ shippingAddress }: OrderShippingAddressPr
     <Card className="p-6">
       <h3 className="font-semibold text-lg mb-4">Lieferadresse</h3>
       <div className="space-y-4">
-        <div className="flex items-center gap-3">
-          <User className="h-4 w-4 text-muted-foreground" />
+        <div className="flex items-start gap-3">
+          <User className="h-4 w-4 text-muted-foreground mt-1" />
           <p className="font-medium">{address.firstName} {address.lastName}</p>
         </div>
         
@@ -26,15 +26,15 @@ export const OrderShippingAddress = ({ shippingAddress }: OrderShippingAddressPr
         </div>
 
         {address.email && (
-          <div className="flex items-center gap-3">
-            <Mail className="h-4 w-4 text-muted-foreground" />
+          <div className="flex items-start gap-3">
+            <Mail className="h-4 w-4 text-muted-foreground mt-1" />
             <p className="text-sm">{address.email}</p>
           </div>
         )}
         
         {address.phone && (
-          <div className="flex items-center gap-3">
-            <Phone className="h-4 w-4 text-muted-foreground" />
+          <div className="flex items-start gap-3">
+            <Phone className="h-4 w-4 text-muted-foreground mt-1" />
             <p className="text-sm">{address.phone}</p>
           </div>
         )}
