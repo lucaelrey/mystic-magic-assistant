@@ -6,6 +6,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { ShippingAddress } from "@/integrations/supabase/types/shipping";
+import { supabase } from "@/integrations/supabase/client";
 
 interface OrderDetails {
   orderNumber: string;
@@ -13,6 +14,11 @@ interface OrderDetails {
   amount: number;
   shippingAddress?: ShippingAddress;
   paymentStatus?: string;
+  items?: Array<{
+    product_name: string;
+    quantity: number;
+    price_per_unit: number;
+  }>;
 }
 
 const Confirmation = () => {
@@ -38,6 +44,34 @@ const Confirmation = () => {
 
         const data = await response.json();
         setOrderDetails(data);
+
+        // Send confirmation email
+        if (data.shippingAddress?.email) {
+          const emailResponse = await supabase.functions.invoke('send-email', {
+            body: {
+              type: 'order_confirmation',
+              orderData: {
+                orderNumber: data.orderNumber,
+                totalAmount: data.amount,
+                shippingAddress: data.shippingAddress,
+                items: data.items || [{
+                  product_name: data.productName,
+                  quantity: 1,
+                  price_per_unit: data.amount / 100
+                }]
+              }
+            }
+          });
+
+          if (emailResponse.error) {
+            console.error('Error sending confirmation email:', emailResponse.error);
+            toast({
+              title: "Hinweis",
+              description: "Die Bestellbestätigung wurde erstellt, aber die E-Mail konnte nicht gesendet werden.",
+              variant: "destructive",
+            });
+          }
+        }
       } catch (error) {
         console.error('Error fetching order details:', error);
         toast({
