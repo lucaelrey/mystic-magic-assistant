@@ -1,7 +1,12 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3';
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -42,64 +47,52 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Sending email for type:", type);
     console.log("Order data:", orderData);
 
-    let emailContent;
-    let subject;
+    // Fetch email template from database
+    const { data: template, error: templateError } = await supabase
+      .from('email_templates')
+      .select('*')
+      .eq('type', type)
+      .single();
 
-    switch (type) {
-      case "order_confirmation":
-        subject = "Bestellbestätigung - MYSTIC Kartenspiel";
-        emailContent = `
-          <h1>Vielen Dank für Ihre Bestellung!</h1>
-          <p>Sehr geehrte(r) ${orderData.shippingAddress.firstName} ${orderData.shippingAddress.lastName},</p>
-          <p>Wir haben Ihre Bestellung #${orderData.orderNumber} erfolgreich erhalten.</p>
-          
-          <h2>Bestellübersicht:</h2>
-          ${orderData.items.map(item => `
-            <p>${item.product_name} - ${item.quantity}x - CHF ${item.price_per_unit.toFixed(2)}</p>
-          `).join('')}
-          
-          <p><strong>Gesamtbetrag: CHF ${orderData.totalAmount.toFixed(2)}</strong></p>
-          
-          <h2>Lieferadresse:</h2>
-          <p>
-            ${orderData.shippingAddress.firstName} ${orderData.shippingAddress.lastName}<br>
-            ${orderData.shippingAddress.street}<br>
-            ${orderData.shippingAddress.postalCode} ${orderData.shippingAddress.city}<br>
-            ${orderData.shippingAddress.country}
-          </p>
-          
-          <p>Wir werden Ihre Bestellung schnellstmöglich bearbeiten und versenden.</p>
-          <p>Mit freundlichen Grüssen<br>Ihr MYSTIC Team</p>
-        `;
-        break;
+    if (templateError) {
+      console.error("Error fetching template:", templateError);
+      throw new Error(`Template not found for type: ${type}`);
+    }
 
-      case "shipping_confirmation":
-        subject = "Versandbestätigung - MYSTIC Kartenspiel";
-        emailContent = `
-          <h1>Ihre Bestellung wurde versendet!</h1>
-          <p>Sehr geehrte(r) ${orderData.shippingAddress.firstName} ${orderData.shippingAddress.lastName},</p>
-          <p>Ihre Bestellung #${orderData.orderNumber} wurde soeben versendet.</p>
-          
-          <p>Die Lieferung erfolgt an:</p>
-          <p>
-            ${orderData.shippingAddress.firstName} ${orderData.shippingAddress.lastName}<br>
-            ${orderData.shippingAddress.street}<br>
-            ${orderData.shippingAddress.postalCode} ${orderData.shippingAddress.city}<br>
-            ${orderData.shippingAddress.country}
-          </p>
-          
-          <p>Mit freundlichen Grüssen<br>Ihr MYSTIC Team</p>
-        `;
-        break;
+    console.log("Found template:", template);
 
-      default:
-        throw new Error(`Unbekannter E-Mail-Typ: ${type}`);
+    // Replace variables in template
+    let emailContent = template.html_content;
+    
+    // Replace order-specific variables
+    emailContent = emailContent
+      .replace(/\${orderNumber}/g, orderData.orderNumber)
+      .replace(/\${totalAmount}/g, orderData.totalAmount.toFixed(2))
+      .replace(/\${firstName}/g, orderData.shippingAddress.firstName)
+      .replace(/\${lastName}/g, orderData.shippingAddress.lastName)
+      .replace(/\${street}/g, orderData.shippingAddress.street)
+      .replace(/\${city}/g, orderData.shippingAddress.city)
+      .replace(/\${postalCode}/g, orderData.shippingAddress.postalCode)
+      .replace(/\${country}/g, orderData.shippingAddress.country);
+
+    // Replace items list if present
+    if (emailContent.includes('${items}')) {
+      const itemsList = orderData.items.map(item => 
+        `<tr>
+          <td>${item.product_name}</td>
+          <td>${item.quantity}x</td>
+          <td>CHF ${item.price_per_unit.toFixed(2)}</td>
+          <td>CHF ${(item.quantity * item.price_per_unit).toFixed(2)}</td>
+        </tr>`
+      ).join('');
+
+      emailContent = emailContent.replace('${items}', itemsList);
     }
 
     const emailResponse = await resend.emails.send({
       from: "MYSTIC Game <no-reply@transactional.mysticgame.ch>",
       to: [orderData.shippingAddress.email],
-      subject: subject,
+      subject: template.subject,
       html: emailContent,
     });
 
