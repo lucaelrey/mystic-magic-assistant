@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Navigation } from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
@@ -12,6 +12,7 @@ import { FormContent } from "@/components/cms/FormContent";
 const ContentForm = () => {
   const { id } = useParams();
   const { toast } = useToast();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const form = useForm({
@@ -78,7 +79,8 @@ const ContentForm = () => {
 
   const createMutation = useMutation({
     mutationFn: async (values: any) => {
-      const { data, error } = await supabase
+      // Insert new content
+      const { data: contentData, error: contentError } = await supabase
         .from("cms_content")
         .insert([
           {
@@ -89,11 +91,12 @@ const ContentForm = () => {
         .select()
         .single();
 
-      if (error) throw error;
+      if (contentError) throw contentError;
 
+      // Insert translations
       const translations = Object.entries(values.translations).map(
         ([language, translation]: [string, any]) => ({
-          content_id: data.id,
+          content_id: contentData.id,
           language,
           ...translation,
         })
@@ -105,14 +108,15 @@ const ContentForm = () => {
 
       if (translationError) throw translationError;
 
-      return data;
+      return contentData;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast({
         title: "Erfolg",
         description: "Inhalt wurde erfolgreich erstellt",
       });
       queryClient.invalidateQueries({ queryKey: ["cms-contents"] });
+      navigate(`/admin/cms/${data.id}`);
     },
     onError: (error) => {
       toast({
@@ -128,6 +132,7 @@ const ContentForm = () => {
     mutationFn: async (values: any) => {
       if (!id) throw new Error("No ID provided for update");
 
+      // Update content
       const { error: contentError } = await supabase
         .from("cms_content")
         .update({
@@ -138,16 +143,20 @@ const ContentForm = () => {
 
       if (contentError) throw contentError;
 
+      // Update translations
       for (const [language, translation] of Object.entries(values.translations)) {
         const { error: translationError } = await supabase
           .from("cms_translations")
-          .upsert({
-            content_id: id,
-            language,
-            ...translation as any,
-          }, {
-            onConflict: 'content_id,language'
-          });
+          .upsert(
+            {
+              content_id: id,
+              language,
+              ...translation as any,
+            },
+            {
+              onConflict: "content_id,language",
+            }
+          );
 
         if (translationError) throw translationError;
       }
@@ -158,6 +167,7 @@ const ContentForm = () => {
         description: "Inhalt wurde erfolgreich aktualisiert",
       });
       queryClient.invalidateQueries({ queryKey: ["cms-contents"] });
+      queryClient.invalidateQueries({ queryKey: ["cms-content", id] });
     },
     onError: (error) => {
       toast({
