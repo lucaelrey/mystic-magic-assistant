@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Navigation } from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
-import { Package, Save } from "lucide-react";
+import { Package, Save, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { Form } from "@/components/ui/form";
@@ -114,6 +114,14 @@ const ContentForm = () => {
         <Card className="p-6">
           <div className="flex items-center justify-between gap-3 mb-6">
             <div className="flex items-center gap-3">
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => navigate(-1)}
+                className="mr-2"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
               <Package className="h-6 w-6 text-primary" />
               <h1 className="text-2xl font-bold">
                 {id ? "Inhalt bearbeiten" : "Neuer Inhalt"}
