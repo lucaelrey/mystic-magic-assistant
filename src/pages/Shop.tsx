@@ -12,7 +12,7 @@ const Shop = () => {
   const isMobile = useIsMobile();
 
   const cardClassName = isMobile 
-    ? "bg-black border-white/10 max-w-6xl mx-auto overflow-visible"
+    ? "bg-background/95 border-white/10 max-w-6xl mx-auto overflow-visible"
     : "glass-card max-w-6xl mx-auto overflow-visible bg-black/40 backdrop-blur-xl border-white/10";
 
   return (
@@ -40,7 +40,9 @@ const Shop = () => {
           </div>
 
           {/* Product Description Section */}
-          <ProductDescription />
+          <div className="px-6 md:px-8 pb-8">
+            <ProductDescription />
+          </div>
         </Card>
       </main>
     </div>
