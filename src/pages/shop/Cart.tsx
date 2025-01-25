@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { CartProductImage } from "@/components/shop/CartProductImage";
 import { CartQuantityControls } from "@/components/shop/CartQuantityControls";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const Cart = () => {
   const [isLoading, setIsLoading] = useState(false);
   const productPrice = 29.90;
   const { language } = useLanguage();
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     if (location.state?.quantity) {
@@ -93,11 +95,23 @@ const Cart = () => {
     }
   };
 
+  const cardClassName = isMobile 
+    ? "bg-black border-white/10 max-w-4xl mx-auto overflow-visible"
+    : "glass-card max-w-4xl mx-auto overflow-visible bg-black/40 backdrop-blur-xl border-white/10";
+
+  const productCardClassName = isMobile
+    ? "bg-black/80 rounded-xl p-6 md:p-8 border border-white/10"
+    : "glass rounded-xl p-6 md:p-8 bg-black/40 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300 ease-out group";
+
+  const summaryCardClassName = isMobile
+    ? "bg-black/80 rounded-xl p-6 md:p-8 border border-white/10"
+    : "glass rounded-xl p-6 md:p-8 bg-black/40 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300";
+
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-background to-background/95">
       <Navigation />
       <main className="container mx-auto px-4 md:px-6 pt-20 md:pt-24 pb-12">
-        <Card className="glass-card max-w-4xl mx-auto overflow-visible bg-black/40 backdrop-blur-xl border-white/10">
+        <Card className={cardClassName}>
           <div className="p-6 md:p-8 space-y-8">
             {/* Header */}
             <div className="flex items-center justify-between">
@@ -112,11 +126,7 @@ const Cart = () => {
 
             {/* Product Card */}
             <div className="space-y-8">
-              <div className="glass rounded-xl p-6 md:p-8
-                bg-black/40 backdrop-blur-xl
-                border border-white/10 hover:border-white/20
-                transition-all duration-300 ease-out
-                group">
+              <div className={productCardClassName}>
                 <div className="flex items-start gap-6">
                   <CartProductImage />
                   <div className="flex-1 min-w-0 space-y-4">
@@ -139,10 +149,7 @@ const Cart = () => {
               </div>
 
               {/* Summary Card */}
-              <div className="glass rounded-xl p-6 md:p-8 space-y-6
-                bg-black/40 backdrop-blur-xl
-                border border-white/10 hover:border-white/20
-                transition-all duration-300">
+              <div className={summaryCardClassName}>
                 <div className="flex justify-between items-center text-xl 
                   font-semibold text-white">
                   <span>{language === 'en' ? 'Total' : 'Gesamt'}</span>
