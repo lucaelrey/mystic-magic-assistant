@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { format } from "date-fns";
 import { OrderStatusBadge } from "@/components/admin/OrderStatusBadge";
 import { PaymentStatusBadge } from "@/components/admin/PaymentStatusBadge";
-import { Package, Calendar, Hash } from "lucide-react";
+import { Package, Calendar, Hash, CreditCard } from "lucide-react";
 
 interface OrderSummaryCardsProps {
   order: {
