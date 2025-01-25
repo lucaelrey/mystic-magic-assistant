@@ -14,6 +14,8 @@ import {
 import Image from "@/components/ui/image";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { CardDetails } from "./CardDetails";
+import { useContent } from "@/hooks/useContent";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface NumberCard {
   id: string;
@@ -31,11 +33,24 @@ export const NumberCardsView = ({ cards }: NumberCardsViewProps) => {
   const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<NumberCard | null>(null);
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  const { isLoading } = useContent('number_card');
 
   const handleCardClick = (card: NumberCard) => {
     setSelectedCard(card);
     setOpen(true);
   };
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        {[...Array(11)].map((_, index) => (
+          <div key={index} className="glass-card">
+            <Skeleton className="h-40 w-full" />
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   const renderCardContent = (card: NumberCard) => (
     <div 
