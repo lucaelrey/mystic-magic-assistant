@@ -54,13 +54,18 @@ const EmailTemplateForm = () => {
     queryKey: ["email-template", id],
     queryFn: async () => {
       if (!id) return null;
+      console.log("Fetching template with ID:", id);
       const { data, error } = await supabase
         .from("email_templates")
         .select("*")
         .eq("id", id)
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error("Error fetching template:", error);
+        throw error;
+      }
+      console.log("Fetched template data:", data);
       return data;
     },
     enabled: !!id,
@@ -68,6 +73,7 @@ const EmailTemplateForm = () => {
 
   React.useEffect(() => {
     if (template) {
+      console.log("Setting form values with template:", template);
       form.reset({
         name: template.name,
         type: template.type as EmailTemplateType,
@@ -75,6 +81,7 @@ const EmailTemplateForm = () => {
         html_content: template.html_content,
         variables: template.variables as Record<string, any>,
       });
+      console.log("Current form values after reset:", form.getValues());
     }
   }, [template, form]);
 
@@ -135,6 +142,7 @@ const EmailTemplateForm = () => {
   });
 
   const onSubmit = (values: EmailTemplateFormData) => {
+    console.log("Submitting form with values:", values);
     if (id) {
       updateMutation.mutate(values);
     } else {
@@ -237,17 +245,20 @@ const EmailTemplateForm = () => {
               <FormField
                 control={form.control}
                 name="html_content"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Inhalt</FormLabel>
-                    <FormControl>
-                      <RichTextEditor
-                        value={field.value}
-                        onChange={field.onChange}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
+                render={({ field }) => {
+                  console.log("RichTextEditor field value:", field.value);
+                  return (
+                    <FormItem>
+                      <FormLabel>Inhalt</FormLabel>
+                      <FormControl>
+                        <RichTextEditor
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  );
+                }}
               />
             </div>
           </Form>
