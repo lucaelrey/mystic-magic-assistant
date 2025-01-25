@@ -188,7 +188,7 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Mystic <onboarding@resend.dev>", // Using Resend's default domain
+        from: "Mystic <no-reply@mystic-game.ch>", // Updated sender email
         ...emailRequest,
       }),
     });
