@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Navigation } from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { Package, Save, ChevronLeft } from "lucide-react";
@@ -17,6 +17,8 @@ const ContentForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
+
   const form = useForm({
     defaultValues: {
       type: "action_card",
@@ -53,6 +55,30 @@ const ContentForm = () => {
       return data;
     },
     enabled: !!id,
+    onSuccess: (data) => {
+      if (data) {
+        // Transform translations array into object
+        const translations = {
+          de: data.translations.find((t: any) => t.language === "de") || {
+            title: "",
+            description: "",
+            content: {},
+          },
+          en: data.translations.find((t: any) => t.language === "en") || {
+            title: "",
+            description: "",
+            content: {},
+          },
+        };
+
+        // Reset form with loaded data
+        form.reset({
+          type: data.type,
+          key: data.key,
+          translations,
+        });
+      }
+    },
   });
 
   const createMutation = useMutation({
@@ -92,6 +118,7 @@ const ContentForm = () => {
         description: "Inhalt wurde erfolgreich erstellt",
       });
       navigate("/admin/cms");
+      queryClient.invalidateQueries({ queryKey: ["cms-contents"] });
     },
     onError: (error) => {
       toast({
@@ -103,8 +130,60 @@ const ContentForm = () => {
     },
   });
 
+  const updateMutation = useMutation({
+    mutationFn: async (values: any) => {
+      if (!id) throw new Error("No ID provided for update");
+
+      // Update cms_content
+      const { error: contentError } = await supabase
+        .from("cms_content")
+        .update({
+          type: values.type,
+          key: values.key,
+        })
+        .eq("id", id);
+
+      if (contentError) throw contentError;
+
+      // Update translations
+      for (const [language, translation] of Object.entries(values.translations)) {
+        const { error: translationError } = await supabase
+          .from("cms_translations")
+          .upsert({
+            content_id: id,
+            language,
+            ...translation as any,
+          }, {
+            onConflict: 'content_id,language'
+          });
+
+        if (translationError) throw translationError;
+      }
+    },
+    onSuccess: () => {
+      toast({
+        title: "Erfolg",
+        description: "Inhalt wurde erfolgreich aktualisiert",
+      });
+      navigate("/admin/cms");
+      queryClient.invalidateQueries({ queryKey: ["cms-contents"] });
+    },
+    onError: (error) => {
+      toast({
+        title: "Fehler",
+        description: "Inhalt konnte nicht aktualisiert werden",
+        variant: "destructive",
+      });
+      console.error(error);
+    },
+  });
+
   const onSubmit = (values: any) => {
-    createMutation.mutate(values);
+    if (id) {
+      updateMutation.mutate(values);
+    } else {
+      createMutation.mutate(values);
+    }
   };
 
   return (
@@ -127,7 +206,10 @@ const ContentForm = () => {
                 {id ? "Inhalt bearbeiten" : "Neuer Inhalt"}
               </h1>
             </div>
-            <Button onClick={form.handleSubmit(onSubmit)}>
+            <Button 
+              onClick={form.handleSubmit(onSubmit)}
+              disabled={isLoading || createMutation.isPending || updateMutation.isPending}
+            >
               <Save className="mr-2 h-4 w-4" />
               Speichern
             </Button>
