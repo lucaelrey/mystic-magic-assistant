@@ -226,20 +226,12 @@ const ContentList = () => {
                                   <h3 className="font-semibold mb-2">Deutsch</h3>
                                   <div className="space-y-2">
                                     <p><span className="font-medium">Beschreibung:</span> {deTranslation?.description || "Keine Beschreibung"}</p>
-                                    <p><span className="font-medium">Inhalt:</span></p>
-                                    <pre className="bg-muted p-2 rounded text-sm overflow-x-auto">
-                                      {JSON.stringify(deTranslation?.content, null, 2)}
-                                    </pre>
                                   </div>
                                 </div>
                                 <div>
                                   <h3 className="font-semibold mb-2">English</h3>
                                   <div className="space-y-2">
                                     <p><span className="font-medium">Description:</span> {enTranslation?.description || "No description"}</p>
-                                    <p><span className="font-medium">Content:</span></p>
-                                    <pre className="bg-muted p-2 rounded text-sm overflow-x-auto">
-                                      {JSON.stringify(enTranslation?.content, null, 2)}
-                                    </pre>
                                   </div>
                                 </div>
                               </div>
