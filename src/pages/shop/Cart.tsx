@@ -96,15 +96,15 @@ const Cart = () => {
   };
 
   const cardClassName = isMobile 
-    ? "bg-black border-white/10 max-w-4xl mx-auto overflow-visible"
+    ? "bg-background/95 border-white/10 max-w-4xl mx-auto overflow-visible"
     : "glass-card max-w-4xl mx-auto overflow-visible bg-black/40 backdrop-blur-xl border-white/10";
 
   const productCardClassName = isMobile
-    ? "bg-black/80 rounded-xl p-6 md:p-8 border border-white/10"
+    ? "bg-background/95 rounded-xl p-6 md:p-8 border border-white/10"
     : "glass rounded-xl p-6 md:p-8 bg-black/40 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300 ease-out group";
 
   const summaryCardClassName = isMobile
-    ? "bg-black/80 rounded-xl p-6 md:p-8 border border-white/10"
+    ? "bg-background/95 rounded-xl p-6 md:p-8 border border-white/10"
     : "glass rounded-xl p-6 md:p-8 bg-black/40 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300";
 
   return (
