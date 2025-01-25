@@ -1,20 +1,46 @@
 import { Navigation } from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
-import { Package, FileText } from "lucide-react";
+import { Package, FileText, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast({
+        variant: "destructive",
+        title: "Fehler beim Abmelden",
+        description: error.message,
+      });
+    } else {
+      toast({
+        title: "Erfolgreich abgemeldet",
+        description: "Sie wurden erfolgreich abgemeldet.",
+      });
+      navigate("/");
+    }
+  };
 
   return (
     <div className="min-h-screen">
       <Navigation />
       <main className="container mx-auto px-4 pt-24">
         <Card className="p-6">
-          <div className="flex items-center gap-3 mb-6">
-            <Package className="h-6 w-6 text-primary" />
-            <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <Package className="h-6 w-6 text-primary" />
+              <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+            </div>
+            <Button variant="outline" onClick={handleLogout} className="gap-2">
+              <LogOut className="h-4 w-4" />
+              Abmelden
+            </Button>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
