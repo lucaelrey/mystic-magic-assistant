@@ -15,16 +15,6 @@ export const ProductImage = ({ src, alt, className }: ProductImageProps) => {
           alt={alt}
           className="w-full h-full object-contain rounded-xl md:rounded-2xl 
             transition-transform duration-300 group-hover:scale-105"
-          loading="lazy"
-          decoding="async"
-          srcSet={`
-            ${src.replace(/\.(png|jpg|jpeg)$/, '-200.$1')} 200w,
-            ${src.replace(/\.(png|jpg|jpeg)$/, '-400.$1')} 400w,
-            ${src.replace(/\.(png|jpg|jpeg)$/, '-800.$1')} 800w
-          `}
-          sizes="(max-width: 768px) 100vw,
-                 (max-width: 1200px) 50vw,
-                 33vw"
         />
       </div>
     </div>

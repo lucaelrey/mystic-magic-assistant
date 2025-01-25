@@ -7,7 +7,6 @@ export const CartProductImage = () => {
         src="/lovable-uploads/cf7eccbe-9b33-4e52-aadf-a9bf531ba57b.png"
         alt="MYSTIC - Das Kartenspiel"
         className="w-full h-full object-cover"
-        sizes="(max-width: 768px) 64px, 96px"
       />
     </div>
   );

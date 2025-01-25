@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
@@ -80,10 +79,6 @@ export const NumberCardsView = ({ cards }: NumberCardsViewProps) => {
           src={card.image}
           alt={getTranslatedCard(card).name}
           className="w-full h-full object-contain"
-          sizes="(max-width: 640px) 50vw, 
-                 (max-width: 768px) 25vw,
-                 (max-width: 1024px) 20vw,
-                 20vw"
         />
       </div>
     </div>
@@ -100,9 +95,6 @@ export const NumberCardsView = ({ cards }: NumberCardsViewProps) => {
               </DialogTrigger>
               <DialogContent className="glass sm:max-w-[425px]">
                 <DialogHeader>
-                  <DialogTitle className="sr-only">
-                    {getTranslatedCard(card).name}
-                  </DialogTitle>
                   <CardDetails card={getTranslatedCard(card)} className="mt-4" />
                 </DialogHeader>
               </DialogContent>
