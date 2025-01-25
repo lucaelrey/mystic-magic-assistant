@@ -6,6 +6,7 @@ import Rules from "@/pages/Rules";
 import CardDetail from "@/pages/CardDetail";
 import Shop from "@/pages/Shop";
 import Cart from "@/pages/shop/Cart";
+import Confirmation from "@/pages/shop/Confirmation";
 import Auth from "@/pages/Auth";
 import Dashboard from "@/pages/admin/Dashboard";
 import Orders from "@/pages/admin/Orders";
@@ -40,6 +41,7 @@ function App() {
             <Route path="/cards/:id" element={<CardDetail />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/shop/confirmation" element={<Confirmation />} />
             <Route path="/auth" element={<Auth />} />
             <Route
               path="/admin"
