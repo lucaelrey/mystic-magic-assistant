@@ -33,7 +33,11 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/rules" element={<Rules />} />
+            <Route path="/rules" element={<Rules />}>
+              <Route index element={<Rules.Overview />} />
+              <Route path="number-cards" element={<Rules.NumberCards />} />
+              <Route path="action-cards" element={<Rules.ActionCards />} />
+            </Route>
             <Route path="/cards/:id" element={<CardDetail />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/shop/cart" element={<Cart />} />
