@@ -65,20 +65,19 @@ const handler = async (req: Request): Promise<Response> => {
     // Format items list for the email
     const productList = orderData.items.map(item => 
       `${item.product_name} - ${item.quantity}x - CHF ${item.price_per_unit.toFixed(2)}`
-    ).join('<br>');
+    ).join('\n');
 
     // Format shipping address for the email
-    const formattedAddress = `
-      ${orderData.shippingAddress.firstName} ${orderData.shippingAddress.lastName}<br>
-      ${orderData.shippingAddress.street}<br>
-      ${orderData.shippingAddress.postalCode} ${orderData.shippingAddress.city}<br>
-      ${orderData.shippingAddress.country}
-    `;
+    const formattedAddress = `${orderData.shippingAddress.firstName} ${orderData.shippingAddress.lastName}
+${orderData.shippingAddress.street}
+${orderData.shippingAddress.postalCode} ${orderData.shippingAddress.city}
+${orderData.shippingAddress.country}`;
 
     // Replace variables in template
     let emailContent = template.html_content;
+    let emailSubject = template.subject;
     
-    // Replace all template variables with actual values
+    // Define replacements
     const replacements = {
       '{{firstName}}': orderData.shippingAddress.firstName,
       '{{lastName}}': orderData.shippingAddress.lastName,
@@ -88,16 +87,15 @@ const handler = async (req: Request): Promise<Response> => {
       '{{shippingAddress}}': formattedAddress
     };
 
-    // Replace all variables in the template
+    // Replace all variables in both content and subject
     Object.entries(replacements).forEach(([key, value]) => {
-      emailContent = emailContent.replace(new RegExp(key, 'g'), value);
+      const regex = new RegExp(key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+      emailContent = emailContent.replace(regex, value);
+      emailSubject = emailSubject.replace(regex, value);
     });
 
-    // Replace subject variables as well
-    let emailSubject = template.subject;
-    Object.entries(replacements).forEach(([key, value]) => {
-      emailSubject = emailSubject.replace(new RegExp(key, 'g'), value);
-    });
+    // Convert newlines to <br> tags for HTML email
+    emailContent = emailContent.replace(/\n/g, '<br>');
 
     console.log("Processed email content:", emailContent);
     console.log("Final email subject:", emailSubject);
