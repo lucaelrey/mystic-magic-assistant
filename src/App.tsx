@@ -5,7 +5,7 @@ import Index from "@/pages/Index";
 import Rules from "@/pages/Rules";
 import CardDetail from "@/pages/CardDetail";
 import Shop from "@/pages/Shop";
-import Cart from "@/pages/Cart";
+import Cart from "@/pages/shop/Cart";
 import Auth from "@/pages/Auth";
 import Dashboard from "@/pages/admin/Dashboard";
 import Orders from "@/pages/admin/Orders";
