@@ -1,32 +1,50 @@
 import { createBrowserRouter } from "react-router-dom";
-import Index from "@/pages/Index";
-import Rules from "@/pages/Rules";
-import Shop from "@/pages/Shop";
-import Cart from "@/pages/shop/Cart";
-import Payment from "@/pages/shop/Payment";
-import Confirmation from "@/pages/shop/Confirmation";
-import NotFound from "@/pages/NotFound";
-import Orders from "@/pages/admin/Orders";
-import OrderDetail from "@/pages/admin/OrderDetail";
-import EmailTemplates from "@/pages/admin/EmailTemplates";
-import EmailTemplateForm from "@/pages/admin/EmailTemplateForm";
-import ContentList from "@/pages/admin/cms/ContentList";
-import ContentForm from "@/pages/admin/cms/ContentForm";
-import Dashboard from "@/pages/admin/Dashboard";
+import { lazy, Suspense } from "react";
+import { Loader2 } from "lucide-react";
 import AdminGuard from "@/components/auth/AdminGuard";
-import Auth from "@/pages/Auth";
-import Impressum from "@/pages/Impressum";
 import { Outlet } from "react-router-dom";
+
+// Lazy load components
+const Index = lazy(() => import("@/pages/Index"));
+const Rules = lazy(() => import("@/pages/Rules"));
+const Shop = lazy(() => import("@/pages/Shop"));
+const Cart = lazy(() => import("@/pages/shop/Cart"));
+const Payment = lazy(() => import("@/pages/shop/Payment"));
+const Confirmation = lazy(() => import("@/pages/shop/Confirmation"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
+const Orders = lazy(() => import("@/pages/admin/Orders"));
+const OrderDetail = lazy(() => import("@/pages/admin/OrderDetail"));
+const EmailTemplates = lazy(() => import("@/pages/admin/EmailTemplates"));
+const EmailTemplateForm = lazy(() => import("@/pages/admin/EmailTemplateForm"));
+const ContentList = lazy(() => import("@/pages/admin/cms/ContentList"));
+const ContentForm = lazy(() => import("@/pages/admin/cms/ContentForm"));
+const Dashboard = lazy(() => import("@/pages/admin/Dashboard"));
+const Auth = lazy(() => import("@/pages/Auth"));
+const Impressum = lazy(() => import("@/pages/Impressum"));
+
+// Loading component
+const LoadingSpinner = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <Loader2 className="h-8 w-8 animate-spin" />
+  </div>
+);
+
+// Wrap component with Suspense
+const withSuspense = (Component: React.ComponentType) => (
+  <Suspense fallback={<LoadingSpinner />}>
+    <Component />
+  </Suspense>
+);
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Index />,
-    errorElement: <NotFound />,
+    element: withSuspense(Index),
+    errorElement: withSuspense(NotFound),
   },
   {
     path: "/rules",
-    element: <Rules />,
+    element: withSuspense(Rules),
     children: [
       {
         index: true,
@@ -44,23 +62,23 @@ const router = createBrowserRouter([
   },
   {
     path: "/shop",
-    element: <Shop />,
+    element: withSuspense(Shop),
   },
   {
     path: "/shop/cart",
-    element: <Cart />,
+    element: withSuspense(Cart),
   },
   {
     path: "/shop/payment",
-    element: <Payment />,
+    element: withSuspense(Payment),
   },
   {
     path: "/shop/confirmation",
-    element: <Confirmation />,
+    element: withSuspense(Confirmation),
   },
   {
     path: "/impressum",
-    element: <Impressum />,
+    element: withSuspense(Impressum),
   },
   {
     path: "/admin",
@@ -68,45 +86,45 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Dashboard />,
+        element: withSuspense(Dashboard),
       },
       {
         path: "orders",
-        element: <Orders />,
+        element: withSuspense(Orders),
       },
       {
         path: "orders/:id",
-        element: <OrderDetail />,
+        element: withSuspense(OrderDetail),
       },
       {
         path: "email-templates",
-        element: <EmailTemplates />,
+        element: withSuspense(EmailTemplates),
       },
       {
         path: "email-templates/new",
-        element: <EmailTemplateForm />,
+        element: withSuspense(EmailTemplateForm),
       },
       {
         path: "email-templates/:id",
-        element: <EmailTemplateForm />,
+        element: withSuspense(EmailTemplateForm),
       },
       {
         path: "cms",
-        element: <ContentList />,
+        element: withSuspense(ContentList),
       },
       {
         path: "cms/new",
-        element: <ContentForm />,
+        element: withSuspense(ContentForm),
       },
       {
         path: "cms/:id",
-        element: <ContentForm />,
+        element: withSuspense(ContentForm),
       },
     ],
   },
   {
     path: "/auth",
-    element: <Auth />,
+    element: withSuspense(Auth),
   },
 ]);
 

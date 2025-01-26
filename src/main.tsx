@@ -5,12 +5,14 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import router from './App';
 import './index.css';
 
-// Create a client
+// Optimierte Query Client Konfiguration
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
+      staleTime: 1000 * 60 * 5, // 5 Minuten
+      cacheTime: 1000 * 60 * 30, // 30 Minuten
       retry: 1,
+      refetchOnWindowFocus: false, // Reduziert unnötige Refetches
     },
   },
 });
