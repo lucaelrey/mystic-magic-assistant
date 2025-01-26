@@ -51,7 +51,7 @@ export const Navigation = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-nav">
       <div className="container mx-auto px-2 sm:px-4">
-        <div className="flex items-center justify-between h-14 sm:h-16">
+        <div className="flex items-center justify-between h-16 sm:h-16">
           {/* Logo section */}
           <div className="flex-shrink-0">
             <Link to="/" className="block">
@@ -64,19 +64,20 @@ export const Navigation = () => {
           </div>
 
           {/* Navigation items section */}
-          <div className="flex items-center justify-center space-x-2 sm:space-x-4 md:space-x-8 flex-1">
+          <div className="flex items-center justify-center space-x-4 sm:space-x-6 md:space-x-8 flex-1">
             {navItems.map((item) => (
               <Link
                 key={item.url}
                 to={item.url}
-                className={`flex items-center space-x-1 sm:space-x-2 text-[10px] sm:text-xs md:text-sm font-medium transition-colors
+                className={`flex flex-col items-center sm:flex-row sm:space-x-2 
+                  text-xs sm:text-sm font-medium transition-colors
                   ${item.isActive 
                     ? 'text-white' 
                     : 'text-white/70 hover:text-white'
                   }`}
               >
-                <item.icon className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span>{item.name}</span>
+                <item.icon className="w-5 h-5 sm:w-4 sm:h-4 mb-1 sm:mb-0" />
+                <span className="text-[11px] sm:text-xs md:text-sm">{item.name}</span>
               </Link>
             ))}
           </div>
