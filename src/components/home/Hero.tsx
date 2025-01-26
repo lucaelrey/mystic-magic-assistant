@@ -49,7 +49,7 @@ export const Hero = () => {
     <section 
       className="relative h-screen flex items-center justify-center"
       style={{
-        backgroundImage: "url('/lovable-uploads/8581ee81-b1a9-48a5-b204-58b6126cc464.png')",
+        backgroundImage: "url('/lovable-uploads/a426b83e-7fa7-4d7c-a3b5-b6492a302b41.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat"
