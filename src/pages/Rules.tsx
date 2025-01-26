@@ -3,9 +3,6 @@ import { Navigation } from "@/components/Navigation";
 import { Outlet } from "react-router-dom";
 import { RulesHeader } from "@/components/rules/RulesHeader";
 import { RulesTabs } from "@/components/rules/RulesTabs";
-import { RulesOverview } from "@/components/rules/RulesOverview";
-import { NumberCardsRoute } from "@/components/rules/NumberCardsRoute";
-import { ActionCardsView } from "@/components/cards/ActionCardsView";
 import { Footer } from "@/components/Footer";
 
 const Rules = () => {
@@ -21,9 +18,5 @@ const Rules = () => {
     </div>
   );
 };
-
-Rules.Overview = RulesOverview;
-Rules.NumberCards = NumberCardsRoute;
-Rules.ActionCards = ActionCardsView;
 
 export default Rules;

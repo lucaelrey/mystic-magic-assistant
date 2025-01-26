@@ -6,7 +6,6 @@ import { Outlet } from "react-router-dom";
 
 // Lazy load components
 const Index = lazy(() => import("@/pages/Index"));
-const Rules = lazy(() => import("@/pages/Rules"));
 const Shop = lazy(() => import("@/pages/Shop"));
 const Cart = lazy(() => import("@/pages/shop/Cart"));
 const Payment = lazy(() => import("@/pages/shop/Payment"));
@@ -21,6 +20,12 @@ const ContentForm = lazy(() => import("@/pages/admin/cms/ContentForm"));
 const Dashboard = lazy(() => import("@/pages/admin/Dashboard"));
 const Auth = lazy(() => import("@/pages/Auth"));
 const Impressum = lazy(() => import("@/pages/Impressum"));
+
+// Load Rules and its subcomponents separately
+const RulesPage = lazy(() => import("@/pages/Rules"));
+const RulesOverview = lazy(() => import("@/components/rules/RulesOverview"));
+const NumberCardsRoute = lazy(() => import("@/components/rules/NumberCardsRoute"));
+const ActionCardsView = lazy(() => import("@/components/cards/ActionCardsView"));
 
 // Loading component
 const LoadingSpinner = () => (
@@ -44,19 +49,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/rules",
-    element: withSuspense(Rules),
+    element: withSuspense(RulesPage),
     children: [
       {
         index: true,
-        element: <Rules.Overview />,
+        element: withSuspense(RulesOverview),
       },
       {
         path: "number-cards",
-        element: <Rules.NumberCards />,
+        element: withSuspense(NumberCardsRoute),
       },
       {
         path: "action-cards",
-        element: <Rules.ActionCards />,
+        element: withSuspense(ActionCardsView),
       },
     ],
   },
