@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.38.4';
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -39,11 +40,21 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
+    const supabase = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
+      {
+        auth: {
+          persistSession: false
+        }
+      }
+    );
+
     const { type, orderData }: EmailRequest = await req.json();
-    console.log("Sending email for type:", type);
+    console.log("Processing email request for type:", type);
     console.log("Order data:", orderData);
 
-    // Fetch email template from database
+    // Fetch email template
     const { data: template, error: templateError } = await supabase
       .from('email_templates')
       .select('*')
@@ -150,7 +161,6 @@ ${orderData.shippingAddress.country}`;
     `;
 
     console.log("Processed email content:", finalHtmlContent);
-    console.log("Final email subject:", emailSubject);
 
     const emailResponse = await resend.emails.send({
       from: "MYSTIC Game <no-reply@transactional.mysticgame.ch>",
