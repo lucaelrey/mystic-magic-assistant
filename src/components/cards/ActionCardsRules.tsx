@@ -13,11 +13,6 @@ export const ActionCardsRules = () => {
           <p className="mb-4">
             {t('rules.actionCards.description')}
           </p>
-          <div className="space-y-2">
-            {(t('rules.actionCards.uses') as string[]).map((use: string, index: number) => (
-              <p key={index}>{use}</p>
-            ))}
-          </div>
           <div className="mt-4">
             <h3 className="font-semibold mb-2">{t('rules.actionCards.important.title')}</h3>
             <ul className="list-disc list-inside pl-4 space-y-2">

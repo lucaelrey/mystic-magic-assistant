@@ -79,13 +79,7 @@ export const translations = {
       },
       actionCards: {
         title: "Action Cards",
-        description: "Action cards are special cards that influence the game flow and provide strategic options. They can be used to:",
-        uses: [
-          "View your own or opponent's cards",
-          "Exchange or rearrange cards",
-          "Protect yourself from other players' actions",
-          "Manipulate the game",
-        ],
+        description: "Action cards are special cards that influence the game flow and provide strategic options.",
         important: {
           title: "Important Notes:",
           rules: [
@@ -194,13 +188,7 @@ export const translations = {
       },
       actionCards: {
         title: "Aktionskarten",
-        description: "Aktionskarten sind spezielle Karten, die den Spielverlauf beeinflussen und strategische Möglichkeiten bieten. Sie können verwendet werden, um:",
-        uses: [
-          "Eigene oder gegnerische Karten anzusehen",
-          "Karten zu tauschen oder neu anzuordnen",
-          "Sich vor den Aktionen anderer Spieler zu schützen",
-          "Das Spielgeschehen zu manipulieren",
-        ],
+        description: "Aktionskarten sind spezielle Karten, die den Spielverlauf beeinflussen und strategische Möglichkeiten bieten.",
         important: {
           title: "Wichtige Hinweise:",
           rules: [
@@ -211,21 +199,6 @@ export const translations = {
             "Alle Aktionskarten zählen 11 Punkte (höchste Punktzahl im Spiel)",
           ],
         },
-      },
-    },
-    shop: {
-      title: "Shop",
-      product: {
-        name: "MYSTIC - Das Kartenspiel",
-        description: "Erlebe die magische Welt von Mystic mit diesem einzigartigen Kartenspiel, das Strategie und Mystik verbindet.",
-        shipping: "Versand innerhalb der Schweiz im Preis inbegriffen",
-      },
-      cart: {
-        title: "Warenkorb",
-        total: "Gesamt",
-        checkout: "Zur Kasse",
-        continueShopping: "Weiter einkaufen",
-        remove: "Entfernen",
       },
     },
   },
