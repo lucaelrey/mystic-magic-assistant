@@ -3,7 +3,7 @@ export const actionCards = [
     id: "mystic-chaos",
     name: "Chaos",
     name_en: "Chaos",
-    image: "/lovable-uploads/c348c614-18a8-4220-ac1a-30938c04c4ef.png",
+    image: "/lovable-uploads/ea23bc0e-283d-47f3-9959-ac32e44b727a.png",
     description: "Bringe Chaos in das Spiel",
     description_en: "Bring chaos to the game",
     rules: [
@@ -21,7 +21,7 @@ export const actionCards = [
     id: "mystic-discard",
     name: "Discard",
     name_en: "Discard",
-    image: "/lovable-uploads/9ca54ec8-3c8d-4e2c-ad8f-be93084d20de.png",
+    image: "/lovable-uploads/5b42985f-7789-44c2-bd14-7daccdbd598a.png",
     description: "Wirf eine Karte ab",
     description_en: "Discard a card",
     rules: [
@@ -39,7 +39,7 @@ export const actionCards = [
     id: "mystic-glimpse-and-swap",
     name: "Glimpse & Swap",
     name_en: "Glimpse & Swap",
-    image: "/lovable-uploads/dd2cef7d-0803-43b2-a649-dee281640cf8.png",
+    image: "/lovable-uploads/cf77c89a-af1f-4513-830a-02556b817a57.png",
     description: "Schaue und tausche Karten",
     description_en: "Look at and swap cards",
     rules: [
@@ -57,7 +57,7 @@ export const actionCards = [
     id: "mystic-glimpse",
     name: "Glimpse",
     name_en: "Glimpse",
-    image: "/lovable-uploads/e9e8a46d-653a-446f-92de-f01ca90f7ab6.png",
+    image: "/lovable-uploads/9b0b5be5-d9ef-417c-9f5e-99949cf43930.png",
     description: "Schaue dir eine Karte an",
     description_en: "Look at a card",
     rules: [
@@ -75,7 +75,7 @@ export const actionCards = [
     id: "mystic-inspect",
     name: "Inspect",
     name_en: "Inspect",
-    image: "/lovable-uploads/272a7c3a-0325-453a-846d-53421a9f3707.png",
+    image: "/lovable-uploads/dff44835-13d4-42e0-a921-2344f6321b93.png",
     description: "Inspiziere eine gegnerische Karte",
     description_en: "Inspect an opponent's card",
     rules: [
@@ -93,7 +93,7 @@ export const actionCards = [
     id: "mystic-reveal",
     name: "Reveal",
     name_en: "Reveal",
-    image: "/lovable-uploads/fd043999-a569-4ba5-a257-58a7f3db18d7.png",
+    image: "/lovable-uploads/d11b0411-6769-42a3-a44a-4185d27bf6e9.png",
     description: "Decke eine Karte auf",
     description_en: "Reveal a card",
     rules: [
@@ -111,7 +111,7 @@ export const actionCards = [
     id: "mystic-shield",
     name: "Shield",
     name_en: "Shield",
-    image: "/lovable-uploads/fbe68a22-cd36-4888-9907-16580ef2c8c6.png",
+    image: "/lovable-uploads/a5da92ed-175c-4abf-90ae-9479c882cfbf.png",
     description: "Schütze dich vor Aktionen",
     description_en: "Protect yourself from actions",
     rules: [
@@ -129,7 +129,7 @@ export const actionCards = [
     id: "mystic-shuffle",
     name: "Shuffle",
     name_en: "Shuffle",
-    image: "/lovable-uploads/3157dd2a-da8f-431e-82ae-d598caaebebc.png",
+    image: "/lovable-uploads/378c653f-8c39-4306-9b2c-a7019afc5f63.png",
     description: "Mische deine Karten",
     description_en: "Shuffle your cards",
     rules: [
@@ -147,7 +147,7 @@ export const actionCards = [
     id: "mystic-swap",
     name: "Swap",
     name_en: "Swap",
-    image: "/lovable-uploads/4d2f9912-9154-4676-8e38-e435160ad2cc.png",
+    image: "/lovable-uploads/8343700b-4e62-4b51-bcfb-256f2b2e2942.png",
     description: "Tausche Karten",
     description_en: "Swap cards",
     rules: [
