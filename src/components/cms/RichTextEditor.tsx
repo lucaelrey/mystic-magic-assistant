@@ -29,6 +29,16 @@ export const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
     },
+    editorProps: {
+      attributes: {
+        class: 'prose max-w-none focus:outline-none',
+        style: `
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+          line-height: 1.6;
+          color: #333;
+        `
+      },
+    },
   });
 
   useEffect(() => {
@@ -58,6 +68,60 @@ export const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
 
   return (
     <div className="border rounded-md">
+      <style>
+        {`
+          .ProseMirror {
+            padding: 1rem;
+          }
+          .ProseMirror h1 {
+            font-size: 1.875rem;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+            font-weight: bold;
+          }
+          .ProseMirror h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.875rem;
+            margin-top: 1.75rem;
+            font-weight: bold;
+          }
+          .ProseMirror h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            margin-top: 1.5rem;
+            font-weight: bold;
+          }
+          .ProseMirror p {
+            margin: 1rem 0;
+          }
+          .ProseMirror ul, .ProseMirror ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+          }
+          .ProseMirror li {
+            margin: 0.5rem 0;
+          }
+          .ProseMirror .address {
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: #f5f5f5;
+            border-radius: 0.25rem;
+          }
+          .ProseMirror .product-list {
+            margin: 1rem 0;
+          }
+          .ProseMirror .total {
+            font-weight: bold;
+            margin: 1rem 0;
+          }
+          .ProseMirror .footer {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eaeaea;
+            color: #666;
+          }
+        `}
+      </style>
       <div className="border-b p-2 flex flex-wrap gap-2">
         <select 
           onChange={(e) => {
@@ -141,7 +205,7 @@ export const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
           </button>
         </div>
       </div>
-      <EditorContent editor={editor} className="p-2 min-h-[200px] prose max-w-none" />
+      <EditorContent editor={editor} className="min-h-[400px]" />
     </div>
   );
 };

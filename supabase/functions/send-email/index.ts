@@ -1,12 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3';
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
-const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -94,17 +89,74 @@ ${orderData.shippingAddress.country}`;
       emailSubject = emailSubject.replace(regex, value);
     });
 
-    // Convert newlines to <br> tags for HTML email
-    emailContent = emailContent.replace(/\n/g, '<br>');
+    // Wrap the content in our base email template with proper styling
+    const finalHtmlContent = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <style>
+            body {
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+              line-height: 1.6;
+              margin: 0;
+              padding: 0;
+              color: #333;
+            }
+            .container {
+              max-width: 600px;
+              margin: 0 auto;
+              padding: 20px;
+            }
+            h1, h2, h3 {
+              color: #1a1a1a;
+              margin-bottom: 16px;
+              margin-top: 32px;
+            }
+            h1:first-child {
+              margin-top: 0;
+            }
+            p {
+              margin: 16px 0;
+            }
+            .address {
+              margin: 16px 0;
+              padding: 16px;
+              background-color: #f5f5f5;
+              border-radius: 4px;
+            }
+            .product-list {
+              margin: 16px 0;
+            }
+            .total {
+              font-weight: bold;
+              margin: 16px 0;
+            }
+            .footer {
+              margin-top: 32px;
+              padding-top: 16px;
+              border-top: 1px solid #eaeaea;
+              color: #666;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            ${emailContent}
+          </div>
+        </body>
+      </html>
+    `;
 
-    console.log("Processed email content:", emailContent);
+    console.log("Processed email content:", finalHtmlContent);
     console.log("Final email subject:", emailSubject);
 
     const emailResponse = await resend.emails.send({
       from: "MYSTIC Game <no-reply@transactional.mysticgame.ch>",
       to: [orderData.shippingAddress.email],
       subject: emailSubject,
-      html: emailContent,
+      html: finalHtmlContent,
     });
 
     console.log("Email sent successfully:", emailResponse);
