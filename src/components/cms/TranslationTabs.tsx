@@ -100,6 +100,21 @@ export const TranslationTabs = ({ form }: TranslationTabsProps) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>{lang === 'de' ? 'Strukturierter Inhalt' : 'Structured Content'}</FormLabel>
+                <FormControl>
+                  <RichTextEditor
+                    value={typeof field.value === 'string' ? field.value : JSON.stringify(field.value, null, 2)}
+                    onChange={(value) => {
+                      try {
+                        // Versuche den String als JSON zu parsen
+                        const parsedValue = JSON.parse(value);
+                        field.onChange(parsedValue);
+                      } catch {
+                        // Wenn es kein gültiges JSON ist, speichere es als String
+                        field.onChange(value);
+                      }
+                    }}
+                  />
+                </FormControl>
                 <div className="mt-2 p-4 border rounded-md bg-muted/50">
                   {renderContentPreview(field.value)}
                 </div>
