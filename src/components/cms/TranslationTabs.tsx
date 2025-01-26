@@ -8,6 +8,53 @@ interface TranslationTabsProps {
   form: UseFormReturn<any>;
 }
 
+const renderContentPreview = (content: any) => {
+  if (!content) return null;
+
+  if (Array.isArray(content)) {
+    return (
+      <ul className="list-disc list-inside space-y-2">
+        {content.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
+    );
+  }
+
+  if (typeof content === 'object') {
+    return (
+      <div className="space-y-4">
+        {Object.entries(content).map(([key, value]: [string, any]) => {
+          if (typeof value === 'object') {
+            return (
+              <div key={key} className="space-y-2">
+                <h4 className="font-semibold">{value.title}</h4>
+                {value.options && (
+                  <ul className="list-disc list-inside pl-4">
+                    {value.options.map((option: string, index: number) => (
+                      <li key={index}>{option}</li>
+                    ))}
+                  </ul>
+                )}
+                {value.rules && (
+                  <ul className="list-disc list-inside pl-4">
+                    {value.rules.map((rule: string, index: number) => (
+                      <li key={index}>{rule}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            );
+          }
+          return null;
+        })}
+      </div>
+    );
+  }
+
+  return <p>{content}</p>;
+};
+
 export const TranslationTabs = ({ form }: TranslationTabsProps) => {
   return (
     <Tabs defaultValue="de" className="w-full">
@@ -45,6 +92,19 @@ export const TranslationTabs = ({ form }: TranslationTabsProps) => {
                     onChange={field.onChange}
                   />
                 </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name={`translations.${lang}.content`}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{lang === 'de' ? 'Inhalt' : 'Content'}</FormLabel>
+                <div className="mt-2 p-4 border rounded-md bg-muted/50">
+                  {renderContentPreview(field.value)}
+                </div>
               </FormItem>
             )}
           />
