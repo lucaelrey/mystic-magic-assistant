@@ -2,7 +2,7 @@ import React from "react";
 import { ActionCardsRules } from "./ActionCardsRules";
 import { ActionCardGrid } from "./ActionCardGrid";
 
-export const ActionCardsView = () => {
+const ActionCardsView = () => {
   return (
     <div className="space-y-6">
       <ActionCardsRules />
@@ -10,3 +10,5 @@ export const ActionCardsView = () => {
     </div>
   );
 };
+
+export default ActionCardsView;

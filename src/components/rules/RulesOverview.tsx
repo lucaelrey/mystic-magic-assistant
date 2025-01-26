@@ -5,7 +5,7 @@ import { GeneralRules } from "@/components/rules/GeneralRules";
 import { GamePreparation } from "@/components/rules/GamePreparation";
 import { GameplayRules } from "@/components/rules/GameplayRules";
 
-export const RulesOverview = () => (
+const RulesOverview = () => (
   <div className="space-y-6">
     <Card className="glass bg-black/40 backdrop-blur-xl border-white/10">
       <CardContent className="pt-6">
@@ -18,3 +18,5 @@ export const RulesOverview = () => (
     </Card>
   </div>
 );
+
+export default RulesOverview;
