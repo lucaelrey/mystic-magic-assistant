@@ -7,6 +7,9 @@ export const GamePreparation = () => {
   const { t } = useLanguage();
   const { translation } = useContent('rule', 'preparation_steps');
   
+  // Safely access the steps array from the content
+  const steps = translation?.content?.steps || [];
+  
   return (
     <AccordionItem value="preparation">
       <AccordionTrigger className="text-2xl font-semibold text-left">
@@ -14,7 +17,7 @@ export const GamePreparation = () => {
       </AccordionTrigger>
       <AccordionContent className="text-left">
         <ol className="list-decimal list-inside space-y-2">
-          {(translation?.content as string[] || t('rules.overview.preparation.steps') as string[]).map((step: string, index: number) => (
+          {steps.map((step: string, index: number) => (
             <li key={index}>{step}</li>
           ))}
         </ol>
