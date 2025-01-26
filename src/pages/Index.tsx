@@ -1,13 +1,15 @@
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/home/Hero";
+import { Footer } from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen w-full">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
-      <main className="w-full">
+      <main className="flex-1 w-full">
         <Hero />
       </main>
+      <Footer />
     </div>
   );
 };
