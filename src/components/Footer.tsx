@@ -6,7 +6,7 @@ export const Footer = () => {
   
   const footerClassName = isHomePage
     ? "fixed bottom-0 left-0 right-0 z-50 py-4 bg-black/20 backdrop-blur-md border-t border-white/5"
-    : "py-4 bg-black/20 backdrop-blur-md border-t border-white/5";
+    : "mt-8 py-4 bg-black/20 backdrop-blur-md border-t border-white/5";
 
   return (
     <footer className={footerClassName}>
