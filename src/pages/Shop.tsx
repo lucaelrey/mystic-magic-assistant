@@ -6,6 +6,7 @@ import { ProductDescription } from "@/components/shop/ProductDescription";
 import { PurchaseModule } from "@/components/shop/PurchaseModule";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Footer } from "@/components/Footer";
 
 const Shop = () => {
   const { language } = useLanguage();
@@ -16,9 +17,9 @@ const Shop = () => {
     : "glass-card max-w-6xl mx-auto overflow-visible bg-black/40 backdrop-blur-xl border-white/10";
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-background/95">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
-      <main className="container mx-auto px-4 pt-20 pb-24 md:pt-24 md:pb-12">
+      <main className="container mx-auto px-4 pt-20 pb-24 md:pt-24 md:pb-24 flex-1">
         <Card className={cardClassName}>
           {/* Main Product Section */}
           <div className="flex flex-col md:grid md:grid-cols-2 gap-6 md:gap-8 p-4 md:p-8">
@@ -45,6 +46,7 @@ const Shop = () => {
           </div>
         </Card>
       </main>
+      <Footer />
     </div>
   );
 };
