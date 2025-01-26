@@ -16,9 +16,9 @@ const queryClient = new QueryClient({
 });
 
 createRoot(document.getElementById("root")!).render(
-  <QueryClientProvider client={queryClient}>
-    <LanguageProvider>
+  <LanguageProvider>
+    <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-    </LanguageProvider>
-  </QueryClientProvider>
+    </QueryClientProvider>
+  </LanguageProvider>
 );
