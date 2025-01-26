@@ -1,28 +1,35 @@
 import React from "react";
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useContent } from "@/hooks/useContent";
 
 export const GameplayRules = () => {
   const { t } = useLanguage();
+  const { translation } = useContent('rule', 'gameplay_rules');
+  
+  if (!translation?.content) {
+    return null;
+  }
+
+  const { drawCard, takeDiscard } = translation.content;
   
   return (
     <AccordionItem value="gameplay">
       <AccordionTrigger className="text-2xl font-semibold text-left">
-        {t('rules.overview.gameplay.title')}
+        {translation.title}
       </AccordionTrigger>
       <AccordionContent className="text-left">
         <p className="mb-4">
-          {t('rules.overview.gameplay.description')}
+          {translation.description}
         </p>
         <div className="space-y-4">
           <div>
             <h3 className="font-semibold mb-2">
-              {t('rules.overview.gameplay.drawCard.title')}
+              {drawCard.title}
             </h3>
             <ul className="list-disc list-inside pl-4">
-              <li>{t('rules.overview.gameplay.description')}</li>
               <ul className="list-circle list-inside pl-8 space-y-1">
-                {(t('rules.overview.gameplay.drawCard.options') as string[]).map((option: string, index: number) => (
+                {drawCard.options.map((option: string, index: number) => (
                   <li key={index}>{option}</li>
                 ))}
               </ul>
@@ -30,10 +37,10 @@ export const GameplayRules = () => {
           </div>
           <div>
             <h3 className="font-semibold mb-2">
-              {t('rules.overview.gameplay.takeDiscard.title')}
+              {takeDiscard.title}
             </h3>
             <ul className="list-disc list-inside pl-4 space-y-2">
-              {(t('rules.overview.gameplay.takeDiscard.rules') as string[]).map((rule: string, index: number) => (
+              {takeDiscard.rules.map((rule: string, index: number) => (
                 <li key={index}>{rule}</li>
               ))}
             </ul>

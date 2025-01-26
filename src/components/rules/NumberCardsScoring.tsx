@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useContent } from "@/hooks/useContent";
 
 export const NumberCardsScoring = () => {
-  const { content, translation, isLoading } = useContent('number_card', 'number-cards-scoring');
+  const { translation, isLoading } = useContent('rule', 'number_cards_rules');
 
   if (isLoading) {
     return (
