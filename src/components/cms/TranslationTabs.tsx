@@ -83,9 +83,7 @@ export const TranslationTabs = ({ form }: TranslationTabsProps) => {
             name={`translations.${lang}.description`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {lang === 'de' ? 'Beschreibung' : 'Description'}
-                </FormLabel>
+                <FormLabel>{lang === 'de' ? 'Inhalt' : 'Content'}</FormLabel>
                 <FormControl>
                   <RichTextEditor
                     value={field.value || ''}
@@ -101,7 +99,7 @@ export const TranslationTabs = ({ form }: TranslationTabsProps) => {
             name={`translations.${lang}.content`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{lang === 'de' ? 'Inhalt' : 'Content'}</FormLabel>
+                <FormLabel>{lang === 'de' ? 'Strukturierter Inhalt' : 'Structured Content'}</FormLabel>
                 <div className="mt-2 p-4 border rounded-md bg-muted/50">
                   {renderContentPreview(field.value)}
                 </div>
