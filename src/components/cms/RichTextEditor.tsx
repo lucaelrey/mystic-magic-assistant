@@ -5,6 +5,7 @@ import TextStyle from '@tiptap/extension-text-style';
 import { Color } from '@tiptap/extension-color';
 import TextAlign from '@tiptap/extension-text-align';
 import Heading from '@tiptap/extension-heading';
+import Link from '@tiptap/extension-link';
 import { cn } from '@/lib/utils';
 
 interface RichTextEditorProps {
@@ -23,6 +24,12 @@ export const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
       }),
       Heading.configure({
         levels: [1, 2, 3],
+      }),
+      Link.configure({
+        openOnClick: false,
+        HTMLAttributes: {
+          class: 'text-blue-500 hover:text-blue-600 underline',
+        },
       }),
     ],
     content: '',
@@ -61,6 +68,21 @@ export const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
     { label: 'Rechts', value: 'right', icon: '→' },
   ];
 
+  const setLink = () => {
+    const url = window.prompt('URL eingeben:');
+
+    if (url === null) {
+      return;
+    }
+
+    if (url === '') {
+      editor.chain().focus().extendMarkRange('link').unsetLink().run();
+      return;
+    }
+
+    editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+  };
+
   return (
     <div className="border rounded-md">
       <style>
@@ -92,18 +114,19 @@ export const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
             line-height: 1.75;
           }
           .ProseMirror ul {
-            list-style-type: disc;
+            list-style-type: disc !important;
             padding-left: 1.5rem;
             margin: 1.25rem 0;
           }
           .ProseMirror ol {
-            list-style-type: decimal;
+            list-style-type: decimal !important;
             padding-left: 1.5rem;
             margin: 1.25rem 0;
           }
           .ProseMirror li {
             margin: 0.5rem 0;
             padding-left: 0.5rem;
+            display: list-item !important;
           }
           .ProseMirror li > p {
             margin: 0;
@@ -113,6 +136,13 @@ export const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
             padding-left: 1rem;
             margin: 1.5rem 0;
             font-style: italic;
+          }
+          .ProseMirror a {
+            color: #3b82f6;
+            text-decoration: underline;
+          }
+          .ProseMirror a:hover {
+            color: #2563eb;
           }
         `}
       </style>
@@ -196,6 +226,17 @@ export const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
             title="Nummerierte Liste"
           >
             1.
+          </button>
+          <button
+            onClick={setLink}
+            className={cn(
+              'p-2 rounded hover:bg-gray-100',
+              editor.isActive('link') && 'bg-gray-100'
+            )}
+            type="button"
+            title="Link einfügen"
+          >
+            🔗
           </button>
         </div>
       </div>
