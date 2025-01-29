@@ -35,7 +35,7 @@ const RulesOverview = () => {
           id,
           key,
           metadata,
-          translations (
+          cms_translations (
             language,
             title,
             description,
@@ -52,7 +52,7 @@ const RulesOverview = () => {
       return (data as any[]).map(section => ({
         ...section,
         metadata: section.metadata as { sort: number } | null,
-        translations: section.translations || []
+        translations: section.cms_translations || []
       })) as Section[];
     }
   });
