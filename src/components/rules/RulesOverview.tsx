@@ -91,7 +91,7 @@ const RulesOverview = () => {
                   </AccordionTrigger>
                   <AccordionContent className="text-gray-300">
                     <div 
-                      className="prose prose-invert prose-headings:text-white prose-p:text-gray-300 prose-strong:text-white prose-ul:text-gray-300 prose-li:text-gray-300 max-w-none"
+                      className="prose prose-invert prose-headings:text-white prose-headings:mt-6 prose-headings:mb-4 prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-p:text-gray-300 prose-p:my-4 prose-strong:text-white prose-ul:text-gray-300 prose-ul:my-4 prose-li:text-gray-300 prose-li:my-2 max-w-none"
                       dangerouslySetInnerHTML={{ __html: translation.content }}
                     />
                   </AccordionContent>
