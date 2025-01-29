@@ -332,7 +332,12 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "user"
-      content_type: "action_card" | "number_card" | "rule" | "product"
+      content_type:
+        | "action_card"
+        | "number_card"
+        | "rule"
+        | "product"
+        | "rule_section"
       email_template_type:
         | "order_confirmation"
         | "shipping_confirmation"
