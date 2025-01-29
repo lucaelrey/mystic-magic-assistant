@@ -338,6 +338,10 @@ export type Database = {
         | "rule"
         | "product"
         | "rule_section"
+        | "rules_overview"
+        | "rules_number_cards"
+        | "rules_action_cards"
+        | "rules_other"
       email_template_type:
         | "order_confirmation"
         | "shipping_confirmation"
