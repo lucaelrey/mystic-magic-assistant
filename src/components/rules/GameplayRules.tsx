@@ -11,7 +11,7 @@ export const GameplayRules = () => {
     return null;
   }
 
-  const { drawCard, takeDiscard, callMystic, throwIn, finalScoring, nextRound } = translation.content;
+  const { drawCard, takeDiscard, endGame, scoring } = translation.content;
   
   return (
     <AccordionItem value="gameplay">
@@ -23,7 +23,7 @@ export const GameplayRules = () => {
           {translation.content.description}
         </p>
 
-        {/* Draw Card Option */}
+        {/* Draw Card Options */}
         <div>
           <h3 className="font-semibold mb-2">
             {drawCard.title}
@@ -47,44 +47,23 @@ export const GameplayRules = () => {
           </ul>
         </div>
 
-        {/* Call Mystic */}
+        {/* End Game */}
         <div>
           <h3 className="font-semibold mb-2">
-            {callMystic.title}
+            {endGame.title}
           </h3>
-          <p className="pl-4">
-            {callMystic.description}
+          <p className="pl-4 whitespace-pre-line">
+            {endGame.description}
           </p>
         </div>
 
-        {/* Throw In */}
+        {/* Scoring */}
         <div>
           <h3 className="font-semibold mb-2">
-            {throwIn.title}
+            {scoring.title}
           </h3>
-          <p className="pl-4">
-            {throwIn.description}
-          </p>
-        </div>
-
-        {/* Final Scoring */}
-        <div>
-          <h3 className="font-semibold mb-2">
-            {finalScoring.title}
-          </h3>
-          <div className="pl-4 space-y-2">
-            <p>{finalScoring.description}</p>
-            <p>{finalScoring.mysticPenalty}</p>
-          </div>
-        </div>
-
-        {/* Next Round */}
-        <div>
-          <h3 className="font-semibold mb-2">
-            {nextRound.title}
-          </h3>
-          <p className="pl-4">
-            {nextRound.description}
+          <p className="pl-4 whitespace-pre-line">
+            {scoring.description}
           </p>
         </div>
       </AccordionContent>

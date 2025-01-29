@@ -1,76 +1,65 @@
 export const rulesTranslations = {
   en: {
-    rules: {
+    general: {
       title: "Game Rules",
-      overview: {
-        general: {
-          title: "General Rules",
-          description: "The goal is to have the fewest points at the end of the game by strategically exchanging cards and using special action cards. Each player has partially hidden cards, whose values they only partially know.",
-        },
-        preparation: {
-          title: "Game Preparation",
-          steps: [
-            "Each player receives four, five, or six cards depending on the game mode and places them unseen and face down in front of them (own display).",
-            "The remaining cards are placed face down as a draw pile in the middle of the table.",
-            "A card is drawn from the draw pile and placed face up next to it: it marks the beginning of the discard pile.",
-            "Each player may look at two of their cards once.",
-            "A starting player is determined and the game begins.",
-          ],
-        },
-        gameplay: {
-          title: "Gameplay",
-          description: "Play proceeds clockwise. When it's a player's turn, they can choose one of the following options:",
-          drawCard: {
-            title: "1. Draw a card from the draw pile:",
-            options: [
-              "immediately discard it or",
-              "replace it with a card from your own display or",
-              "if it's an action card, perform the action",
-            ],
-          },
-          takeDiscard: {
-            title: "2. Take a discard pile card:",
-            rules: [
-              "Take the top card from the discard pile and replace it with a card from your own display.",
-              "If a player has an identical card to the one just placed on the discard pile, they can immediately discard up to two of these cards.",
-            ],
-          },
-        },
+      description: "The goal is to have the fewest points at the end of the game by strategically exchanging cards and using special action cards. Each player has partially hidden cards, whose values they only partially know.",
+    },
+    preparation: {
+      title: "Game Preparation",
+      steps: [
+        "Each player receives four, five, or six cards depending on the game mode and places them unseen and face down in front of them (own display).",
+        "The remaining cards are placed face down as a draw pile in the middle of the table.",
+        "A card is drawn from the draw pile and placed face up next to it: it marks the beginning of the discard pile.",
+        "Each player may look at two of their cards once.",
+        "A starting player is determined and the game begins.",
+      ],
+    },
+    gameplay: {
+      title: "Gameplay",
+      description: "Play proceeds clockwise. When it's a player's turn, they can choose one of the following options:",
+      drawCard: {
+        title: "1. Draw a card from the draw pile:",
+        options: [
+          "immediately discard it or",
+          "replace it with a card from your own display or",
+          "if it's an action card, perform the action",
+        ],
       },
-      numberCards: {
-        title: "Number Cards",
-        values: "Values and Distribution:",
+      takeDiscard: {
+        title: "2. Take a discard pile card:",
         rules: [
-          "Number cards have values from 0 to 10",
-          "Each value appears multiple times in the game",
+          "Take the top card from the discard pile and replace it with a card from your own display.",
+          "If a player has an identical card to the one just placed on the discard pile, they can immediately discard up to two of these cards.",
         ],
-        scoring: {
-          title: "Scoring:",
-          rules: [
-            "Each card counts its printed value as points",
-            "The goal is to collect as few points as possible",
-          ],
-        },
       },
-      actionCards: {
-        title: "Action Cards",
-        description: "Action cards are special cards that influence the game flow and provide strategic options. They can be used to:",
-        uses: [
-          "View your own or opponent's cards",
-          "Exchange or rearrange cards",
-          "Protect yourself from other players' actions",
-          "Manipulate the game",
+    },
+    numberCards: {
+      title: "Number Cards",
+      values: "Values and Distribution:",
+      rules: [
+        "Number cards have values from 0 to 10",
+        "Each value appears multiple times in the game",
+      ],
+      scoring: {
+        title: "Scoring:",
+        rules: [
+          "Each card counts its printed value as points",
+          "The goal is to collect as few points as possible",
         ],
-        important: {
-          title: "Important Notes:",
-          rules: [
-            "Action cards must be played immediately",
-            "Only one action card can be used per turn",
-            "Protected players are immune to most action cards",
-            "Action cards go to the discard pile after use",
-            "All action cards count 11 points (highest score in the game)",
-          ],
-        },
+      },
+    },
+    actionCards: {
+      title: "Action Cards",
+      description: "Action cards are special cards that influence the game flow and provide strategic options.",
+      important: {
+        title: "Important Notes:",
+        rules: [
+          "Action cards must be played immediately",
+          "Only one action card can be used per turn",
+          "Protected players are immune to most action cards",
+          "Action cards go to the discard pile after use",
+          "All action cards count 11 points (highest score in the game)",
+        ],
       },
     },
   },
@@ -79,72 +68,48 @@ export const rulesTranslations = {
       title: "Spielregeln",
       overview: {
         general: {
-          title: "Allgemeine Regeln",
-          description: "Das Ziel ist es, am Ende des Spiels die wenigsten Punkte auf der Hand zu haben, indem man strategisch Karten austauscht und besondere Aktionskarten nutzt. Jeder Spieler hat teilweise verdeckte Karten, deren Werte er nur begrenzt kennt.",
+          title: "Mystic in Kürze",
+          description: "Das Wichtigste zuerst: Wer am Ende einer Partie am wenigsten Punkte gesammelt hat, gewinnt!\n\nEine Partie besteht aus mehreren Runden. In jeder Runde ziehen die Spieler:innen eine neue Karte, versuchen, unerwünschte Karten mit hohen Punkten loszuwerden oder das Spielgeschehen mit Aktionskarten auf den Kopf zu stellen.\n\nDas Geheimnis: Einige deiner Karten liegen verdeckt vor dir, sodass du ihre Punktewerte und die geheimen Kräfte deiner Aktionskarten nicht kennst!\n\nGeschick, strategisches Denken, schnelle Reaktionen und ein gutes Gedächtnis sind gefragt. Denn du sabotierst deine Gegner:innen am effektivsten, wenn du deine mystische Gabe dazu nutzt, zu durchschauen, wer auf welchen verdeckten Karten sitzt.\n\nUnd vergiss nicht: Wenn du oder eine:r deiner Mitspieler:innen »Mystic« flüstert, ist die Partie vorbei – und gewonnen hat, wer die wenigsten Punkte hat.",
         },
         preparation: {
           title: "Spielvorbereitung",
           steps: [
-            "Jeder Spieler erhält je nach Spielmodus vier, fünf oder sechs Karten und legt sie unangesehen und verdeckt nebeneinander vor sich auf den Tisch (eigene Auslage).",
-            "Der Rest der Karten kommt verdeckt als Nachziehstapel in die Mitte des Tisches.",
-            "Eine Karte wird vom Nachziehstapel gezogen und aufgedeckt neben den Nachziehstapel gelegt: Sie markiert den Anfang des Ablagestapels.",
-            "Jeder Spieler darf sich einmalig zwei seiner vor ihm ausliegenden Karten ansehen.",
-            "Ein Startspieler wird bestimmt und das Spiel beginnt.",
+            "Mische die Spielkarten gründlich durch und teile dir und deinen Mitspieler:innen verdeckt je vier Karten aus.",
+            "Jede:r Spieler:in legt die vier Karten – ohne sie sich anzuschauen – vor sich auf den Tisch. Das sind deine Handkarten.",
+            "Die restlichen Spielkarten kommen verdeckt auf den Ziehstapel.",
+            "Decke die oberste Karte des Ziehstapels auf und lege sie offen auf den Tisch. Das ist die erste Karte des Ablagestapels.",
+            "Tipp für Zauberlehrlinge & Mystic-Neulinge: Beschwöre deinen persönlichen Mystic-Assistenten unter https://play.mysticgame.ch/ – er hilft dir, die Punkte zu zählen und weiss, welche Kraft in jeder Aktionskarte steckt!",
           ],
         },
         gameplay: {
-          title: "Spielverlauf",
-          description: "Gespielt wird nacheinander im Uhrzeigersinn. Wenn ein Spieler an der Reihe ist, kann er eine der folgenden Optionen wählen:",
+          title: "Spielablauf",
+          description: "Alle Spieler:innen dürfen zwei ihrer vier verdeckten Karten einmalig anschauen. Danach beginnt die erste Runde: Bestimme selbst, wer zuerst eine Karte ziehen darf und ob ihr die Partie im Uhrzeigersinn oder im Gegenuhrzeigersinn spielen wollt.",
           drawCard: {
-            title: "1. Nachziehstapelkarte ziehen:",
+            title: "Spieler:in 1:",
             options: [
-              "direkt auf den Ablagestapel werfen oder",
-              "mit einer Karte der eigenen Auslage ersetzen oder",
-              "wenn es sich um eine Aktionskarte handelt, die Aktion ausführen",
+              "Nimm eine Karte vom Ziehstapel oder schnapp dir die oberste Karte des Ablagestapels.",
+              "Schau dir die Karte an – aber so, dass deine Mitspieler:innen die Karte nicht sehen können.",
+              "Triff deine Entscheidung:",
+              "Wenn du eine Aktionskarte gezogen hast: Lege sie auf den Ablagestapel und spiele die Aktion.",
+              "Wenn du eine Zahlenkarte gezogen hast: Du kannst wählen, ob du sie direkt wieder loswerden willst, indem du sie auf den Ablagestapel legst, oder ob du sie verdeckt zu deinen Handkarten legst. Wenn du sie zu deinen Handkarten legst, darfst du dafür eine andere deiner Handkarten aufdecken und offen auf den Ablagestapel legen.",
             ],
           },
           takeDiscard: {
-            title: "2. Ablagestapelkarte nehmen:",
+            title: "Und jetzt wird es spannend:",
             rules: [
-              "Die oberste Karte des Ablagestapels nehmen und durch eine Karte der eigenen Auslage ersetzen.",
-              "Hat ein Spieler eine identische Karte wie die gerade auf den Ablagestapel gelegte, kann er bis zu zwei dieser Karten direkt auf den Ablagestapel werfen.",
+              "Handelt es sich um eine Aktionskarte, die du ablegst, gelten einige besondere Regeln – schliesslich kannst du damit die ganze Dynamik des Spiels verändern! Mach dich auf https://mysticgame.ch/rules/action-cards mit den Regeln und der Auswirkungen jeder Aktionskarte vertraut – aber keine Angst – nach wenigen Partien spielst du Aktionskarten bereits wie ein weiser Magier!",
+              "Legst du hingegen eine Zahlenkarte ab, öffnest du das Spiel für alle anderen: Besitzt jemand die gleiche Zahlenkarte, kann er/sie diese sofort auf den Ablagestapel legen – und zwar ohne abzuwarten, bis er/sie am Zug ist. Ein gewiefter Trick, um lästige Punkte loszuwerden!",
+              "Wichtig: Pro Zug darfst du immer nur eine Zahlenkarte ablegen – auch wenn du mehrere identische Zahlenkarten in den Handkarten hältst.",
             ],
           },
-        },
-      },
-      numberCards: {
-        title: "Zahlenkarten",
-        values: "Werte und Verteilung:",
-        rules: [
-          "Die Zahlenkarten haben Werte von 0 bis 10",
-          "Jeder Wert ist mehrfach im Spiel vorhanden",
-        ],
-        scoring: {
-          title: "Punktewertung:",
-          rules: [
-            "Jede Karte zählt ihren aufgedruckten Wert als Punkte",
-            "Das Ziel ist es, möglichst wenig Punkte zu sammeln",
-          ],
-        },
-      },
-      actionCards: {
-        title: "Aktionskarten",
-        description: "Aktionskarten sind spezielle Karten, die den Spielverlauf beeinflussen und strategische Möglichkeiten bieten. Sie können verwendet werden, um:",
-        uses: [
-          "Eigene oder gegnerische Karten anzusehen",
-          "Karten zu tauschen oder neu anzuordnen",
-          "Sich vor den Aktionen anderer Spieler zu schützen",
-          "Das Spielgeschehen zu manipulieren",
-        ],
-        important: {
-          title: "Wichtige Hinweise:",
-          rules: [
-            "Aktionskarten müssen sofort gespielt werden",
-            "Pro Zug kann nur eine Aktionskarte eingesetzt werden",
-            "Geschützte Spieler sind immun gegen die meisten Aktionskarten",
-            "Aktionskarten kommen nach der Nutzung auf den Ablagestapel",
-            "Alle Aktionskarten zählen 11 Punkte (höchste Punktzahl im Spiel)",
-          ],
+          endGame: {
+            title: "Spielende",
+            description: "Die Partie endet spätestens dann, wenn der/die erste Spieler:in keine Handkarten mehr hat – und so die Partie gewinnt.\n\nDu willst nicht so lange warten und bist dir sicher, dass du der/die Spieler:in mit den wenigsten Punkten bist? Dann flüstere »Mystic« und lass deine Spielkameraden erschauern. Alle haben ab jetzt genau noch eine Runde Zeit, möglichst viele Punkte loszuwerden. Dann wird ausgezählt.",
+          },
+          scoring: {
+            title: "Punktezählung",
+            description: "Alle Spieler:innen decken ihre verbliebenen Handkarten auf und addieren die Kartenwerte: Die Zahlenkarten entsprechen dem aufgedruckten Wert (0 bis 10). Aktionskarten zählen 11 Punkte.\n\nDer/die Spieler:in mit den wenigsten Punkten gewinnt die Partie und verbucht 0 Punkte. Alle anderen Spieler notieren sich ihre Punkte.\n\nSonderregel: Wenn die:r Spieler:in, die »Mystic« gesagt hat, nicht die wenigsten Punkte hat, bekommt er/sie 5 Strafpunkte zusätzlich zur Summe der Punkte seiner/ihrer Handkarten. Der/die Spieler:in mit der tiefsten Punktzahl gewinnt die Partie, muss jedoch trotzdem die Punkte der Handkarten zählen.\n\nKeine Lust zu zählen? Überlass die Arbeit eurem Assistenten: https://play.mysticgame.ch/\n\nUnd nun: Karten neu mischen und auf zur nächsten Partie!",
+          },
         },
       },
     },
