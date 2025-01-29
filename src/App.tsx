@@ -20,9 +20,7 @@ const ContentForm = lazy(() => import("@/pages/admin/cms/ContentForm"));
 const Dashboard = lazy(() => import("@/pages/admin/Dashboard"));
 const Auth = lazy(() => import("@/pages/Auth"));
 const Impressum = lazy(() => import("@/pages/Impressum"));
-
-// Load Rules and its subcomponents separately
-const RulesPage = lazy(() => import("@/pages/Rules"));
+const Rules = lazy(() => import("@/pages/Rules"));
 const RulesOverview = lazy(() => import("@/components/rules/RulesOverview"));
 const NumberCardsRoute = lazy(() => import("@/components/rules/NumberCardsRoute"));
 const ActionCardsView = lazy(() => import("@/components/cards/ActionCardsView"));
@@ -49,7 +47,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/rules",
-    element: withSuspense(RulesPage),
+    element: withSuspense(Rules),
     children: [
       {
         index: true,
