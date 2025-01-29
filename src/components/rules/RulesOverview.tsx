@@ -6,6 +6,22 @@ import { supabase } from "@/integrations/supabase/client";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Loader2 } from "lucide-react";
 
+interface Translation {
+  title: string;
+  description: string;
+  content: any;
+  language: string;
+}
+
+interface Section {
+  id: string;
+  key: string;
+  metadata: {
+    sort: number;
+  };
+  translations: Translation[];
+}
+
 const RulesOverview = () => {
   const { language } = useLanguage();
   
@@ -19,6 +35,7 @@ const RulesOverview = () => {
           key,
           metadata,
           translations (
+            language,
             title,
             description,
             content
@@ -29,7 +46,7 @@ const RulesOverview = () => {
         .order('metadata->sort');
 
       if (error) throw error;
-      return data;
+      return data as Section[];
     }
   });
 
