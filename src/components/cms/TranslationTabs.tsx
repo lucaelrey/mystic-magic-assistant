@@ -52,7 +52,7 @@ const renderContentPreview = (content: any) => {
     );
   }
 
-  return <p>{content}</p>;
+  return <div dangerouslySetInnerHTML={{ __html: content }} />;
 };
 
 export const TranslationTabs = ({ form }: TranslationTabsProps) => {
@@ -83,7 +83,7 @@ export const TranslationTabs = ({ form }: TranslationTabsProps) => {
             name={`translations.${lang}.description`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{lang === 'de' ? 'Inhalt' : 'Content'}</FormLabel>
+                <FormLabel>{lang === 'de' ? 'Beschreibung' : 'Description'}</FormLabel>
                 <FormControl>
                   <RichTextEditor
                     value={field.value || ''}
@@ -99,25 +99,13 @@ export const TranslationTabs = ({ form }: TranslationTabsProps) => {
             name={`translations.${lang}.content`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{lang === 'de' ? 'Strukturierter Inhalt' : 'Structured Content'}</FormLabel>
+                <FormLabel>{lang === 'de' ? 'Inhalt' : 'Content'}</FormLabel>
                 <FormControl>
                   <RichTextEditor
-                    value={typeof field.value === 'string' ? field.value : JSON.stringify(field.value, null, 2)}
-                    onChange={(value) => {
-                      try {
-                        // Versuche den String als JSON zu parsen
-                        const parsedValue = JSON.parse(value);
-                        field.onChange(parsedValue);
-                      } catch {
-                        // Wenn es kein gültiges JSON ist, speichere es als String
-                        field.onChange(value);
-                      }
-                    }}
+                    value={field.value || ''}
+                    onChange={field.onChange}
                   />
                 </FormControl>
-                <div className="mt-2 p-4 border rounded-md bg-muted/50">
-                  {renderContentPreview(field.value)}
-                </div>
               </FormItem>
             )}
           />
