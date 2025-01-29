@@ -6,7 +6,7 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { RichTextEditor } from "./RichTextEditor";
 import { UseFormReturn } from "react-hook-form";
 
 interface TranslationFieldsProps {
@@ -26,19 +26,19 @@ export const TranslationFields = ({ form, language, title }: TranslationFieldsPr
           <FormItem>
             <FormLabel>{language === "de" ? "Titel" : "Title"}</FormLabel>
             <FormControl>
-              <Input {...field} />
+              <Input {...field} placeholder={language === "de" ? "Geben Sie einen Titel ein" : "Enter a title"} />
             </FormControl>
           </FormItem>
         )}
       />
       <FormField
         control={form.control}
-        name={`translations.${language}.description`}
+        name={`translations.${language}.content`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>{language === "de" ? "Beschreibung" : "Description"}</FormLabel>
+            <FormLabel>{language === "de" ? "Inhalt" : "Content"}</FormLabel>
             <FormControl>
-              <Textarea {...field} />
+              <RichTextEditor value={field.value || ""} onChange={field.onChange} />
             </FormControl>
           </FormItem>
         )}

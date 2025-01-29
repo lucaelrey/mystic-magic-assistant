@@ -87,23 +87,13 @@ const RulesOverview = () => {
                   <AccordionTrigger className="hover:no-underline">
                     <div className="flex flex-col items-start text-left">
                       <h2 className="text-2xl font-semibold">{translation.title}</h2>
-                      {translation.description && (
-                        <p className="text-sm text-gray-400 mt-1">{translation.description}</p>
-                      )}
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="text-gray-300">
-                    {translation.content && typeof translation.content === 'object' && (
-                      <div className="prose prose-invert max-w-none">
-                        {Object.entries(translation.content).map(([key, value]) => (
-                          <div key={key} className="mb-4">
-                            {typeof value === 'string' && (
-                              <p>{value}</p>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                    <div 
+                      className="prose prose-invert max-w-none"
+                      dangerouslySetInnerHTML={{ __html: translation.content }}
+                    />
                   </AccordionContent>
                 </AccordionItem>
               );
