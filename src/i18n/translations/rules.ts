@@ -1,65 +1,41 @@
 export const rulesTranslations = {
   en: {
-    general: {
+    rules: {
       title: "Game Rules",
-      description: "The goal is to have the fewest points at the end of the game by strategically exchanging cards and using special action cards. Each player has partially hidden cards, whose values they only partially know.",
-    },
-    preparation: {
-      title: "Game Preparation",
-      steps: [
-        "Each player receives four, five, or six cards depending on the game mode and places them unseen and face down in front of them (own display).",
-        "The remaining cards are placed face down as a draw pile in the middle of the table.",
-        "A card is drawn from the draw pile and placed face up next to it: it marks the beginning of the discard pile.",
-        "Each player may look at two of their cards once.",
-        "A starting player is determined and the game begins.",
-      ],
-    },
-    gameplay: {
-      title: "Gameplay",
-      description: "Play proceeds clockwise. When it's a player's turn, they can choose one of the following options:",
-      drawCard: {
-        title: "1. Draw a card from the draw pile:",
-        options: [
-          "immediately discard it or",
-          "replace it with a card from your own display or",
-          "if it's an action card, perform the action",
-        ],
-      },
-      takeDiscard: {
-        title: "2. Take a discard pile card:",
-        rules: [
-          "Take the top card from the discard pile and replace it with a card from your own display.",
-          "If a player has an identical card to the one just placed on the discard pile, they can immediately discard up to two of these cards.",
-        ],
-      },
-    },
-    numberCards: {
-      title: "Number Cards",
-      values: "Values and Distribution:",
-      rules: [
-        "Number cards have values from 0 to 10",
-        "Each value appears multiple times in the game",
-      ],
-      scoring: {
-        title: "Scoring:",
-        rules: [
-          "Each card counts its printed value as points",
-          "The goal is to collect as few points as possible",
-        ],
-      },
-    },
-    actionCards: {
-      title: "Action Cards",
-      description: "Action cards are special cards that influence the game flow and provide strategic options.",
-      important: {
-        title: "Important Notes:",
-        rules: [
-          "Action cards must be played immediately",
-          "Only one action card can be used per turn",
-          "Protected players are immune to most action cards",
-          "Action cards go to the discard pile after use",
-          "All action cards count 11 points (highest score in the game)",
-        ],
+      overview: {
+        general: {
+          title: "Mystic in Brief",
+          description: "First things first: The player with the fewest points at the end of the game wins!\n\nA game consists of multiple rounds. In each round, players draw a new card, try to get rid of unwanted cards with high points, or turn the game upside down with action cards.\n\nThe secret: Some of your cards lie face down in front of you, so you don't know their point values and the secret powers of your action cards!\n\nSkill, strategic thinking, quick reactions, and a good memory are required. Because you sabotage your opponents most effectively when you use your mystical gift to see through who is sitting on which hidden cards.\n\nAnd don't forget: When you or one of your fellow players whispers \"Mystic\", the game is over - and whoever has the fewest points wins.",
+        },
+        preparation: {
+          title: "Game Preparation",
+          steps: [
+            "Each player receives four, five, or six cards depending on the game mode and places them unseen and face down in front of them (own display).",
+            "The remaining cards are placed face down as a draw pile in the middle of the table.",
+            "A card is drawn from the draw pile and placed face up next to it: it marks the beginning of the discard pile.",
+            "Each player may look at two of their cards once.",
+            "A starting player is determined and the game begins.",
+          ],
+        },
+        gameplay: {
+          title: "Gameplay",
+          description: "Play proceeds clockwise. When it's a player's turn, they can choose one of the following options:",
+          drawCard: {
+            title: "1. Draw a card from the draw pile:",
+            options: [
+              "immediately discard it or",
+              "replace it with a card from your own display or",
+              "if it's an action card, perform the action",
+            ],
+          },
+          takeDiscard: {
+            title: "2. Take a discard pile card:",
+            rules: [
+              "Take the top card from the discard pile and replace it with a card from your own display.",
+              "If a player has an identical card to the one just placed on the discard pile, they can immediately discard up to two of these cards.",
+            ],
+          },
+        },
       },
     },
   },
