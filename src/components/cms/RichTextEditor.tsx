@@ -28,7 +28,7 @@ export const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
       Link.configure({
         openOnClick: false,
         HTMLAttributes: {
-          class: 'text-blue-500 hover:text-blue-600 underline',
+          class: 'text-[#e2c361] hover:text-[#e2c361]/80 no-underline',
         },
       }),
     ],
@@ -138,11 +138,11 @@ export const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
             font-style: italic;
           }
           .ProseMirror a {
-            color: #3b82f6;
-            text-decoration: underline;
+            color: #e2c361;
+            text-decoration: none;
           }
           .ProseMirror a:hover {
-            color: #2563eb;
+            color: rgba(226, 195, 97, 0.8);
           }
         `}
       </style>
