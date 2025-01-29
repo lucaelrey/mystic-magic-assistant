@@ -5,20 +5,21 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Loader2 } from "lucide-react";
+import { Database } from "@/integrations/supabase/types";
 
-interface Translation {
-  title: string;
-  description: string;
-  content: any;
+type Translation = Database["public"]["Tables"]["cms_translations"]["Row"] & {
   language: string;
-}
+  title: string | null;
+  description: string | null;
+  content: any;
+};
 
 interface Section {
   id: string;
   key: string;
   metadata: {
     sort: number;
-  };
+  } | null;
   translations: Translation[];
 }
 
@@ -46,7 +47,13 @@ const RulesOverview = () => {
         .order('metadata->sort');
 
       if (error) throw error;
-      return data as Section[];
+      
+      // Transform the data to match our Section type
+      return (data as any[]).map(section => ({
+        ...section,
+        metadata: section.metadata as { sort: number } | null,
+        translations: section.translations || []
+      })) as Section[];
     }
   });
 
