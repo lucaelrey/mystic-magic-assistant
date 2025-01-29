@@ -91,7 +91,7 @@ const RulesOverview = () => {
                   </AccordionTrigger>
                   <AccordionContent className="text-gray-300">
                     <div 
-                      className="prose prose-invert max-w-none"
+                      className="prose prose-invert prose-headings:text-white prose-p:text-gray-300 prose-strong:text-white prose-ul:text-gray-300 prose-li:text-gray-300 max-w-none"
                       dangerouslySetInnerHTML={{ __html: translation.content }}
                     />
                   </AccordionContent>
