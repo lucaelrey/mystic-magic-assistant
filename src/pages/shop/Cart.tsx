@@ -1,15 +1,14 @@
 import { Navigation } from "@/components/Navigation";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ShoppingBag, ArrowLeft } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { CartProductImage } from "@/components/shop/CartProductImage";
-import { CartQuantityControls } from "@/components/shop/CartQuantityControls";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { CartHeader } from "@/components/shop/CartHeader";
+import { CartProduct } from "@/components/shop/CartProduct";
+import { CartSummary } from "@/components/shop/CartSummary";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -113,96 +112,27 @@ const Cart = () => {
       <main className="container mx-auto px-4 md:px-6 pt-20 md:pt-24 pb-12">
         <Card className={cardClassName}>
           <div className="p-6 md:p-8 space-y-8">
-            {/* Header */}
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <ShoppingBag className="w-6 h-6 md:w-7 md:h-7 text-white/90" />
-                <h1 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent 
-                  bg-gradient-to-r from-white to-white/70">
-                  {language === 'en' ? 'Your Cart' : 'Ihr Warenkorb'}
-                </h1>
-              </div>
+              <CartHeader />
             </div>
 
-            {/* Product Card */}
             <div className="space-y-8">
               <div className={productCardClassName}>
-                <div className="flex items-start gap-6">
-                  <CartProductImage />
-                  <div className="flex-1 min-w-0 space-y-4">
-                    <div>
-                      <h3 className="font-semibold text-lg md:text-xl text-white">
-                        {language === 'en' ? "MYSTIC - The Card Game" : "MYSTIC - Das Kartenspiel"}
-                      </h3>
-                      <p className="text-base md:text-lg font-medium text-white/80 mt-1">
-                        CHF {productPrice.toFixed(2)}
-                      </p>
-                    </div>
-                    
-                    <CartQuantityControls 
-                      quantity={quantity}
-                      onQuantityChange={handleQuantityChange}
-                      onReset={() => setQuantity(1)}
-                    />
-                  </div>
-                </div>
+                <CartProduct 
+                  quantity={quantity}
+                  productPrice={productPrice}
+                  onQuantityChange={handleQuantityChange}
+                  onReset={() => setQuantity(1)}
+                />
               </div>
 
-              {/* Summary Card */}
               <div className={summaryCardClassName}>
-                <div className="flex justify-between items-center text-xl 
-                  font-semibold text-white">
-                  <span>{language === 'en' ? 'Total' : 'Gesamt'}</span>
-                  <span>CHF {(quantity * productPrice).toFixed(2)}</span>
-                </div>
-
-                <div className="pt-4 border-t border-white/10 space-y-6">
-                  <div className="space-y-2 text-center">
-                    <p className="text-sm text-white">
-                      {language === 'en' ? 
-                        'Secure payment with SSL encryption' : 
-                        'Sichere Bezahlung mit SSL-Verschlüsselung'}
-                    </p>
-                    <p className="text-sm text-white/80">
-                      {language === 'en' ? 
-                        'A-Post shipping included' : 
-                        'A-Post Versand inbegriffen'}
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-col gap-4">
-                    <Button 
-                      className="w-full h-12 md:h-14 text-base font-medium
-                        bg-gradient-to-r from-white/20 to-white/10 
-                        hover:from-white/30 hover:to-white/20
-                        border border-white/20 hover:border-white/30
-                        shadow-lg hover:shadow-xl 
-                        transition-all duration-300
-                        rounded-xl
-                        group"
-                      onClick={handleCheckout}
-                      disabled={isLoading}
-                    >
-                      {isLoading ? 
-                        (language === 'en' ? "Processing..." : "Wird verarbeitet...") : 
-                        (language === 'en' ? "Proceed to Checkout" : "Zur Kasse")}
-                    </Button>
-
-                    <Button 
-                      variant="outline" 
-                      className="w-full h-12 md:h-14 text-base font-medium
-                        bg-white/5 border-white/10 hover:bg-white/10 
-                        hover:border-white/20 text-white
-                        rounded-xl
-                        transition-all duration-300
-                        flex items-center justify-center gap-2"
-                      onClick={() => navigate(-1)}
-                    >
-                      <ArrowLeft className="w-4 h-4" />
-                      {language === 'en' ? 'Continue Shopping' : 'Weiter einkaufen'}
-                    </Button>
-                  </div>
-                </div>
+                <CartSummary 
+                  quantity={quantity}
+                  productPrice={productPrice}
+                  onCheckout={handleCheckout}
+                  isLoading={isLoading}
+                />
               </div>
             </div>
           </div>
