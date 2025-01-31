@@ -55,11 +55,14 @@ export const Navigation = () => {
           {/* Logo section */}
           <div className="flex-shrink-0">
             <Link to="/" className="block">
-              <Image 
-                src="/lovable-uploads/acaea78e-8d8d-4aff-848d-48e80bd5061a.png" 
-                alt="Crystal Home"
-                className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 object-contain"
-              />
+              <picture>
+                <source srcSet="/lovable-uploads/crystal-of-mystara-icon.webp" type="image/webp" />
+                <Image 
+                  src="/lovable-uploads/crystal-of-mystara-icon.png" 
+                  alt="Crystal Home"
+                  className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 object-contain"
+                />
+              </picture>
             </Link>
           </div>
 
