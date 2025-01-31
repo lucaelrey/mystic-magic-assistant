@@ -49,7 +49,7 @@ export const Hero = () => {
     <section 
       className="relative h-screen flex items-center justify-center"
       style={{
-        backgroundImage: "url('/lovable-uploads/a426b83e-7fa7-4d7c-a3b5-b6492a302b41.png')",
+        backgroundImage: "url('/lovable-uploads/crystal-of-mystara-header.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat"
@@ -71,11 +71,14 @@ export const Hero = () => {
       </div>
       
       <div className="relative z-10 container mx-auto px-4 text-center">
-        <Image 
-          src="/lovable-uploads/c2532bcb-8d98-48b1-8d8f-d8ce6084c83f.png"
-          alt="MYSTIC"
-          className="w-full max-w-lg mx-auto mb-6"
-        />
+        <picture>
+          <source srcSet="/lovable-uploads/mystic-game-logo.webp" type="image/webp" />
+          <Image 
+            src="/lovable-uploads/mystic-game-logo.png"
+            alt="MYSTIC"
+            className="w-full max-w-lg mx-auto mb-6"
+          />
+        </picture>
         <div 
           className="text-xl mb-8 max-w-2xl mx-auto text-white/90"
           dangerouslySetInnerHTML={{

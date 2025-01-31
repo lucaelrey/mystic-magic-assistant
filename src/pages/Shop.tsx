@@ -24,7 +24,7 @@ const Shop = () => {
           {/* Main Product Section */}
           <div className="flex flex-col md:grid md:grid-cols-2 gap-6 md:gap-8 p-4 md:p-8">
             <ProductImage 
-              src="/lovable-uploads/cf7eccbe-9b33-4e52-aadf-a9bf531ba57b.png"
+              src="/lovable-uploads/mystic-game.png"
               alt={language === 'en' ? "Mystic Card Game Box" : "Mystic Kartenspiel Box"}
               className="order-1 md:order-none"
             />
