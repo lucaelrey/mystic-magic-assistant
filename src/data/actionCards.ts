@@ -116,13 +116,13 @@ export const actionCards = [
     description_en: "Protect yourself from actions",
     rules: [
       "Schützt vor allen Aktionskarten für eine Runde",
-      "Bleibt bis zu deinem nächsten Zug aktiv",
-      "Kann nicht gestapelt werden"
+      "Lege die Karte offen neben deine Handkarten",
+      "Bleibt bis zu deinem nächsten Zug aktiv"
     ],
     rules_en: [
       "Protects against all action cards for one round",
-      "Remains active until your next turn",
-      "Cannot be stacked"
+      "Place the card face up next to your hand cards",
+      "Remains active until your next turn"
     ]
   },
   {
