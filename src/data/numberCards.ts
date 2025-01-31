@@ -42,7 +42,7 @@ export const numberCards = [
     ]
   },
   {
-    id: "water-spirit",
+    id: "water-being",
     name: "Water Being",
     name_en: "Water Being",
     image: "/lovable-uploads/ad4896fd-d3ec-467b-9863-72cf62f93b1f.png",
