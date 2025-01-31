@@ -26,11 +26,15 @@ export const CardGrid = ({ cards }: CardGridProps) => {
           className="w-full cursor-pointer hover:scale-105 transition-transform duration-200 overflow-hidden"
           onClick={() => navigate(`/card/${card.id}`)}
         >
-          <Image
-            src={card.image}
-            alt={card.name}
-            className="w-full h-full object-cover"
-          />
+          <picture>
+            <source srcSet={`/lovable-uploads/${card.id}.webp`} type="image/webp" />
+            <Image
+              src={`/lovable-uploads/${card.id}.png`}
+              alt={card.name}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </picture>
         </Card>
       ))}
     </div>

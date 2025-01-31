@@ -49,12 +49,15 @@ export const ActionCardGrid = () => {
       aria-label={getTranslatedCard(card).name}
     >
       <div className="relative overflow-hidden rounded-lg">
-        <Image
-          src={card.image}
-          alt={getTranslatedCard(card).name}
-          className="w-full h-full object-contain"
-          loading="lazy"
-        />
+        <picture>
+          <source srcSet={`/lovable-uploads/${card.id}.webp`} type="image/webp" />
+          <Image
+            src={`/lovable-uploads/${card.id}.png`}
+            alt={getTranslatedCard(card).name}
+            className="w-full h-full object-contain"
+            loading="lazy"
+          />
+        </picture>
       </div>
     </article>
   );

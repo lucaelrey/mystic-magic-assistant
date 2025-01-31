@@ -5,6 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 interface CardDetailsProps {
   card: {
+    id: string;
     image: string;
     name: string;
     description: string;
@@ -19,11 +20,15 @@ export const CardDetails = ({ card, className = "" }: CardDetailsProps) => {
   return (
     <div className={cn("space-y-6", className)}>
       <div className="flex justify-center">
-        <Image
-          src={card.image}
-          alt={card.name}
-          className="w-full max-w-[200px] md:max-w-[240px] h-auto object-contain rounded-lg shadow-lg"
-        />
+        <picture>
+          <source srcSet={`/lovable-uploads/${card.id}.webp`} type="image/webp" />
+          <Image
+            src={`/lovable-uploads/${card.id}.png`}
+            alt={card.name}
+            className="w-full max-w-[200px] md:max-w-[240px] h-auto object-contain rounded-lg shadow-lg"
+            loading="lazy"
+          />
+        </picture>
       </div>
       <div className="space-y-4">
         <div className="text-center">
