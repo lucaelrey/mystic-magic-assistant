@@ -17,7 +17,7 @@ const Cart = () => {
   const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const productPrice = 29.90;
+  const productPrice = 24.90;
   const { language } = useLanguage();
   const isMobile = useIsMobile();
   
