@@ -33,7 +33,7 @@ const Shop = () => {
             <div className="space-y-6 md:space-y-8 order-2 md:order-none">
               <ProductInfo 
                 title={language === 'en' ? "MYSTIC - The Card Game" : "MYSTIC - Das Kartenspiel"}
-                price="29.90 CHF"
+                price="CHF 24.90"
                 shippingInfo={language === 'en' ? "Free shipping in Switzerland" : "Versandkostenfrei in der Schweiz"}
               />
               <PurchaseModule />
