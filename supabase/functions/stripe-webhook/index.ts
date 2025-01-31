@@ -36,7 +36,6 @@ async function getAdminEmails() {
 
   const adminIds = adminRoles.map(role => role.user_id);
   
-  // Get admin users from auth.users table using service role
   const { data: adminUsers, error: usersError } = await supabaseAdmin
     .auth.admin.listUsers();
 
@@ -45,7 +44,6 @@ async function getAdminEmails() {
     return [];
   }
 
-  // Filter and return only email addresses of admin users
   return adminUsers.users
     .filter(user => adminIds.includes(user.id))
     .map(user => user.email)
@@ -127,6 +125,62 @@ async function sendAdminNotification(orderDetails: any) {
   }
 }
 
+async function sendOrderConfirmationEmail(orderDetails: any, language: string = 'de') {
+  try {
+    const { data: template, error: templateError } = await supabaseAdmin
+      .from('email_templates')
+      .select('*')
+      .eq('type', 'order_confirmation')
+      .eq('name', language === 'de' ? 'Bestellbestätigung' : 'Order Confirmation')
+      .single();
+
+    if (templateError) {
+      console.error('Error fetching email template:', templateError);
+      return;
+    }
+
+    const productList = orderDetails.items.map((item: any) => 
+      `${item.product_name} - ${item.quantity}x - CHF ${item.price_per_unit.toFixed(2)}`
+    ).join('\n');
+
+    const formattedAddress = `${orderDetails.shippingAddress.firstName} ${orderDetails.shippingAddress.lastName}
+${orderDetails.shippingAddress.street}
+${orderDetails.shippingAddress.postalCode} ${orderDetails.shippingAddress.city}
+${orderDetails.shippingAddress.country}`;
+
+    let emailContent = template.html_content;
+    let emailSubject = template.subject;
+    
+    const replacements = {
+      '{{firstName}}': orderDetails.shippingAddress.firstName,
+      '{{lastName}}': orderDetails.shippingAddress.lastName,
+      '{{orderNumber}}': orderDetails.orderId,
+      '{{totalAmount}}': orderDetails.totalAmount.toFixed(2),
+      '{{productList}}': productList,
+      '{{shippingAddress}}': formattedAddress
+    };
+
+    Object.entries(replacements).forEach(([key, value]) => {
+      const regex = new RegExp(key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+      emailContent = emailContent.replace(regex, value as string);
+      emailSubject = emailSubject.replace(regex, value as string);
+    });
+
+    const emailResponse = await resend.emails.send({
+      from: "MYSTIC Game <no-reply@transactional.mysticgame.ch>",
+      to: [orderDetails.shippingAddress.email],
+      subject: emailSubject,
+      html: emailContent,
+    });
+
+    console.log('Order confirmation email sent successfully:', emailResponse);
+    return emailResponse;
+  } catch (error) {
+    console.error('Error sending order confirmation email:', error);
+    throw error;
+  }
+}
+
 serve(async (req) => {
   try {
     const signature = req.headers.get('stripe-signature');
@@ -160,7 +214,6 @@ serve(async (req) => {
       console.log('Processing completed checkout session:', session.id);
       console.log('Order ID from metadata:', session.metadata?.order_id);
 
-      // Retrieve the complete session to get shipping details
       const expandedSession = await stripe.checkout.sessions.retrieve(session.id, {
         expand: ['shipping_details', 'customer_details']
       });
@@ -168,12 +221,10 @@ serve(async (req) => {
       console.log('Shipping details:', expandedSession.shipping_details);
       console.log('Customer details:', expandedSession.customer_details);
 
-      // Split the name into first and last name
       const fullName = expandedSession.shipping_details?.name || '';
       const [firstName = '', ...lastNameParts] = fullName.split(' ');
       const lastName = lastNameParts.join(' ');
 
-      // Prepare shipping address data
       const shippingAddress = {
         firstName,
         lastName,
@@ -183,24 +234,37 @@ serve(async (req) => {
         country: expandedSession.shipping_details?.address?.country || '',
         email: expandedSession.customer_details?.email || '',
       };
+
+      const language = shippingAddress.country === 'DE' || shippingAddress.country === 'AT' || shippingAddress.country === 'CH' ? 'de' : 'en';
       
-      // Update order payment status and shipping address in database
-      const { error } = await supabaseAdmin
+      const { error: updateError } = await supabaseAdmin
         .from('orders')
         .update({ 
           payment_status: 'paid',
           payment_intent_id: session.payment_intent,
           shipping_address: shippingAddress,
+          status: 'confirmed',
           updated_at: new Date().toISOString()
         })
         .eq('id', session.metadata?.order_id);
 
-      if (error) {
-        console.error('Error updating order:', error);
+      if (updateError) {
+        console.error('Error updating order:', updateError);
         return new Response('Error updating order', { status: 500 });
       }
 
-      // Send admin notification
+      const { data: orderItems } = await supabaseAdmin
+        .from('order_items')
+        .select('*')
+        .eq('order_id', session.metadata?.order_id);
+
+      await sendOrderConfirmationEmail({
+        orderId: session.metadata?.order_id,
+        totalAmount: session.amount_total ? session.amount_total / 100 : 0,
+        shippingAddress,
+        items: orderItems
+      }, language);
+
       await sendAdminNotification({
         orderId: session.metadata?.order_id,
         totalAmount: session.amount_total ? session.amount_total / 100 : 0,
@@ -208,7 +272,7 @@ serve(async (req) => {
         customerEmail: expandedSession.customer_details?.email,
       });
 
-      console.log(`✅ Successfully updated order ${session.metadata?.order_id} with shipping details and payment status`);
+      console.log(`✅ Successfully processed order ${session.metadata?.order_id}`);
     }
 
     return new Response(JSON.stringify({ received: true }), {
