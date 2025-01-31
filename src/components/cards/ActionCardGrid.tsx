@@ -41,22 +41,29 @@ export const ActionCardGrid = () => {
   };
 
   const renderCardContent = (card: (typeof actionCards)[0]) => (
-    <div 
+    <article 
       className="glass-card cursor-pointer"
       onClick={() => handleCardClick(card)}
+      role="button"
+      tabIndex={0}
+      aria-label={getTranslatedCard(card).name}
     >
       <div className="relative overflow-hidden rounded-lg">
         <Image
           src={card.image}
           alt={getTranslatedCard(card).name}
           className="w-full h-full object-contain"
+          loading="lazy"
         />
       </div>
-    </div>
+    </article>
   );
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    <section 
+      className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4"
+      aria-label={language === 'de' ? 'Aktionskarten' : 'Action Cards'}
+    >
       {actionCards.map((card) => (
         <div key={card.id}>
           {isDesktop ? (
@@ -84,6 +91,6 @@ export const ActionCardGrid = () => {
           )}
         </div>
       ))}
-    </div>
+    </section>
   );
 };
