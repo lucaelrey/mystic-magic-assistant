@@ -135,7 +135,7 @@ const Cart = () => {
                         {language === 'en' ? "MYSTIC - The Card Game" : "MYSTIC - Das Kartenspiel"}
                       </h3>
                       <p className="text-base md:text-lg font-medium text-white/80 mt-1">
-                        {productPrice.toFixed(2)} CHF
+                        CHF {productPrice.toFixed(2)}
                       </p>
                     </div>
                     
@@ -153,7 +153,7 @@ const Cart = () => {
                 <div className="flex justify-between items-center text-xl 
                   font-semibold text-white">
                   <span>{language === 'en' ? 'Total' : 'Gesamt'}</span>
-                  <span>{(quantity * productPrice).toFixed(2)} CHF</span>
+                  <span>CHF {(quantity * productPrice).toFixed(2)}</span>
                 </div>
 
                 <div className="pt-4 border-t border-white/10 space-y-6">
