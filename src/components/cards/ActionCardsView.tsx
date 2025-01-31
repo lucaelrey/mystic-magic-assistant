@@ -24,8 +24,8 @@ const ActionCardsView = () => {
         <meta property="og:description" content={description} />
         <meta property="og:type" content="article" />
         <link rel="canonical" href={`https://mystic-game.com/${language}/rules/action-cards`} />
-        {language === 'de' && <link rel="alternate" hreflang="en" href="https://mystic-game.com/en/rules/action-cards" />}
-        {language === 'en' && <link rel="alternate" hreflang="de" href="https://mystic-game.com/de/rules/action-cards" />}
+        {language === 'de' && <link rel="alternate" hrefLang="en" href="https://mystic-game.com/en/rules/action-cards" />}
+        {language === 'en' && <link rel="alternate" hrefLang="de" href="https://mystic-game.com/de/rules/action-cards" />}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
