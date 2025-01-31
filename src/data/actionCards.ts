@@ -1,6 +1,6 @@
 export const actionCards = [
   {
-    id: "mystic-chaos",
+    id: "chaos",
     name: "Chaos",
     name_en: "Chaos",
     image: "/lovable-uploads/ea23bc0e-283d-47f3-9959-ac32e44b727a.png",
@@ -18,7 +18,7 @@ export const actionCards = [
     ]
   },
   {
-    id: "mystic-discard",
+    id: "discard",
     name: "Discard",
     name_en: "Discard",
     image: "/lovable-uploads/5b42985f-7789-44c2-bd14-7daccdbd598a.png",
@@ -36,7 +36,7 @@ export const actionCards = [
     ]
   },
   {
-    id: "mystic-glimpse-and-swap",
+    id: "glimpse-and-swap",
     name: "Glimpse & Swap",
     name_en: "Glimpse & Swap",
     image: "/lovable-uploads/cf77c89a-af1f-4513-830a-02556b817a57.png",
@@ -54,7 +54,7 @@ export const actionCards = [
     ]
   },
   {
-    id: "mystic-glimpse",
+    id: "glimpse",
     name: "Glimpse",
     name_en: "Glimpse",
     image: "/lovable-uploads/9b0b5be5-d9ef-417c-9f5e-99949cf43930.png",
@@ -72,7 +72,7 @@ export const actionCards = [
     ]
   },
   {
-    id: "mystic-inspect",
+    id: "inspect",
     name: "Inspect",
     name_en: "Inspect",
     image: "/lovable-uploads/dff44835-13d4-42e0-a921-2344f6321b93.png",
@@ -90,7 +90,7 @@ export const actionCards = [
     ]
   },
   {
-    id: "mystic-reveal",
+    id: "reveal",
     name: "Reveal",
     name_en: "Reveal",
     image: "/lovable-uploads/d11b0411-6769-42a3-a44a-4185d27bf6e9.png",
@@ -108,7 +108,7 @@ export const actionCards = [
     ]
   },
   {
-    id: "mystic-shield",
+    id: "shield",
     name: "Shield",
     name_en: "Shield",
     image: "/lovable-uploads/a5da92ed-175c-4abf-90ae-9479c882cfbf.png",
@@ -126,7 +126,7 @@ export const actionCards = [
     ]
   },
   {
-    id: "mystic-shuffle",
+    id: "shuffle",
     name: "Shuffle",
     name_en: "Shuffle",
     image: "/lovable-uploads/378c653f-8c39-4306-9b2c-a7019afc5f63.png",
@@ -144,7 +144,7 @@ export const actionCards = [
     ]
   },
   {
-    id: "mystic-swap",
+    id: "swap",
     name: "Swap",
     name_en: "Swap",
     image: "/lovable-uploads/8343700b-4e62-4b51-bcfb-256f2b2e2942.png",
