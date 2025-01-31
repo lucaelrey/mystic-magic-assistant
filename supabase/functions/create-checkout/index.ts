@@ -36,7 +36,7 @@ serve(async (req) => {
         quantity: item.quantity,
       })),
       mode: 'payment',
-      success_url: `${req.headers.get('origin')}/checkout/confirmation?order_id=${orderId}`,
+      success_url: `${req.headers.get('origin')}/shop/confirmation?order_id=${orderId}`,
       cancel_url: `${req.headers.get('origin')}/cart`,
       shipping_address_collection: {
         allowed_countries: ['DE', 'AT', 'CH'],
