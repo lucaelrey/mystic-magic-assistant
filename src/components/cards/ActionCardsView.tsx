@@ -1,8 +1,10 @@
+
 import React from "react";
 import { Helmet } from "react-helmet";
 import { ActionCardsRules } from "./ActionCardsRules";
 import { ActionCardGrid } from "./ActionCardGrid";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { SEO } from "@/components/SEO";
 
 const ActionCardsView = () => {
   const { language } = useLanguage();
@@ -15,33 +17,47 @@ const ActionCardsView = () => {
     ? 'Entdecken Sie die Aktionskarten von Mystic. Lernen Sie die speziellen Fähigkeiten und strategischen Möglichkeiten jeder Karte kennen.'
     : 'Discover Mystic\'s action cards. Learn about the special abilities and strategic options each card provides.';
 
+  // Structured data for action cards section
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": language === 'de' ? "Schutz" : "Shield",
+        "description": language === 'de' 
+          ? "Schützt einen Spieler vor Aktionskarten" 
+          : "Protects a player from action cards"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": language === 'de' ? "Tausch" : "Swap",
+        "description": language === 'de' 
+          ? "Tausche Karten mit anderen Spielern" 
+          : "Exchange cards with other players"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": language === 'de' ? "Enthüllen" : "Reveal",
+        "description": language === 'de' 
+          ? "Decke Karten anderer Spieler auf" 
+          : "Reveal other players' cards"
+      }
+    ]
+  };
+
   return (
     <>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:type" content="article" />
-        <link rel="canonical" href={`https://mystic-game.com/${language}/rules/action-cards`} />
-        {language === 'de' && <link rel="alternate" hrefLang="en" href="https://mystic-game.com/en/rules/action-cards" />}
-        {language === 'en' && <link rel="alternate" hrefLang="de" href="https://mystic-game.com/de/rules/action-cards" />}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": title,
-            "description": description,
-            "articleSection": "Game Rules",
-            "inLanguage": language,
-            "isPartOf": {
-              "@type": "WebSite",
-              "name": "Mystic Card Game",
-              "url": "https://mystic-game.com"
-            }
-          })}
-        </script>
-      </Helmet>
+      <SEO 
+        title={title}
+        description={description}
+        type="article"
+        image="/lovable-uploads/shuffle.webp"
+        structuredData={structuredData}
+      />
       <main className="space-y-6">
         <h1 className="sr-only">{title}</h1>
         <ActionCardsRules />
