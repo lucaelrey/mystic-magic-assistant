@@ -1,46 +1,97 @@
-
 import { Navigation } from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { CheckCircle2, Home, Package, CreditCard, MapPin, Mail } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { ShippingAddress } from "@/integrations/supabase/types/shipping";
+import { supabase } from "@/integrations/supabase/client";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 interface OrderDetails {
   orderNumber: string;
   productName: string;
   amount: number;
-  shippingAddress?: {
-    firstName: string;
-    lastName: string;
-    street: string;
-    city: string;
-    postalCode: string;
-    country: string;
-    email?: string;
-  };
+  shippingAddress?: ShippingAddress;
+  paymentStatus?: string;
+  items?: Array<{
+    product_name: string;
+    quantity: number;
+    price_per_unit: number;
+  }>;
 }
 
 const Confirmation = () => {
   const [searchParams] = useSearchParams();
   const orderId = searchParams.get('order_id');
-  // Simulated order details
-  const [orderDetails] = useState<OrderDetails>({
-    orderNumber: orderId || "MYSTIC" + Math.floor(Math.random() * 10000),
-    productName: "MYSTIC - Das Kartenspiel",
-    amount: 2490,
-    shippingAddress: {
-      firstName: "Max",
-      lastName: "Mustermann",
-      street: "Musterstraße 123",
-      postalCode: "12345",
-      city: "Musterstadt",
-      country: "Deutschland",
-      email: "max@example.com"
-    }
-  });
+  const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
+  const { toast } = useToast();
   const { language } = useLanguage();
+
+  useEffect(() => {
+    const fetchOrderDetails = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_SUPABASE_FUNCTIONS_URL}/get-order-details`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ orderId }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch order details');
+        }
+
+        const data = await response.json();
+        setOrderDetails(data);
+
+        // Send confirmation email
+        if (data.shippingAddress?.email) {
+          const emailResponse = await supabase.functions.invoke('send-email', {
+            body: {
+              type: 'order_confirmation',
+              orderData: {
+                orderNumber: data.orderNumber,
+                totalAmount: data.amount,
+                shippingAddress: data.shippingAddress,
+                items: data.items || [{
+                  product_name: data.productName,
+                  quantity: 1,
+                  price_per_unit: data.amount / 100
+                }]
+              }
+            }
+          });
+
+          if (emailResponse.error) {
+            console.error('Error sending confirmation email:', emailResponse.error);
+            toast({
+              title: language === 'de' ? "Hinweis" : "Notice",
+              description: language === 'de' 
+                ? "Die Bestellbestätigung wurde erstellt, aber die E-Mail konnte nicht gesendet werden."
+                : "The order confirmation was created, but the email could not be sent.",
+              variant: "destructive",
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching order details:', error);
+        toast({
+          title: language === 'de' ? "Fehler" : "Error",
+          description: language === 'de'
+            ? "Die Bestelldetails konnten nicht geladen werden."
+            : "The order details could not be loaded.",
+          variant: "destructive",
+        });
+      }
+    };
+
+    if (orderId) {
+      fetchOrderDetails();
+    }
+  }, [orderId, toast, language]);
 
   return (
     <div className="min-h-screen">

@@ -1,4 +1,3 @@
-
 import { ShoppingBag } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
