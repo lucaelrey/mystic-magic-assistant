@@ -1,9 +1,9 @@
+
 import { Navigation } from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { CartHeader } from "@/components/shop/CartHeader";
@@ -34,59 +34,17 @@ const Cart = () => {
   const handleCheckout = async () => {
     try {
       setIsLoading(true);
-      const { data: orderData, error: orderError } = await supabase
-        .from('orders')
-        .insert({
-          total_amount: quantity * productPrice,
-          status: 'pending',
-          shipping_address: {
-            street: "",
-            city: "",
-            postalCode: "",
-            country: ""
-          },
-          payment_status: 'pending'
-        })
-        .select()
-        .single();
-
-      if (orderError) throw orderError;
-      if (!orderData) throw new Error(language === 'en' ? 'No order data returned' : 'Keine Bestelldaten zurückgegeben');
-
-      const { error: itemError } = await supabase
-        .from('order_items')
-        .insert({
-          order_id: orderData.id,
-          product_name: language === 'en' ? "MYSTIC - The Card Game" : "MYSTIC - Das Kartenspiel",
-          quantity: quantity,
-          price_per_unit: productPrice
-        });
-
-      if (itemError) throw itemError;
-
-      const { data, error } = await supabase.functions.invoke('create-checkout', {
-        body: { 
-          orderId: orderData.id,
-          items: [{
-            product_name: language === 'en' ? "MYSTIC - The Card Game" : "MYSTIC - Das Kartenspiel",
-            quantity: quantity,
-            price_per_unit: productPrice
-          }]
-        }
-      });
-
-      if (error) throw error;
-      if (!data?.url) throw new Error(language === 'en' ? 'No checkout URL received' : 'Keine Checkout URL erhalten');
-
-      window.location.href = data.url;
+      
+      // Redirect to the Stripe checkout page
+      window.location.href = "https://buy.stripe.com/7sI8zr3D8cTmgAEaEE";
       
     } catch (error) {
       console.error('Error during checkout:', error);
       toast({
         title: language === 'en' ? "Error" : "Fehler",
         description: language === 'en' ? 
-          "There was a problem creating the checkout session. Please try again." :
-          "Es gab ein Problem beim Erstellen der Checkout-Session. Bitte versuchen Sie es erneut.",
+          "There was a problem redirecting to checkout. Please try again." :
+          "Es gab ein Problem bei der Weiterleitung zum Checkout. Bitte versuchen Sie es erneut.",
         variant: "destructive",
       });
     } finally {

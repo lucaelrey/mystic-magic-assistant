@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Auth as SupabaseAuth } from "@supabase/auth-ui-react";
@@ -6,7 +7,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
 import { Navigation } from "@/components/Navigation";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AuthError, AuthApiError } from "@supabase/supabase-js";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -21,9 +21,9 @@ const Auth = () => {
         window.location.href = returnPath;
       }
       if (event === "USER_UPDATED") {
-        const { error } = await supabase.auth.getSession();
-        if (error) {
-          setErrorMessage(getErrorMessage(error));
+        const response = await supabase.auth.getSession();
+        if (response.error) {
+          setErrorMessage(getErrorMessage(response.error));
         }
       }
       if (event === "SIGNED_OUT") {
@@ -34,8 +34,8 @@ const Auth = () => {
     return () => subscription.unsubscribe();
   }, [navigate, returnPath]);
 
-  const getErrorMessage = (error: AuthError) => {
-    if (error instanceof AuthApiError) {
+  const getErrorMessage = (error: any) => {
+    if (error?.code) {
       switch (error.code) {
         case "invalid_credentials":
           return "Ungültige E-Mail oder Passwort. Bitte überprüfen Sie Ihre Anmeldedaten.";
@@ -46,10 +46,10 @@ const Auth = () => {
         case "invalid_grant":
           return "Ungültige Anmeldedaten.";
         default:
-          return error.message;
+          return error.message || "Ein Fehler ist aufgetreten";
       }
     }
-    return error.message;
+    return error?.message || "Ein Fehler ist aufgetreten";
   };
 
   return (
@@ -65,38 +65,12 @@ const Auth = () => {
             </Alert>
           )}
 
-          <SupabaseAuth
-            supabaseClient={supabase}
-            appearance={{
-              theme: ThemeSupa,
-              variables: {
-                default: {
-                  colors: {
-                    brand: 'hsl(var(--primary))',
-                    brandAccent: 'hsl(var(--primary))',
-                    inputText: 'hsl(var(--foreground))',
-                  },
-                },
-              },
-              style: {
-                input: {
-                  color: 'hsl(var(--foreground))',
-                },
-              },
-            }}
-            providers={[]}
-            view="sign_in"
-            showLinks={false}
-            localization={{
-              variables: {
-                sign_in: {
-                  email_label: "E-Mail",
-                  password_label: "Passwort",
-                  button_label: "Anmelden",
-                },
-              },
-            }}
-          />
+          {/* Mock UI since actual auth is removed */}
+          <div className="space-y-4">
+            <div className="text-center text-muted-foreground">
+              Die Authentifizierung wurde entfernt. Bitte verwenden Sie den direkten Kauf über Stripe.
+            </div>
+          </div>
         </Card>
       </main>
     </div>
