@@ -1,3 +1,4 @@
+
 import { CartProductImage } from "./CartProductImage";
 import { CartQuantityControls } from "./CartQuantityControls";
 import { useLanguage } from "@/contexts/LanguageContext";

@@ -1,8 +1,6 @@
-
 export type ContentType = 'action_card' | 'number_card' | 'rule';
 export type Language = 'de' | 'en';
 
-// These interfaces are kept for backwards compatibility
 export interface ContentTranslation {
   id: string;
   content_id: string | null;

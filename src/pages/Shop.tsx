@@ -1,3 +1,4 @@
+
 import { Navigation } from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { ProductImage } from "@/components/shop/ProductImage";
@@ -7,6 +8,7 @@ import { PurchaseModule } from "@/components/shop/PurchaseModule";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Footer } from "@/components/Footer";
+import { SEO } from "@/components/SEO";
 
 const Shop = () => {
   const { language } = useLanguage();
@@ -18,6 +20,11 @@ const Shop = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO 
+        title={language === 'en' ? "MYSTIC - The Card Game | Shop" : "MYSTIC - Das Kartenspiel | Shop"}
+        description={language === 'en' ? "Get your own MYSTIC card game and dive into a mystical world of strategy and adventure." : "Holen Sie sich Ihr eigenes MYSTIC-Kartenspiel und tauchen Sie ein in eine mystische Welt der Strategie und des Abenteuers."}
+        type="product"
+      />
       <Navigation />
       <main className="container mx-auto px-4 pt-20 pb-24 md:pt-24 md:pb-24 flex-1">
         <Card className={cardClassName}>
