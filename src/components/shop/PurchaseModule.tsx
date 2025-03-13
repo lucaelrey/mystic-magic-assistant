@@ -1,20 +1,24 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { NumberInput } from "@/components/ui/number-input";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export const PurchaseModule = () => {
   const [quantity, setQuantity] = useState(1);
+  const { toast } = useToast();
+  const navigate = useNavigate();
   const { language } = useLanguage();
   const isMobile = useIsMobile();
 
-  const stripeCheckoutUrl = "https://buy.stripe.com/7sI8zr3D8cTmgAEaEE";
-
-  const handleBuyNow = () => {
-    // Open Stripe checkout in a new tab
-    window.open(stripeCheckoutUrl, "_blank");
+  const handleAddToCart = () => {
+    toast({
+      title: language === 'en' ? 'Added to Cart' : 'In den Warenkorb gelegt',
+      description: `${quantity} ${language === 'en' ? 'item(s)' : 'Artikel'} added to your cart.`,
+    });
+    navigate("/shop/cart");
   };
 
   const moduleClassName = isMobile
@@ -37,10 +41,10 @@ export const PurchaseModule = () => {
       </div>
 
       <Button 
-        onClick={handleBuyNow}
+        onClick={handleAddToCart}
         className="w-full glass-button text-base md:text-lg py-6"
       >
-        {language === 'en' ? 'Buy Now' : 'Jetzt Kaufen'}
+        {language === 'en' ? 'Add to Cart' : 'In den Warenkorb'}
       </Button>
     </div>
   );
