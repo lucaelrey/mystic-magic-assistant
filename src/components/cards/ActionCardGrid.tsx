@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import {
   Dialog,
@@ -21,7 +22,7 @@ export const ActionCardGrid = () => {
   const [open, setOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<(typeof actionCards)[0] | null>(null);
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
 
   const handleCardClick = (card: (typeof actionCards)[0]) => {
     setSelectedCard(card);
@@ -29,15 +30,29 @@ export const ActionCardGrid = () => {
   };
 
   const getTranslatedCard = (card: (typeof actionCards)[0]) => {
-    if (language === 'en') {
-      return {
-        ...card,
-        name: card.name_en || card.name,
-        description: card.description_en || card.description,
-        rules: card.rules_en || card.rules,
-      };
+    // Get action card translations from our hardcoded values if available
+    const cardKey = card.id;
+    const translatedData = {
+      ...card,
+      name: language === 'en' ? card.name_en || card.name : card.name,
+      description: language === 'en' ? card.description_en || card.description : card.description,
+      rules: language === 'en' ? card.rules_en || card.rules : card.rules,
+    };
+
+    // Use hardcoded translations if they exist
+    if (t(`rules.actionCards.cards.${cardKey}`) !== `rules.actionCards.cards.${cardKey}`) {
+      const hardcodedData = t(`rules.actionCards.cards.${cardKey}`);
+      if (typeof hardcodedData === 'object') {
+        return {
+          ...card,
+          name: hardcodedData.name || translatedData.name,
+          description: hardcodedData.description || translatedData.description,
+          rules: hardcodedData.rules || translatedData.rules,
+        };
+      }
     }
-    return card;
+
+    return translatedData;
   };
 
   const renderCardContent = (card: (typeof actionCards)[0]) => (

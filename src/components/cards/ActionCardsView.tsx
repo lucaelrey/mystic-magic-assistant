@@ -1,6 +1,5 @@
 
 import React from "react";
-import { Helmet } from "react-helmet";
 import { ActionCardsRules } from "./ActionCardsRules";
 import { ActionCardGrid } from "./ActionCardGrid";
 import { useLanguage } from "@/contexts/LanguageContext";
