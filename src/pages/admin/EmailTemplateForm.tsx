@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -54,19 +55,26 @@ const EmailTemplateForm = () => {
     queryKey: ["email-template", id],
     queryFn: async () => {
       if (!id) return null;
-      console.log("Fetching template with ID:", id);
-      const { data, error } = await supabase
-        .from("email_templates")
-        .select("*")
-        .eq("id", id)
-        .single();
+      
+      try {
+        console.log("Fetching template with ID:", id);
+        const { data, error } = await supabase
+          .from("email_templates")
+          .select("*")
+          .eq("id", id)
+          .single();
 
-      if (error) {
-        console.error("Error fetching template:", error);
-        throw error;
+        if (error) {
+          console.error("Error fetching template:", error);
+          throw error;
+        }
+        
+        console.log("Fetched template data:", data);
+        return data;
+      } catch (error) {
+        console.error("Error in template fetch:", error);
+        return null;
       }
-      console.log("Fetched template data:", data);
-      return data;
     },
     enabled: !!id,
   });
@@ -87,14 +95,19 @@ const EmailTemplateForm = () => {
 
   const createMutation = useMutation({
     mutationFn: async (values: EmailTemplateFormData) => {
-      const { data, error } = await supabase
-        .from("email_templates")
-        .insert([values])
-        .select()
-        .single();
+      try {
+        const { data, error } = await supabase
+          .from("email_templates")
+          .insert([values])
+          .select()
+          .single();
 
-      if (error) throw error;
-      return data;
+        if (error) throw error;
+        return data;
+      } catch (error) {
+        console.error("Error creating template:", error);
+        throw error;
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["email-templates"] });
@@ -116,12 +129,18 @@ const EmailTemplateForm = () => {
   const updateMutation = useMutation({
     mutationFn: async (values: EmailTemplateFormData) => {
       if (!id) throw new Error("No ID provided");
-      const { error } = await supabase
-        .from("email_templates")
-        .update(values)
-        .eq("id", id);
+      
+      try {
+        const { error } = await supabase
+          .from("email_templates")
+          .update(values)
+          .eq("id", id);
 
-      if (error) throw error;
+        if (error) throw error;
+      } catch (error) {
+        console.error("Error updating template:", error);
+        throw error;
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["email-templates"] });

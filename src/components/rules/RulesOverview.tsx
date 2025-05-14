@@ -35,30 +35,32 @@ const RulesOverview = () => {
   const { data: sections, isLoading } = useQuery({
     queryKey: ['rule-sections', language],
     queryFn: async () => {
-      const result = await supabase
-        .from('cms_content')
-        .select(`
-          id,
-          key,
-          metadata,
-          cms_translations (
-            language,
-            title,
-            description,
-            content
-          )
-        `)
-        .then((response) => response);
-      
-      const { data, error } = result;
-
-      if (error) throw error;
-      
-      return (data as any[]).map(section => ({
-        ...section,
-        metadata: section.metadata as { sort: number } | null,
-        translations: section.cms_translations || []
-      })) as Section[] || [];
+      try {
+        const { data, error } = await supabase
+          .from('cms_content')
+          .select(`
+            id,
+            key,
+            metadata,
+            cms_translations (
+              language,
+              title,
+              description,
+              content
+            )
+          `);
+        
+        if (error) throw error;
+        
+        return (data as any[]).map(section => ({
+          ...section,
+          metadata: section.metadata as { sort: number } | null,
+          translations: section.cms_translations || []
+        })) as Section[] || [];
+      } catch (error) {
+        console.error("Error fetching rule sections:", error);
+        return [] as Section[];
+      }
     }
   });
 

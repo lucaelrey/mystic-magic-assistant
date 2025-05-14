@@ -1,189 +1,210 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Navigation } from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
-import { supabase } from "@/integrations/supabase/client";
-import { useForm } from "react-hook-form";
-import { useToast } from "@/components/ui/use-toast";
+import { ContentKeyField } from "@/components/cms/ContentKeyField";
+import { ContentTypeSelect } from "@/components/cms/ContentTypeSelect";
+import { TranslationTabs } from "@/components/cms/TranslationTabs";
 import { FormHeader } from "@/components/cms/FormHeader";
-import { FormContent } from "@/components/cms/FormContent";
+import { AVAILABLE_LANGUAGES } from "@/config/languages";
+import { Content, ContentType } from "@/types/cms";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+
+interface Translation {
+  title: string;
+  description: string;
+  content: any;
+}
 
 const ContentForm = () => {
   const { id } = useParams();
-  const { toast } = useToast();
   const navigate = useNavigate();
+  const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const form = useForm({
-    defaultValues: {
-      type: "action_card",
-      key: "",
-      translations: {
-        de: {
-          title: "",
-          description: "",
-          content: {},
-        },
-        en: {
-          title: "",
-          description: "",
-          content: {},
-        },
-      },
-    },
-  });
+  const [key, setKey] = useState("");
+  const [type, setType] = useState<ContentType>("page");
+  const [published, setPublished] = useState(false);
+  const [metadata, setMetadata] = useState<Record<string, any>>({});
+  const [translations, setTranslations] = useState<Map<string, Translation>>(
+    new Map()
+  );
 
-  const { data: content, isLoading } = useQuery({
+  // Fetch content if editing
+  const { data: existingContent, isLoading } = useQuery({
     queryKey: ["cms-content", id],
     queryFn: async () => {
       if (!id) return null;
-      const { data, error } = await supabase
-        .from("cms_content")
-        .select(`
-          *,
-          translations: cms_translations (*)
-        `)
-        .eq("id", id)
-        .single();
+      
+      try {
+        const { data, error } = await supabase
+          .from("cms_content")
+          .select(`*, translations:cms_translations(*)`)
+          .eq("id", id)
+          .single();
 
-      if (error) throw error;
-      return data;
+        if (error) throw error;
+        return data;
+      } catch (error) {
+        console.error("Error fetching content:", error);
+        return null;
+      }
     },
     enabled: !!id,
   });
 
-  // Effect to update form when content is loaded
-  React.useEffect(() => {
-    if (content) {
-      const translations = {
-        de: content.translations.find((t: any) => t.language === "de") || {
-          title: "",
-          description: "",
-          content: {},
-        },
-        en: content.translations.find((t: any) => t.language === "en") || {
-          title: "",
-          description: "",
-          content: {},
-        },
-      };
-
-      form.reset({
-        type: content.type,
-        key: content.key,
-        translations,
-      });
+  // Setup form with existing data
+  useEffect(() => {
+    if (existingContent) {
+      setKey(existingContent.key || "");
+      setType(existingContent.type as ContentType);
+      setPublished(existingContent.published || false);
+      setMetadata(existingContent.metadata || {});
+      
+      // Setup translations
+      if (existingContent.translations) {
+        const translationsMap = new Map();
+        existingContent.translations.forEach((translation: any) => {
+          translationsMap.set(translation.language, {
+            title: translation.title || "",
+            description: translation.description || "",
+            content: translation.content || "",
+          });
+        });
+        setTranslations(translationsMap);
+      }
     }
-  }, [content, form]);
+  }, [existingContent]);
 
-  const createMutation = useMutation({
-    mutationFn: async (values: any) => {
-      // Insert new content
-      const { data: contentData, error: contentError } = await supabase
-        .from("cms_content")
-        .insert([
-          {
-            type: values.type,
-            key: values.key,
-          },
-        ])
-        .select()
-        .single();
+  // Create mutation
+  const createContentMutation = useMutation({
+    mutationFn: async () => {
+      try {
+        // Insert content
+        const { data: contentData, error: contentError } = await supabase
+          .from("cms_content")
+          .insert([{ 
+            key, 
+            type, 
+            published,
+            metadata 
+          }])
+          .select()
+          .single();
 
-      if (contentError) throw contentError;
+        if (contentError) throw contentError;
 
-      // Insert translations
-      const translations = Object.entries(values.translations).map(
-        ([language, translation]: [string, any]) => ({
+        // Insert translations
+        const translationsToInsert = Array.from(translations.entries()).map(([language, translation]) => ({
           content_id: contentData.id,
           language,
-          ...translation,
-        })
-      );
+          title: translation.title,
+          description: translation.description,
+          content: translation.content,
+        }));
 
-      const { error: translationError } = await supabase
-        .from("cms_translations")
-        .insert(translations);
+        if (translationsToInsert.length > 0) {
+          const { error: translationsError } = await supabase
+            .from("cms_translations")
+            .insert(translationsToInsert);
 
-      if (translationError) throw translationError;
+          if (translationsError) throw translationsError;
+        }
 
-      return contentData;
-    },
-    onSuccess: (data) => {
-      toast({
-        title: "Erfolg",
-        description: "Inhalt wurde erfolgreich erstellt",
-      });
-      queryClient.invalidateQueries({ queryKey: ["cms-contents"] });
-      navigate(`/admin/cms/${data.id}`);
-    },
-    onError: (error) => {
-      toast({
-        title: "Fehler",
-        description: "Inhalt konnte nicht erstellt werden",
-        variant: "destructive",
-      });
-      console.error(error);
-    },
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: async (values: any) => {
-      if (!id) throw new Error("No ID provided for update");
-
-      // Update content
-      const { error: contentError } = await supabase
-        .from("cms_content")
-        .update({
-          type: values.type,
-          key: values.key,
-        })
-        .eq("id", id);
-
-      if (contentError) throw contentError;
-
-      // Update translations
-      for (const [language, translation] of Object.entries(values.translations)) {
-        const { error: translationError } = await supabase
-          .from("cms_translations")
-          .upsert(
-            {
-              content_id: id,
-              language,
-              ...translation as any,
-            },
-            {
-              onConflict: "content_id,language",
-            }
-          );
-
-        if (translationError) throw translationError;
+        return contentData;
+      } catch (error) {
+        console.error("Error creating content:", error);
+        throw error;
       }
     },
     onSuccess: () => {
-      toast({
-        title: "Erfolg",
-        description: "Inhalt wurde erfolgreich aktualisiert",
+      toast({ 
+        title: "Success", 
+        description: "Content was created successfully"
+      });
+      queryClient.invalidateQueries({ queryKey: ["cms-contents"] });
+      navigate("/admin/cms");
+    },
+    onError: (error: any) => {
+      toast({ 
+        title: "Error", 
+        description: `Failed to create content: ${error.message}`, 
+        variant: "destructive" 
+      });
+    }
+  });
+
+  // Update mutation
+  const updateContentMutation = useMutation({
+    mutationFn: async () => {
+      if (!id) throw new Error("No content ID provided");
+
+      try {
+        // Update content
+        const { error: contentError } = await supabase
+          .from("cms_content")
+          .update({ key, type, published, metadata })
+          .eq("id", id);
+
+        if (contentError) throw contentError;
+
+        // Handle translations
+        // First delete existing translations
+        const { error: deleteError } = await supabase
+          .from("cms_translations")
+          .delete()
+          .eq("content_id", id);
+
+        if (deleteError) throw deleteError;
+
+        // Then insert new translations
+        const translationsToInsert = Array.from(translations.entries()).map(([language, translation]) => ({
+          content_id: id,
+          language,
+          title: translation.title,
+          description: translation.description,
+          content: translation.content,
+        }));
+
+        if (translationsToInsert.length > 0) {
+          const { error: translationsError } = await supabase
+            .from("cms_translations")
+            .insert(translationsToInsert);
+
+          if (translationsError) throw translationsError;
+        }
+      } catch (error) {
+        console.error("Error updating content:", error);
+        throw error;
+      }
+    },
+    onSuccess: () => {
+      toast({ 
+        title: "Success", 
+        description: "Content was updated successfully" 
       });
       queryClient.invalidateQueries({ queryKey: ["cms-contents"] });
       queryClient.invalidateQueries({ queryKey: ["cms-content", id] });
+      navigate("/admin/cms");
     },
-    onError: (error) => {
-      toast({
-        title: "Fehler",
-        description: "Inhalt konnte nicht aktualisiert werden",
-        variant: "destructive",
+    onError: (error: any) => {
+      toast({ 
+        title: "Error", 
+        description: `Failed to update content: ${error.message}`, 
+        variant: "destructive" 
       });
-      console.error(error);
-    },
+    }
   });
 
-  const onSubmit = (values: any) => {
+  const handleSave = async () => {
     if (id) {
-      updateMutation.mutate(values);
+      updateContentMutation.mutate();
     } else {
-      createMutation.mutate(values);
+      createContentMutation.mutate();
     }
   };
 
@@ -192,15 +213,33 @@ const ContentForm = () => {
       <Navigation />
       <main className="container mx-auto px-4 pt-24">
         <Card className="p-6">
-          <FormHeader 
-            id={id}
-            isLoading={isLoading}
-            isPending={createMutation.isPending || updateMutation.isPending}
-            onSubmit={form.handleSubmit(onSubmit)}
+          <FormHeader
+            title={id ? "Edit Content" : "Create Content"}
+            onBack={() => navigate("/admin/cms")}
+            onSave={handleSave}
+            isSaving={
+              createContentMutation.isLoading || updateContentMutation.isLoading
+            }
           />
-          <FormContent 
-            form={form}
-            isLoading={isLoading}
+
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
+            <ContentKeyField value={key} onValueChange={setKey} />
+            <ContentTypeSelect value={type} onValueChange={setType} />
+          </div>
+
+          <div className="mb-4 flex items-center justify-between">
+            <Label htmlFor="published">Veröffentlicht</Label>
+            <Switch
+              id="published"
+              checked={published}
+              onCheckedChange={(checked) => setPublished(checked)}
+            />
+          </div>
+
+          <TranslationTabs
+            languages={AVAILABLE_LANGUAGES}
+            translations={translations}
+            onTranslationsChange={setTranslations}
           />
         </Card>
       </main>

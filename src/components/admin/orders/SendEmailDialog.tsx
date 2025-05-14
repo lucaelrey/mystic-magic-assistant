@@ -20,15 +20,18 @@ export const SendEmailDialog = ({ order }: SendEmailDialogProps) => {
   const { data: templates, isLoading: isLoadingTemplates } = useQuery({
     queryKey: ['email-templates'],
     queryFn: async () => {
-      const result = await supabase
-        .from('email_templates')
-        .select('*')
-        .order('name', { ascending: true });
-      
-      const { data, error } = result;
-      
-      if (error) throw error;
-      return data;
+      try {
+        const { data, error } = await supabase
+          .from('email_templates')
+          .select('*')
+          .order('name', { ascending: true });
+        
+        if (error) throw error;
+        return data;
+      } catch (error) {
+        console.error("Error fetching email templates:", error);
+        return [];
+      }
     },
   });
 
@@ -47,7 +50,7 @@ export const SendEmailDialog = ({ order }: SendEmailDialogProps) => {
       const selectedTemplateData = templates?.find(t => t.id === selectedTemplate);
       if (!selectedTemplateData) throw new Error("Template nicht gefunden");
 
-      const result = await supabase.functions.invoke('send-email', {
+      const { error: emailError } = await supabase.functions.invoke('send-email', {
         body: {
           type: selectedTemplateData.type,
           orderData: {
@@ -58,8 +61,6 @@ export const SendEmailDialog = ({ order }: SendEmailDialogProps) => {
           },
         },
       });
-      
-      const { error: emailError } = result;
 
       if (emailError) throw emailError;
 

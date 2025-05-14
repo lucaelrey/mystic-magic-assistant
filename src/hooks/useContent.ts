@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Content, ContentType, Language } from "@/types/cms";
@@ -8,31 +7,30 @@ export const useContent = (type: ContentType, key?: string) => {
   const { language } = useLanguage();
 
   const fetchContent = async () => {
-    // Basis-Query für cms_content
-    let query = supabase
-      .from('cms_content')
-      .select(`
-        *,
-        translations:cms_translations(*)
-      `);
-      
-    // Filtern nach Typ
-    query = query.select('*').eq('type', type);
-      
-    // Wenn ein Key angegeben ist, nur diesen spezifischen Inhalt laden
+    let query = supabase.from('cms_content');
+    
+    // Base query to select all columns
+    let baseQuery = query.select(`
+      *,
+      translations:cms_translations(*)
+    `);
+    
+    // Filter by type
+    baseQuery = baseQuery.eq('type', type);
+    
+    // If a key is provided, filter by that key
     if (key) {
-      query = query.select('*').eq('key', key);
+      baseQuery = baseQuery.eq('key', key);
     }
 
     try {
-      const result = await query.then((response) => response);
-      const { data, error } = result;
+      const { data, error } = await baseQuery;
 
       if (error) {
         throw error;
       }
 
-      // Transformiere die Daten in das richtige Format
+      // Transform the data to the right format
       return data?.map((item: any) => ({
         ...item,
         translations: item.translations || [],
@@ -46,15 +44,15 @@ export const useContent = (type: ContentType, key?: string) => {
   const { data, isLoading, error } = useQuery({
     queryKey: ['content', type, key],
     queryFn: fetchContent,
-    staleTime: 1000 * 60 * 5, // 5 Minuten Cache
+    staleTime: 1000 * 60 * 5, // 5 minutes cache
   });
 
-  // Hilfsfunktion um die Übersetzung in der aktuellen Sprache zu finden
+  // Helper function to find the translation in the current language
   const getTranslation = (content: Content) => {
     return content.translations.find(t => t.language === language);
   };
 
-  // Wenn ein einzelner Key angefordert wurde, geben wir nur diesen zurück
+  // If a single key was requested, return just that one
   if (key && data && data.length > 0) {
     const content = data[0];
     return {
@@ -65,7 +63,7 @@ export const useContent = (type: ContentType, key?: string) => {
     };
   }
 
-  // Ansonsten geben wir alle Inhalte mit ihren Übersetzungen zurück
+  // Otherwise return all content with their translations
   return {
     contents: data || [],
     translations: data?.map(content => getTranslation(content)) || [],
