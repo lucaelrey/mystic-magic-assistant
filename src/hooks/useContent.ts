@@ -1,3 +1,4 @@
+
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Content, ContentType, Language } from "@/types/cms";
@@ -13,26 +14,33 @@ export const useContent = (type: ContentType, key?: string) => {
       .select(`
         *,
         translations:cms_translations(*)
-      `)
-      .eq('type', type)
-      .eq('published', true);
-
+      `);
+      
+    // Filtern nach Typ
+    query = query.select('*').eq('type', type);
+      
     // Wenn ein Key angegeben ist, nur diesen spezifischen Inhalt laden
     if (key) {
-      query = query.eq('key', key);
+      query = query.select('*').eq('key', key);
     }
 
-    const { data, error } = await query;
+    try {
+      const result = await query.then((response) => response);
+      const { data, error } = result;
 
-    if (error) {
-      throw error;
+      if (error) {
+        throw error;
+      }
+
+      // Transformiere die Daten in das richtige Format
+      return data?.map((item: any) => ({
+        ...item,
+        translations: item.translations || [],
+      })) as Content[] || [];
+    } catch (error) {
+      console.error("Error fetching content:", error);
+      return [] as Content[];
     }
-
-    // Transformiere die Daten in das richtige Format
-    return data.map((item: any) => ({
-      ...item,
-      translations: item.translations || [],
-    })) as Content[];
   };
 
   const { data, isLoading, error } = useQuery({
@@ -47,7 +55,7 @@ export const useContent = (type: ContentType, key?: string) => {
   };
 
   // Wenn ein einzelner Key angefordert wurde, geben wir nur diesen zurück
-  if (key && data) {
+  if (key && data && data.length > 0) {
     const content = data[0];
     return {
       content: content || null,

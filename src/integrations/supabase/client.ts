@@ -4,8 +4,8 @@
 
 export const supabase = {
   auth: {
-    getSession: () => Promise.resolve({ data: { session: null } }),
-    onAuthStateChange: () => ({ 
+    getSession: () => Promise.resolve({ data: { session: null }, error: null }),
+    onAuthStateChange: (callback: any) => ({ 
       data: { 
         subscription: { 
           unsubscribe: () => {} 
@@ -24,22 +24,22 @@ export const supabase = {
         eq: (column: string, value: any) => ({
           order: (column: string, { ascending }: { ascending: boolean }) => ({
             single: () => Promise.resolve({ data: null, error: null }),
-            then: () => Promise.resolve({ data: [], error: null })
+            then: (callback: any) => Promise.resolve({ data: [], error: null }).then(callback)
           }),
-          then: () => Promise.resolve({ data: [], error: null })
+          then: (callback: any) => Promise.resolve({ data: [], error: null }).then(callback)
         }),
         order: (column: string, { ascending }: { ascending: boolean }) => ({
           single: () => Promise.resolve({ data: null, error: null }),
-          then: () => Promise.resolve({ data: [], error: null })
+          then: (callback: any) => Promise.resolve({ data: [], error: null }).then(callback)
         }),
-        then: () => Promise.resolve({ data: [], error: null }),
+        then: (callback: any) => Promise.resolve({ data: [], error: null }).then(callback),
         single: () => Promise.resolve({ data: null, error: null })
       }),
       order: (column: string, { ascending }: { ascending: boolean }) => ({
         single: () => Promise.resolve({ data: null, error: null }),
-        then: () => Promise.resolve({ data: [], error: null })
+        then: (callback: any) => Promise.resolve({ data: [], error: null }).then(callback)
       }),
-      then: () => Promise.resolve({ data: [], error: null }),
+      then: (callback: any) => Promise.resolve({ data: [], error: null }).then(callback),
       single: () => Promise.resolve({ data: null, error: null })
     }),
     insert: (data: any) => ({
@@ -47,18 +47,44 @@ export const supabase = {
         single: () => Promise.resolve({ data: null, error: null })
       }),
       onConflict: (column: string) => ({
-        then: () => Promise.resolve({ data: null, error: null })
+        then: (callback: any) => Promise.resolve({ data: null, error: null }).then(callback)
       }),
-      then: () => Promise.resolve({ data: null, error: null })
+      then: (callback: any) => Promise.resolve({ data: null, error: null }).then(callback)
+    }),
+    upsert: (data: any) => ({
+      select: (columns: string = '*') => ({
+        then: (callback: any) => Promise.resolve({ data: null, error: null }).then(callback)
+      }),
+      then: (callback: any) => Promise.resolve({ data: null, error: null }).then(callback)
     }),
     update: (data: any) => ({
-      eq: (column: string, value: any) => Promise.resolve({ error: null }),
-      match: (params: any) => Promise.resolve({ error: null }),
-      then: () => Promise.resolve({ data: null, error: null })
+      eq: (column: string, value: any) => ({
+        then: (callback: any) => Promise.resolve({ data: null, error: null }).then(callback)
+      }),
+      match: (params: any) => ({
+        then: (callback: any) => Promise.resolve({ data: null, error: null }).then(callback)
+      }),
+      then: (callback: any) => Promise.resolve({ data: null, error: null }).then(callback)
     }),
     delete: () => ({
-      eq: (column: string, value: any) => Promise.resolve({ error: null }),
-      match: (params: any) => Promise.resolve({ error: null })
+      eq: (column: string, value: any) => ({
+        then: (callback: any) => Promise.resolve({ data: null, error: null }).then(callback)
+      }),
+      match: (params: any) => ({
+        then: (callback: any) => Promise.resolve({ data: null, error: null }).then(callback)
+      })
+    }),
+    single: () => Promise.resolve({ data: null, error: null })
+  }),
+  // Add missing properties to make it compatible with SupabaseClient
+  supabaseUrl: 'mock-url',
+  supabaseKey: 'mock-key',
+  realtime: {
+    channel: () => ({
+      on: () => ({
+        subscribe: () => {},
+      })
     })
-  })
+  },
+  realtimeUrl: 'mock-realtime-url',
 };

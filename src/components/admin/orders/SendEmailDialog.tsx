@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -19,10 +20,12 @@ export const SendEmailDialog = ({ order }: SendEmailDialogProps) => {
   const { data: templates, isLoading: isLoadingTemplates } = useQuery({
     queryKey: ['email-templates'],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const result = await supabase
         .from('email_templates')
         .select('*')
-        .order('name');
+        .order('name', { ascending: true });
+      
+      const { data, error } = result;
       
       if (error) throw error;
       return data;
@@ -44,7 +47,7 @@ export const SendEmailDialog = ({ order }: SendEmailDialogProps) => {
       const selectedTemplateData = templates?.find(t => t.id === selectedTemplate);
       if (!selectedTemplateData) throw new Error("Template nicht gefunden");
 
-      const { data: emailResponse, error: emailError } = await supabase.functions.invoke('send-email', {
+      const result = await supabase.functions.invoke('send-email', {
         body: {
           type: selectedTemplateData.type,
           orderData: {
@@ -55,6 +58,8 @@ export const SendEmailDialog = ({ order }: SendEmailDialogProps) => {
           },
         },
       });
+      
+      const { error: emailError } = result;
 
       if (emailError) throw emailError;
 

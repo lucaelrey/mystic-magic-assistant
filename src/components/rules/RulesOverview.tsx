@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -34,7 +35,7 @@ const RulesOverview = () => {
   const { data: sections, isLoading } = useQuery({
     queryKey: ['rule-sections', language],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const result = await supabase
         .from('cms_content')
         .select(`
           id,
@@ -47,9 +48,9 @@ const RulesOverview = () => {
             content
           )
         `)
-        .eq('type', 'rules_overview')
-        .eq('published', true)
-        .order('metadata->sort');
+        .then((response) => response);
+      
+      const { data, error } = result;
 
       if (error) throw error;
       
@@ -57,7 +58,7 @@ const RulesOverview = () => {
         ...section,
         metadata: section.metadata as { sort: number } | null,
         translations: section.cms_translations || []
-      })) as Section[];
+      })) as Section[] || [];
     }
   });
 
