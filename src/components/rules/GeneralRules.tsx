@@ -1,10 +1,18 @@
-
 import React from "react";
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useContent } from "@/hooks/useContent";
 
 export const GeneralRules = () => {
   const { t } = useLanguage();
+  const { translation } = useContent('rule', 'general_rules');
+  
+  // Early return if translation is not available
+  if (!translation?.content) {
+    return null;
+  }
+
+  const { description } = translation.content;
   
   return (
     <AccordionItem value="general">
@@ -13,7 +21,7 @@ export const GeneralRules = () => {
       </AccordionTrigger>
       <AccordionContent className="text-left">
         <p className="mb-4 whitespace-pre-line">
-          {t('rules.overview.general.description')}
+          {description}
         </p>
       </AccordionContent>
     </AccordionItem>

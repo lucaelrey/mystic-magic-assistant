@@ -1,12 +1,14 @@
-
 import React from "react";
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useContent } from "@/hooks/useContent";
 
 export const GamePreparation = () => {
   const { t } = useLanguage();
+  const { translation } = useContent('rule', 'preparation_steps');
   
-  const steps = t('rules.overview.preparation.steps') as string[];
+  // Safely access the steps array from the content
+  const steps = translation?.content?.steps || [];
   
   return (
     <AccordionItem value="preparation">

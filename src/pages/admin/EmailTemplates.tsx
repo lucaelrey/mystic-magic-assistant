@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Navigation } from "@/components/Navigation";
@@ -15,18 +14,13 @@ const EmailTemplates = () => {
   const { data: templates, isLoading } = useQuery({
     queryKey: ["email-templates"],
     queryFn: async () => {
-      try {
-        const { data, error } = await supabase
-          .from("email_templates")
-          .select("*")
-          .order("created_at", { ascending: false });
+      const { data, error } = await supabase
+        .from("email_templates")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-        if (error) throw error;
-        return data;
-      } catch (error) {
-        console.error("Error fetching email templates:", error);
-        return [];
-      }
+      if (error) throw error;
+      return data;
     },
   });
 

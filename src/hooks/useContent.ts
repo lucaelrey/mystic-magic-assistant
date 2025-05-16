@@ -7,53 +7,47 @@ export const useContent = (type: ContentType, key?: string) => {
   const { language } = useLanguage();
 
   const fetchContent = async () => {
-    let query = supabase.from('cms_content');
-    
-    // Base query to select all columns
-    let baseQuery = query.select(`
-      *,
-      translations:cms_translations(*)
-    `);
-    
-    // Filter by type
-    baseQuery = baseQuery.eq('type', type);
-    
-    // If a key is provided, filter by that key
+    // Basis-Query für cms_content
+    let query = supabase
+      .from('cms_content')
+      .select(`
+        *,
+        translations:cms_translations(*)
+      `)
+      .eq('type', type)
+      .eq('published', true);
+
+    // Wenn ein Key angegeben ist, nur diesen spezifischen Inhalt laden
     if (key) {
-      baseQuery = baseQuery.eq('key', key);
+      query = query.eq('key', key);
     }
 
-    try {
-      const { data, error } = await baseQuery;
+    const { data, error } = await query;
 
-      if (error) {
-        throw error;
-      }
-
-      // Transform the data to the right format
-      return data?.map((item: any) => ({
-        ...item,
-        translations: item.translations || [],
-      })) as Content[] || [];
-    } catch (error) {
-      console.error("Error fetching content:", error);
-      return [] as Content[];
+    if (error) {
+      throw error;
     }
+
+    // Transformiere die Daten in das richtige Format
+    return data.map((item: any) => ({
+      ...item,
+      translations: item.translations || [],
+    })) as Content[];
   };
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['content', type, key],
     queryFn: fetchContent,
-    staleTime: 1000 * 60 * 5, // 5 minutes cache
+    staleTime: 1000 * 60 * 5, // 5 Minuten Cache
   });
 
-  // Helper function to find the translation in the current language
+  // Hilfsfunktion um die Übersetzung in der aktuellen Sprache zu finden
   const getTranslation = (content: Content) => {
     return content.translations.find(t => t.language === language);
   };
 
-  // If a single key was requested, return just that one
-  if (key && data && data.length > 0) {
+  // Wenn ein einzelner Key angefordert wurde, geben wir nur diesen zurück
+  if (key && data) {
     const content = data[0];
     return {
       content: content || null,
@@ -63,7 +57,7 @@ export const useContent = (type: ContentType, key?: string) => {
     };
   }
 
-  // Otherwise return all content with their translations
+  // Ansonsten geben wir alle Inhalte mit ihren Übersetzungen zurück
   return {
     contents: data || [],
     translations: data?.map(content => getTranslation(content)) || [],
