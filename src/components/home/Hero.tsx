@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { Link } from "react-router-dom";
@@ -18,23 +19,31 @@ export const Hero = () => {
   const { data: heroContent } = useQuery({
     queryKey: ["cms-content", "product", language],
     queryFn: async () => {
-      const { data, error }: PostgrestSingleResponse<HeroContent> = await supabase
+      const baseQuery = supabase
         .from("cms_content")
         .select(`
           *,
           cms_translations (*)
-        `)
-        .eq("type", "product")
-        .eq("key", "hero")
-        .eq("published", true)
-        .single();
-
-      if (error) {
-        console.error("Error fetching hero content:", error);
+        `);
+      
+      // Apply filters
+      const query = baseQuery.select('*');
+      const filteredQuery = query.eq("type", "product").eq("key", "hero").eq("published", true);
+      
+      // Execute and handle as single result
+      try {
+        const { data, error } = await filteredQuery.single();
+        
+        if (error) {
+          console.error("Error fetching hero content:", error);
+          return null;
+        }
+        
+        return data as HeroContent;
+      } catch (err) {
+        console.error("Error processing hero content:", err);
         return null;
       }
-
-      return data;
     },
   });
 

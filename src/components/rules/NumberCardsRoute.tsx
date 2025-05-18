@@ -24,10 +24,10 @@ const NumberCardsRoute = () => {
     "itemListElement": numberCards.slice(0, 10).map((card, index) => ({
       "@type": "ListItem",
       "position": index + 1,
-      "name": `${language === 'de' ? 'Zahlenkarte' : 'Number Card'} ${card.id}`,
+      "name": `${language === 'de' ? 'Zahlenkarte' : 'Number Card'} ${card.name || card.id}`,
       "description": language === 'de' 
-        ? `Karte mit dem Wert ${card.id}` 
-        : `Card with value ${card.id}`
+        ? `Karte mit dem Namen ${card.name}` 
+        : `Card with name ${card.name_en || card.name}`
     }))
   };
 

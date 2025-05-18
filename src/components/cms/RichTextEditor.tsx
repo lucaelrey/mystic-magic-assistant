@@ -1,10 +1,10 @@
+
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { useEffect } from 'react';
 import TextStyle from '@tiptap/extension-text-style';
 import { Color } from '@tiptap/extension-color';
 import TextAlign from '@tiptap/extension-text-align';
-import Heading from '@tiptap/extension-heading';
 import Link from '@tiptap/extension-link';
 import { EditorToolbar } from './editor/EditorToolbar';
 import { EditorStyles } from './editor/EditorStyles';
@@ -22,9 +22,6 @@ export const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
       Color,
       TextAlign.configure({
         types: ['heading', 'paragraph'],
-      }),
-      Heading.configure({
-        levels: [1, 2, 3],
       }),
       Link.configure({
         openOnClick: false,

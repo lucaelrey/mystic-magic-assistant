@@ -1,3 +1,4 @@
+
 import { Navigation } from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
@@ -16,25 +17,30 @@ const Orders = () => {
   const { data: orders, isLoading } = useQuery({
     queryKey: ['admin-orders'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('orders')
-        .select(`
-          *,
-          order_items (*)
-        `)
-        .eq('payment_status', 'paid')
-        .order('created_at', { ascending: false });
+      try {
+        const { data, error } = await supabase
+          .from('orders')
+          .select(`
+            *,
+            order_items (*)
+          `)
+          .eq('payment_status', 'paid')
+          .order('created_at', { ascending: false });
 
-      if (error) {
-        toast({
-          title: "Fehler",
-          description: "Die Bestellungen konnten nicht geladen werden.",
-          variant: "destructive",
-        });
-        throw error;
+        if (error) {
+          toast({
+            title: "Fehler",
+            description: "Die Bestellungen konnten nicht geladen werden.",
+            variant: "destructive",
+          });
+          throw error;
+        }
+
+        return data;
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+        return [];
       }
-
-      return data;
     },
   });
 

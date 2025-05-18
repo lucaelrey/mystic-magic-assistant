@@ -1,3 +1,4 @@
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
@@ -14,25 +15,34 @@ export const OrderStatusSelect = ({ orderId, currentStatus, onStatusChange, orde
   const { toast } = useToast();
 
   const handleStatusChange = async (status: string) => {
-    const { error } = await supabase
-      .from('orders')
-      .update({ status })
-      .eq('id', orderId);
+    try {
+      const { error } = await supabase
+        .from('orders')
+        .update({ status })
+        .eq('id', orderId);
 
-    if (error) {
+      if (error) {
+        toast({
+          title: "Fehler",
+          description: "Der Status konnte nicht aktualisiert werden.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      onStatusChange(status);
+      toast({
+        title: "Erfolg",
+        description: "Der Bestellstatus wurde aktualisiert.",
+      });
+    } catch (error) {
+      console.error("Error updating order status:", error);
       toast({
         title: "Fehler",
         description: "Der Status konnte nicht aktualisiert werden.",
         variant: "destructive",
       });
-      return;
     }
-
-    onStatusChange(status);
-    toast({
-      title: "Erfolg",
-      description: "Der Bestellstatus wurde aktualisiert.",
-    });
   };
 
   return (
