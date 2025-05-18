@@ -80,7 +80,8 @@ export const rulesTranslations = {
       sections: {
         overview: "Spielübersicht",
         setup: "Spielaufbau",
-        gameplay: "Spielablauf"
+        gameplay: "Spielablauf",
+        detailed: "Ausführliche Regeln"
       },
       overview: {
         general: {
@@ -115,6 +116,10 @@ export const rulesTranslations = {
               "Hat ein Spieler eine identische Karte wie die gerade auf den Ablagestapel gelegte, kann er bis zu zwei dieser Karten direkt auf den Ablagestapel werfen."
             ]
           }
+        },
+        detailed: {
+          title: "Ausführliche Spielregeln",
+          description: "Vollständige und detaillierte Regeln zum Mystic Kartenspiel mit allen Sonderregeln."
         }
       },
       numberCards: {

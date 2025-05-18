@@ -7,6 +7,7 @@ import {
 import { GeneralRules } from "./GeneralRules";
 import { GamePreparation } from "./GamePreparation";
 import { GameplayRules } from "./GameplayRules";
+import { DetailedCardRules } from "./DetailedCardRules";
 
 const RulesOverview = () => {
   return (
@@ -17,6 +18,7 @@ const RulesOverview = () => {
             <GeneralRules />
             <GamePreparation />
             <GameplayRules />
+            <DetailedCardRules />
           </Accordion>
         </CardContent>
       </Card>
