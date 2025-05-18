@@ -78,28 +78,27 @@ export const rulesTranslations = {
     rules: {
       title: "Spielregeln",
       sections: {
-        overview: "Spielübersicht",
-        setup: "Spielaufbau",
+        overview: "Mystic in Kürze",
+        setup: "Spielvorbereitung",
         gameplay: "Spielablauf",
-        detailed: "Ausführliche Regeln"
+        scoring: "Punktezählung"
       },
       overview: {
         general: {
-          title: "Allgemeine Regeln",
-          description: "Das Ziel ist es, am Ende des Spiels die wenigsten Punkte auf der Hand zu haben, indem man strategisch Karten austauscht und besondere Aktionskarten nutzt. Jeder Spieler hat teilweise verdeckte Karten, deren Werte er nur begrenzt kennt."
+          title: "Mystic in Kürze",
+          description: "Das Wichtigste zuerst: Wer am Ende einer Partie am wenigsten Punkte gesammelt hat, gewinnt!"
         },
         preparation: {
           title: "Spielvorbereitung",
           steps: [
-            "Jeder Spieler erhält je nach Spielmodus vier, fünf oder sechs Karten und legt sie unangesehen und verdeckt nebeneinander vor sich auf den Tisch (eigene Auslage).",
-            "Der Rest der Karten kommt verdeckt als Nachziehstapel in die Mitte des Tisches.",
-            "Eine Karte wird vom Nachziehstapel gezogen und aufgedeckt neben den Nachziehstapel gelegt: Sie markiert den Anfang des Ablagestapels.",
-            "Jeder Spieler darf sich einmalig zwei seiner vor ihm ausliegenden Karten ansehen.",
-            "Ein Startspieler wird bestimmt und das Spiel beginnt."
+            "Mische die Spielkarten gründlich durch und teile dir und deinen Mitspieler:innen verdeckt je vier Karten aus.",
+            "Jede:r Spieler:in legt die vier Karten – ohne sie sich anzuschauen – vor sich auf den Tisch. Das sind deine Handkarten.",
+            "Die restlichen Spielkarten kommen verdeckt auf den Ziehstapel.",
+            "Decke die oberste Karte des Ziehstapels auf und lege sie offen auf den Tisch. Das ist die erste Karte des Ablagestapels."
           ]
         },
         gameplay: {
-          title: "Spielverlauf",
+          title: "Spielablauf",
           description: "Gespielt wird nacheinander im Uhrzeigersinn. Wenn ein Spieler an der Reihe ist, kann er eine der folgenden Optionen wählen:",
           drawCard: {
             title: "1. Nachziehstapelkarte ziehen:",

@@ -1,13 +1,11 @@
 
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Accordion,
-} from "@/components/ui/accordion";
-import { GeneralRules } from "./GeneralRules";
+import { Accordion } from "@/components/ui/accordion";
+import { GameOverview } from "./GameOverview";
 import { GamePreparation } from "./GamePreparation";
 import { GameplayRules } from "./GameplayRules";
-import { DetailedCardRules } from "./DetailedCardRules";
+import { ScoringRules } from "./ScoringRules";
 
 const RulesOverview = () => {
   return (
@@ -15,10 +13,10 @@ const RulesOverview = () => {
       <Card className="glass bg-black/40 backdrop-blur-xl border-white/10">
         <CardContent className="pt-6">
           <Accordion type="multiple" className="space-y-4">
-            <GeneralRules />
+            <GameOverview />
             <GamePreparation />
             <GameplayRules />
-            <DetailedCardRules />
+            <ScoringRules />
           </Accordion>
         </CardContent>
       </Card>
