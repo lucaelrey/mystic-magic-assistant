@@ -11,7 +11,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
 
 const paymentSchema = z.object({
   paymentMethod: z.string().min(1, "Bitte wählen Sie eine Zahlungsmethode"),
@@ -34,57 +33,6 @@ const Payment = () => {
       cvv: "",
     },
   });
-
-  const createCheckoutSession = async () => {
-    try {
-      setIsCreatingCheckout(true);
-      
-      const { data, error } = await supabase.functions.invoke("create-checkout", {
-        body: { 
-          cart: cart.items,
-          customerInfo: {
-            email,
-            name: `${firstName} ${lastName}`,
-          },
-          shippingAddress: {
-            name: `${firstName} ${lastName}`,
-            line1: streetAddress,
-            city,
-            postal_code: postalCode,
-            country,
-          }
-        }
-      });
-
-      if (error) throw error;
-      if (!data?.url) throw new Error("No checkout URL returned");
-      
-      // Store order data in sessionStorage
-      sessionStorage.setItem("orderData", JSON.stringify({
-        email,
-        name: `${firstName} ${lastName}`,
-        shipping_address: {
-          name: `${firstName} ${lastName}`,
-          line1: streetAddress,
-          city,
-          postal_code: postalCode,
-          country,
-        },
-        cart: cart.items,
-      }));
-
-      window.location.href = data.url;
-    } catch (error) {
-      console.error("Error creating checkout session:", error);
-      toast({
-        title: t("shop.checkout.error"),
-        description: t("shop.checkout.errorDetails"),
-        variant: "destructive",
-      });
-    } finally {
-      setIsCreatingCheckout(false);
-    }
-  };
 
   const onSubmit = async (data: PaymentFormValues) => {
     try {

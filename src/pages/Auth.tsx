@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Auth as SupabaseAuth } from "@supabase/auth-ui-react";
@@ -22,13 +21,9 @@ const Auth = () => {
         window.location.href = returnPath;
       }
       if (event === "USER_UPDATED") {
-        try {
-          const { data, error } = await supabase.auth.getSession();
-          if (error) {
-            setErrorMessage(getErrorMessage(error));
-          }
-        } catch (error) {
-          console.error("Error checking session:", error);
+        const { error } = await supabase.auth.getSession();
+        if (error) {
+          setErrorMessage(getErrorMessage(error));
         }
       }
       if (event === "SIGNED_OUT") {
@@ -71,7 +66,7 @@ const Auth = () => {
           )}
 
           <SupabaseAuth
-            supabaseClient={supabase as any}
+            supabaseClient={supabase}
             appearance={{
               theme: ThemeSupa,
               variables: {

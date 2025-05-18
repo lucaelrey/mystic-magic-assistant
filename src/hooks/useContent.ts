@@ -1,73 +1,84 @@
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { Content, ContentType, Language } from "@/types/cms";
+
+import { ContentType } from "@/types/cms";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { rulesTranslations } from "@/i18n/translations/rules";
+
+// Hardcoded content data to replace Supabase content
+const contentData = {
+  rule: {
+    number_cards_rules: {
+      en: {
+        title: "Number Cards",
+        content: {
+          values: "Values and Distribution:",
+          rules: [
+            "Number cards have values from 0 to 10",
+            "Each value appears multiple times in the game"
+          ],
+          scoring: {
+            title: "Scoring:",
+            rules: [
+              "Each card counts its printed value as points",
+              "The goal is to collect as few points as possible"
+            ]
+          }
+        }
+      },
+      de: {
+        title: "Zahlenkarten",
+        content: {
+          values: "Werte und Verteilung:",
+          rules: [
+            "Die Zahlenkarten haben Werte von 0 bis 10",
+            "Jeder Wert ist mehrfach im Spiel vorhanden"
+          ],
+          scoring: {
+            title: "Punktewertung:",
+            rules: [
+              "Jede Karte zählt ihren aufgedruckten Wert als Punkte",
+              "Das Ziel ist es, möglichst wenig Punkte zu sammeln"
+            ]
+          }
+        }
+      }
+    }
+  }
+};
 
 export const useContent = (type: ContentType, key?: string) => {
   const { language } = useLanguage();
-
-  const fetchContent = async () => {
-    let query = supabase.from('cms_content');
-    
-    // Base query to select all columns
-    let baseQuery = query.select(`
-      *,
-      translations:cms_translations(*)
-    `);
-    
-    // Filter by type
-    baseQuery = baseQuery.eq('type', type);
-    
-    // If a key is provided, filter by that key
-    if (key) {
-      baseQuery = baseQuery.eq('key', key);
+  
+  // Simulate a data fetch with hardcoded data
+  const getContent = () => {
+    if (!key || !type) {
+      return null;
     }
-
-    try {
-      const { data, error } = await baseQuery;
-
-      if (error) {
-        throw error;
+    
+    // Check if we have this content in our hardcoded data
+    if (contentData[type] && contentData[type][key]) {
+      const content = contentData[type][key];
+      
+      // Return the content for the current language
+      if (content[language]) {
+        return content[language];
       }
-
-      // Transform the data to the right format
-      return data?.map((item: any) => ({
-        ...item,
-        translations: item.translations || [],
-      })) as Content[] || [];
-    } catch (error) {
-      console.error("Error fetching content:", error);
-      return [] as Content[];
+      
+      // Fallback to English if the requested language is not available
+      if (content.en) {
+        return content.en;
+      }
     }
+    
+    return null;
   };
-
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['content', type, key],
-    queryFn: fetchContent,
-    staleTime: 1000 * 60 * 5, // 5 minutes cache
-  });
-
-  // Helper function to find the translation in the current language
-  const getTranslation = (content: Content) => {
-    return content.translations.find(t => t.language === language);
-  };
-
-  // If a single key was requested, return just that one
-  if (key && data && data.length > 0) {
-    const content = data[0];
-    return {
-      content: content || null,
-      translation: content ? getTranslation(content) : null,
-      isLoading,
-      error,
-    };
-  }
-
-  // Otherwise return all content with their translations
+  
+  // Return the same structure as the original hook for compatibility
   return {
-    contents: data || [],
-    translations: data?.map(content => getTranslation(content)) || [],
-    isLoading,
-    error,
+    contents: [],
+    translations: [],
+    content: null,
+    translation: getContent(),
+    isLoading: false,
+    error: null
   };
 };
