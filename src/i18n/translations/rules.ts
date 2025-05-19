@@ -6,26 +6,26 @@ export const rulesTranslations = {
       sections: {
         overview: "Game Overview",
         setup: "Game Setup",
-        gameplay: "Gameplay"
+        gameplay: "Gameplay",
+        scoring: "Scoring"
       },
       overview: {
         general: {
-          title: "General Rules",
-          description: "The goal is to have the fewest points at the end of the game by strategically exchanging cards and using special action cards. Each player has partially hidden cards, whose values they only partially know."
+          title: "Game Overview",
+          description: "The most important thing first: Whoever has collected the fewest points at the end of a game wins!"
         },
         preparation: {
           title: "Game Preparation",
           steps: [
-            "Each player receives four, five, or six cards depending on the game mode and places them unseen and face down in front of them (own display).",
-            "The remaining cards are placed face down as a draw pile in the middle of the table.",
-            "A card is drawn from the draw pile and placed face up next to it: it marks the beginning of the discard pile.",
-            "Each player may look at two of their cards once.",
-            "A starting player is determined and the game begins."
+            "Shuffle the cards thoroughly and deal four face-down cards to yourself and your fellow players.",
+            "Each player places the four cards - without looking at them - in front of them on the table. These are your hand cards.",
+            "The remaining cards go face down on the draw pile.",
+            "Turn over the top card of the draw pile and place it face up on the table. This is the first card of the discard pile."
           ]
         },
         gameplay: {
           title: "Gameplay",
-          description: "Play proceeds clockwise. When it's a player's turn, they can choose one of the following options:",
+          description: "All players are allowed to look at two of their four face-down cards once. Then the first round begins.",
           drawCard: {
             title: "1. Draw a card from the draw pile:",
             options: [
@@ -41,6 +41,10 @@ export const rulesTranslations = {
               "If a player has an identical card to the one just placed on the discard pile, they can immediately discard up to two of these cards."
             ]
           }
+        },
+        detailed: {
+          title: "Detailed Game Rules",
+          description: "Complete and detailed rules for the Mystic card game with all special rules."
         }
       },
       numberCards: {
@@ -99,7 +103,7 @@ export const rulesTranslations = {
         },
         gameplay: {
           title: "Spielablauf",
-          description: "Gespielt wird nacheinander im Uhrzeigersinn. Wenn ein Spieler an der Reihe ist, kann er eine der folgenden Optionen wählen:",
+          description: "Alle Spieler:innen dürfen zwei ihrer vier verdeckten Karten einmalig anschauen. Danach beginnt die erste Runde.",
           drawCard: {
             title: "1. Nachziehstapelkarte ziehen:",
             options: [
