@@ -1,18 +1,16 @@
-
 import React from "react";
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useLanguage } from "@/contexts/LanguageContext";
-
 export const GameplayRules = () => {
-  const { language } = useLanguage();
-  
+  const {
+    language
+  } = useLanguage();
+
   // Only German content for now
   if (language !== "de") {
     return null;
   }
-  
-  return (
-    <AccordionItem value="gameplay-rules">
+  return <AccordionItem value="gameplay-rules">
       <AccordionTrigger className="text-2xl font-semibold text-left">
         Spielablauf
       </AccordionTrigger>
@@ -56,10 +54,7 @@ export const GameplayRules = () => {
             Zahlenkarte, kann er/sie diese sofort auf den Ablagestapel legen – und zwar ohne abzuwarten, bis er/sie am Zug ist. 
             Ein gewiefter Trick, um lästige Punkte loszuwerden!
           </p>
-          <p className="mb-4 font-medium">
-            Wichtig: Pro Zug darfst du immer nur eine Zahlenkarte ablegen – auch wenn du mehrere identische 
-            Zahlenkarten in den Handkarten hältst.
-          </p>
+          
           <p className="mb-4">
             Mit dem Ablegen einer Karte endet der Spielzug von Spieler:in 1. Nun zieht Spieler:in 2 ihre Karte, 
             dann Spieler:in 3 usw., bis die Runde zu Ende ist und die Reihe wieder an Spieler:in 1 geht.
@@ -75,6 +70,5 @@ export const GameplayRules = () => {
           </p>
         </div>
       </AccordionContent>
-    </AccordionItem>
-  );
+    </AccordionItem>;
 };
